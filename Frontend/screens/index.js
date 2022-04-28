@@ -7,9 +7,16 @@ import SignUpScreen from './login/SignUpScreen';
 import Onboarding from './Onboarding';
 import DestinationDetail from './DestinationDetail';
 import DestinationSearch from './DestinationSearch';
-import AuthLoading from './login/AuthLoadingScreen';
+import AuthLoadingScreen from './login/AuthLoadingScreen';
 import CreateVehicle from './CreateVehicle';
 import MapScreen from './MapScreen';
+import Survey from './health/Survey';
+import Statistics from './Statistics';
+import OrdersScreen from './OrdersScreen';
+import OrderDetail from './OrderDetail';
+import MyProfile from './MyProfile';
+import CreateCarPooling from './CreateCarPooling';
+
 export {
   HomeScreen,
   UserProfile,
@@ -20,7 +27,13 @@ export {
   Onboarding,
   SignUpScreen,
   DestinationSearch,
-  AuthLoading,
+  AuthLoadingScreen,
   CreateVehicle,
   MapScreen,
+  Survey,
+  Statistics,
+  OrderDetail,
+  OrdersScreen,
+  MyProfile,
+  CreateCarPooling,
 };

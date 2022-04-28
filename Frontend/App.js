@@ -14,17 +14,18 @@ import {
   Onboarding,
   UserProfile,
   CreateVehicle,
+  Survey,
+  Statistics,
+  OrdersScreen,
+  OrderDetail,
+  MapScreen,
+  MyProfile,
+  CreateCarPooling,
+  AuthLoadingScreen,
 } from './screens';
-import Survey from './screens/health/Survey';
-import Statistics from './screens/Statistics';
+
 import {createStackNavigator} from '@react-navigation/stack';
 import {navigationRef} from './navigation/RootNavigation';
-import CreateCarPooling from './screens/CreateCarPooling';
-import AuthLoadingScreen from './screens/login/AuthLoadingScreen';
-import MyProfile from './screens/MyProfile';
-import MapScreen from './screens/MapScreen';
-import OrdersScreen from './screens/OrdersScreen';
-import OrderDetail from './screens/OrderDetail';
 import {NativeBaseProvider} from 'native-base';
 
 const Drawer = createDrawerNavigator();

@@ -1,24 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {NativeModules} from 'react-native';
 import {Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {View, Center, Container, ScrollView} from 'native-base';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+import {View, Button, Center, Container, ScrollView, Stack} from 'native-base';
+import {BarChart, ProgressChart} from 'react-native-chart-kit';
 import {icons, SIZES} from '../constants/index';
 import {Dimensions} from 'react-native';
-import {withTheme} from 'react-native-elements';
+import {Circle} from 'react-native-svg';
+
 const {RecommendationsManager} = NativeModules;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'rgb(55, 71, 79)',
   },
   image: {
     width: 30,
@@ -87,6 +81,17 @@ const Statistics = ({navigation}) => {
         </View>
       </View>
     );
+  };
+
+  const next = () => {
+    if (index < length) {
+      setIndex(index + 1);
+    }
+  };
+  const previous = () => {
+    if (index > 0) {
+      setIndex(index - 1);
+    }
   };
 
   return (
@@ -348,7 +353,6 @@ const Statistics = ({navigation}) => {
             <Container>
               <View>
                 <Text style={styles.text_settings}>Mets</Text>
-
                 <ProgressChart
                   data={{
                     labels: ['Baixa', 'Mod.', 'Vig.'],
@@ -383,7 +387,7 @@ const Statistics = ({navigation}) => {
                   hideLegend={false}
                 />
               </View>
-              <View>
+              <View style={{margin: 10}}>
                 <Text style={styles.text_settings}>Atividade Diária</Text>
                 <BarChart
                   data={{
@@ -400,9 +404,9 @@ const Statistics = ({navigation}) => {
                     ],
                   }}
                   width={Dimensions.get('window').width - 80} // from react-native
-                  height={220}
-                  yAxisLabel="min"
-                  verticalLabelRotation={20}
+                  height={250}
+                  // yAxisSuffix=" min"
+                  verticalLabelRotation={10}
                   chartConfig={{
                     backgroundColor: '#030308',
                     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
@@ -412,32 +416,38 @@ const Statistics = ({navigation}) => {
                     barPercentage: 0.5,
                     useShadowColorFromDataset: false, // optional
                     propsForDots: {
-                      r: '6',
+                      r: '1',
                       strokeWidth: '2',
                       stroke: '#ffa726',
                     },
                   }}
-                  bezier
+                  showValuesOnTopOfBars
                   style={{
-                    marginVertical: 8,
+                    // borderColor: '#FFFFFF',
+                    // borderWidth: 1,
+                    marginVertical: 16,
                     borderRadius: 16,
                   }}
                 />
               </View>
               <View style={styles.row} alignContent="center">
-                <Button
-                  style={styles.button}
-                  onPress={() => previous()}
-                  disabled={index > 0 ? false : true}>
-                  Previous
-                </Button>
+                <Center>
+                  <Stack direction="row" mb="2.5" mt="1.5" space={3}>
+                    <Button
+                      style={styles.button}
+                      onPress={() => previous()}
+                      disabled={index > 0 ? false : true}>
+                      Previous
+                    </Button>
 
-                <Button
-                  style={styles.button}
-                  onPress={() => next()}
-                  disabled={index < mets.length - 1 ? false : true}>
-                  Next
-                </Button>
+                    <Button
+                      style={styles.button}
+                      onPress={() => next()}
+                      disabled={index < mets.length - 1 ? false : true}>
+                      Next
+                    </Button>
+                  </Stack>
+                </Center>
               </View>
             </Container>
           </Center>
