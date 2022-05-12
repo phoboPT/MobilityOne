@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, {useState, useEffect} from 'react';
 import {
   ImageBackground,
@@ -10,12 +9,12 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {images, icons, SIZES, COLORS} from '../constants';
+import {images, icons, SIZES} from '../constants';
 import api from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import {Avatar} from 'react-native-elements';
 import {Alert} from 'react-native';
-
+import I18n from '../utils/language';
 const OrdersScreen = ({navigation, route}) => {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState(null);
@@ -24,7 +23,7 @@ const OrdersScreen = ({navigation, route}) => {
 
   useEffect(() => {
     getOrders();
-  }, []);
+  });
 
   async function getOrders() {
     setLoading(true);
@@ -47,8 +46,8 @@ const OrdersScreen = ({navigation, route}) => {
 
   async function endRoute() {
     try {
-      const response = await api.put('/routes/' + data.id);
-      Alert.alert('Route finished. This will no longer be available to users');
+      await api.put('/routes/' + data.id);
+      Alert.alert(I18n.t('ORDER_end_route'));
     } catch (err) {
       console.log(err);
     }
@@ -77,10 +76,10 @@ const OrdersScreen = ({navigation, route}) => {
 
   async function acceptOrder(order) {
     try {
-      const response = await api.post('/orders/accepted', {
+      await api.post('/orders/accepted', {
         id: order.id,
       });
-      Alert.alert('Order Accepted!');
+      Alert.alert(I18n.t('ORDER_accepted'));
       getOrders();
     } catch (error) {
       console.log(error);
@@ -89,10 +88,10 @@ const OrdersScreen = ({navigation, route}) => {
 
   async function cancelledOrder(order) {
     try {
-      const response = await api.post('/orders/cancelled', {
+      await api.post('/orders/cancelled', {
         id: order.id,
       });
-      Alert.alert('Order Cancelled!');
+      Alert.alert(I18n.t('ORDER_cancelled'));
       getOrders();
     } catch (error) {
       console.log(error);
@@ -131,7 +130,7 @@ const OrdersScreen = ({navigation, route}) => {
               fontSize: 24,
               fontWeight: '400',
             }}>
-            Orders
+            {I18n.t('ORDER_title')}
           </Text>
         </View>
         <TouchableOpacity

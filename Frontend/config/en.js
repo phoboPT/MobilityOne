@@ -1,0 +1,17 @@
+export default {
+  APP_name: 'Mobility One',
+  ONBOARDING_title: 'All transports in your pocket',
+  ONBOARDING_start: 'Start!',
+  USERPROFILE_title: 'Biography',
+  STATISTICS_title: 'Statistics',
+  STATISTICS_dayly_activity: 'Dayly activity',
+  BUTTON_previous: 'Previous',
+  BUTTON_next: 'Next',
+  SETTINGS_title: 'Settings',
+  SETTINGS_activity: 'Activity Recognition',
+  SETTINGS_survey: 'Health Survey',
+  ORDER_cancelled: 'Order cancelled',
+  ORDER_accepted: 'Order accepted',
+  ORDER_end_route: 'Route finished. This will no longer be available to users',
+  ORDER_title: 'Orders',
+};

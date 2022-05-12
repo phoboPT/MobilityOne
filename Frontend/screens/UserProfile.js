@@ -1,16 +1,7 @@
-import React, {useState, useEffect} from 'react';
-
+import React, {useState} from 'react';
+import I18n from '../utils/language';
 import StarRating from 'react-native-star-rating';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageBackground,
-  Image,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {images, icons, COLORS, SIZES} from '../constants';
 import {ScrollView} from 'react-native';
 
@@ -115,7 +106,7 @@ const UserProfile = ({navigation, route}) => {
             marginTop: SIZES.padding - 10,
             paddingHorizontal: SIZES.padding,
           }}>
-          <Text style={{...SIZES.h2}}>Biography</Text>
+          <Text style={{...SIZES.h2}}>{I18n.t('USERPROFILE_title')}</Text>
           <ScrollView style={{marginBottom: 140}}>
             <Text
               style={{

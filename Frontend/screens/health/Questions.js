@@ -1,14 +1,5 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  Heading,
-  VStack,
-  FormControl,
-  Input,
-  Radio,
-  Divider,
-  Checkbox,
-} from 'native-base';
+import {Text, FormControl, Input, Radio, Divider, Checkbox} from 'native-base';
 
 const Questions = ({navigation, state, setSelected}) => {
   const [formData, setData] = useState({});
@@ -84,7 +75,7 @@ const Questions = ({navigation, state, setSelected}) => {
         <>
           <FormControl>
             <Text color="white">
-              Gostaria saber qual o seu risco cardiovascular?
+              Gostaria de saber o seu risco cardiovascular?
             </Text>
 
             <Radio.Group
@@ -111,7 +102,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <FormControl.Label>
               <Text color="white">
-                Já teve alguma uma doença cardiovascular, respiratória e
+                Já teve alguma uma doença cardiovascular, respiratória ou
                 metabólica?
               </Text>
             </FormControl.Label>
@@ -133,7 +124,7 @@ const Questions = ({navigation, state, setSelected}) => {
               </Radio>
               <Radio value="3" my={1}>
                 <Text color="white">
-                  Não sei o que são doenças cardiovasculares, respiratórias e
+                  Não sei o que são doenças cardiovasculares, respiratórias ou
                   metabólicas
                 </Text>
               </Radio>
@@ -228,7 +219,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <Text color="white">
               {
-                'Sofre de colesterol alto? (LDL≥130mg/dL, HDL<40mg/dL, medicação lipidica, cholesterol total ≥200 mg/dL)'
+                'Sofre de colesterol alto? (LDL≥130mg/dL, HDL<40mg/dL, medicação lipidica, colesterol total ≥200 mg/dL)'
               }
             </Text>
 
@@ -280,7 +271,8 @@ const Questions = ({navigation, state, setSelected}) => {
       {state === 7 && (
         <>
           <Text color="white">
-            Já teve alguma uma doença cardiovascular, respiratória e metabólica?
+            Já teve alguma uma doença cardiovascular, respiratória ou
+            metabólica?
           </Text>
           <Checkbox.Group
             key="8"
@@ -410,7 +402,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <Text color="white">
               {
-                'Se você esta tomando medicamentos prescritos pelo médico para uma condição crônica de saúde'
+                'Eesta a tomar medicamentos prescritos pelo médico para uma condição crônica de saúde'
               }
             </Text>
             <Radio.Group
@@ -458,7 +450,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <Text color="white">
               {
-                'Atualmente tem (ou teve nos últimos 12 meses) um problema ósseo ou articular ou de tecido mole (músculo, ligamento ou tendão) que poderia se agravar se você se tornasse mais ativo fisicamente?'
+                'Atualmente tem (ou teve nos últimos 12 meses) um problema ósseo ou articular ou de tecido mole (músculo, ligamento ou tendão) que se poderia agravar se se tornasse mais ativo fisicamente?'
               }
             </Text>
             <Radio.Group
@@ -506,7 +498,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <Text color="white">
               {
-                'O médico alguma vez disse que você só deveria fazer atividade física sob supervisão médica?'
+                'O médico alguma vez lhe disse que só deveria fazer atividade física sob supervisão médica?'
               }
             </Text>
             <Radio.Group
@@ -532,7 +524,7 @@ const Questions = ({navigation, state, setSelected}) => {
         <>
           <FormControl>
             <Text color="white">
-              {'Você tem artrite, osteoporose ou problemas na coluna?'}
+              {'Tem artrite, osteoporose ou problemas na coluna?'}
             </Text>
             <Radio.Group
               key="18"
@@ -557,7 +549,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem dificuldade em controlar sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não tiver tomando medicamentos ou fazendo outros tratamentos no momento)'
+                    'Tem dificuldade em controlar a sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver a tomar medicamentos ou a fazer outros tratamentos no momento)'
                   }
                 </Text>
                 <Radio.Group
@@ -581,7 +573,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem problemas articulares que causam dor, uma fratura recente ou fratura causada por osteoporose ou cancro, vertebra deslocada, (como espondilolistese) e/ou espondilólise/defeito de pars interarticulares (fratura do anel ósseo na parte posterior da coluna vertebral)?'
+                    'Tem problemas articulares que causam dor, uma fratura recente ou fratura causada por osteoporose ou cancro, vertebra deslocada, (como espondilolistese) e/ou espondilólise/defeito de pares interarticulares (fratura do anel ósseo na parte posterior da coluna vertebral)?'
                   }
                 </Text>
                 <Radio.Group
@@ -605,7 +597,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você recebeu injeções de esteroides ou tomou comprimidos de esteroides regularmente por mais de 3 meses?'
+                    'Recebeu injeções de esteroides ou tomou comprimidos de esteroides regularmente por mais de 3 meses?'
                   }
                 </Text>
                 <Radio.Group
@@ -632,7 +624,7 @@ const Questions = ({navigation, state, setSelected}) => {
       {state === 15 && (
         <>
           <FormControl>
-            <Text color="white">{'Você tem algum tipo de cancro?'}</Text>
+            <Text color="white">{'Tem algum tipo de cancro?'}</Text>
             <Radio.Group
               key="22"
               name="myRadioGroup"
@@ -656,7 +648,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'O seu diagnóstico de câncer inclui algum destes tipos: pulmão/broncogénico, mieloma múltiplo (câncer de células plasmáticas), cabeça e/ou pescoço? '
+                    'O seu diagnóstico de cancro inclui algum destes tipos: pulmão/broncogénico, mieloma múltiplo (cancro de células plasmáticas), cabeça e/ou pescoço? '
                   }
                 </Text>
                 <Radio.Group
@@ -680,7 +672,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você está recebendo tratamento para o câncer (como quimioterapia ou radioterapia)?'
+                    'Está a receber tratamento para o cancro (como quimioterapia ou radioterapia)?'
                   }
                 </Text>
                 <Radio.Group
@@ -709,7 +701,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <Text color="white">
               {
-                'Você tem algum problema cardíaco ou cardiovascular? Isto inclui doença arterial coronariana, insuficiência cardíaca, anormalidade do ritmo cardíaco?'
+                'Tem algum problema cardíaco ou cardiovascular? Isto inclui doença arterial coronariana, insuficiência cardíaca, anormalidade do ritmo cardíaco?'
               }
             </Text>
             <Radio.Group
@@ -735,7 +727,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem dificuldade em controlar sua condição com medicamentos ou outros  tratamentos prescritos por médicos? (Responda NÃO se não estiver tomando medicamentos ou fazendo outros tratamentos no momento) '
+                    'Tem dificuldade em controlar a sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver a tomar medicamentos ou a fazer outros tratamentos no momento) '
                   }
                 </Text>
                 <Radio.Group
@@ -759,7 +751,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem batimentos cardíacos irregulares que requerem acompanhamento médico (como fibrilação arterial, contração ventricular prematura)?'
+                    'Tem batimentos cardíacos irregulares que requerem acompanhamento médico (como fibrilação arterial, contração ventricular prematura)?'
                   }
                 </Text>
                 <Radio.Group
@@ -782,7 +774,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <Divider />
               <FormControl>
                 <Text color="white">
-                  {'Você tem insuficiência cardíaca crónica?'}
+                  {'Tem insuficiência cardíaca crónica?'}
                 </Text>
                 <Radio.Group
                   key="28"
@@ -805,7 +797,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você foi diagnosticado com doença coronária (cardiovascular) e não praticou atividades físicas regulares nos últimos 2 meses?'
+                    'Foi diagnosticado com doença coronária (cardiovascular) e não praticou atividades físicas regulares nos últimos 2 meses?'
                   }
                 </Text>
                 <Radio.Group
@@ -832,7 +824,7 @@ const Questions = ({navigation, state, setSelected}) => {
       {state === 17 && (
         <>
           <FormControl>
-            <Text color="white">{'Você tem pressão alta?'}</Text>
+            <Text color="white">{'Tem pressão alta?'}</Text>
             <Radio.Group
               key="29"
               name="myRadioGroup"
@@ -856,7 +848,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem dificuldade em controlar sua condição com medicamentos ou outros tratamentos prescritos por médicos(Responda NÃO se não estiver tomando medicamentos ou fazendo outros tratamentos no momento)'
+                    'Tem dificuldade em controlar a sua condição com medicamentos ou outros tratamentos prescritos por médicos(Responda NÃO se não estiver a tomar medicamentos ou a fazer outros tratamentos no momento)'
                   }
                 </Text>
                 <Radio.Group
@@ -880,7 +872,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem pressão arterial em repouso igual ou superior a 160/90 mmHg com ou   sem medicação? (Responda SIM se você não souber a sua pressão arterial em repouso)'
+                    'Tem pressão arterial em repouso igual ou superior a 160/90 mmHg com ou sem medicação? (Responda SIM se não souber a sua pressão arterial em repouso)'
                   }
                 </Text>
                 <Radio.Group
@@ -909,7 +901,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <Text color="white">
               {
-                'Você tem algum problema metabólico? Isto inclui diabetes tipo 1, diabetes tipo 2, pré-diabetes'
+                'Tem algum problema metabólico? Isto inclui diabetes tipo 1, diabetes tipo 2, pré-diabetes'
               }
             </Text>
             <Radio.Group
@@ -936,7 +928,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você costuma ter dificuldade em controlar seus níveis de açúcar no sangue com a alimentação, com medicamentos, ou com outros tratamentos prescritos por médicos?'
+                    'Costuma ter dificuldade em controlar os níveis de açúcar no sangue com a alimentação, com medicamentos, ou com outros tratamentos prescritos por médicos?'
                   }
                 </Text>
                 <Radio.Group
@@ -961,7 +953,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você costuma ter sinais e sintomas de pouco açúcar no sangue (hipoglicemia) após exercícios e/ou durante suas atividades cotidianas? Sinais de hipoglicemia podem incluir tremores, nervosismo, irritabilidade fora do comum, transpiração excessiva, tontura, confusão mental, dificuldade para falar, fraqueza ou sonolência.'
+                    'Costuma ter sinais e sintomas de pouco açúcar no sangue (hipoglicemia) após exercícios e/ou durante atividades cotidianas? Sinais de hipoglicemia podem incluir tremores, nervosismo, irritabilidade fora do comum, transpiração excessiva, tontura, confusão mental, dificuldade para falar, fraqueza ou sonolência.'
                   }
                 </Text>
                 <Radio.Group
@@ -985,7 +977,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem algum sinal ou sintoma de complicações do diabetes, como doença cardíaca ou vascular e/ou complicações que afetem seus olhos, rins OU perda de sensibilidade nos pés e dedos dos pés?'
+                    'Tem algum sinal ou sintoma de complicações do diabetes, como doença cardíaca ou vascular e/ou complicações que afetem os olhos, rins OU perda de sensibilidade nos pés e dedos dos pés?'
                   }
                 </Text>
                 <Radio.Group
@@ -1009,7 +1001,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você tem outros problemas metabólicos (como diabetes gestacional, doença renal crônica ou problemas no fígado?)'
+                    'Tem outros problemas metabólicos (como diabetes gestacional, doença renal crônica ou problemas no fígado?)'
                   }
                 </Text>
                 <Radio.Group
@@ -1033,7 +1025,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl>
                 <Text color="white">
                   {
-                    'Você planeja fazer, num futuro próximo, exercícios que para você são mais intensos ou vigorosos?'
+                    'Planeia fazer, num futuro próximo, exercícios que para si são mais intensos ou vigorosos?'
                   }
                 </Text>
                 <Radio.Group
@@ -1062,7 +1054,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl>
             <Text color="white">
               {
-                'Você tem problemas de saúde mental ou dificuldade de aprendizagem? Isto inclui Alzheimer, transtorno de ansiedade, depressão, demência, transtorno alimentar, transtorno psicótico, disfunção intelectual, síndrome de Down '
+                'Tem problemas de saúde mental ou dificuldade de aprendizagem? Isto inclui Alzheimer, transtorno de ansiedade, depressão, demência, transtorno alimentar, transtorno psicótico, disfunção intelectual, síndrome de Down '
               }
             </Text>
             <Radio.Group
@@ -1088,7 +1080,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="100">
                 <Text color="white">
                   {
-                    'Você tem dificuldade em controlar sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver tomando medicamentos ou fazendo outros tratamentos no momento)'
+                    'Tem dificuldade em controlar a sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver a tomar medicamentos ou a fazer outros tratamentos no momento)'
                   }
                 </Text>
                 <Radio.Group
@@ -1112,7 +1104,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="101">
                 <Text color="white">
                   {
-                    'Você tem síndrome de Down e problemas da coluna que afetam nervos no músculos?'
+                    'Tem síndrome de Down ou problemas da coluna que afetam nervos no músculos?'
                   }
                 </Text>
                 <Radio.Group
@@ -1141,7 +1133,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl key="102">
             <Text color="white">
               {
-                'Você tem alguma doença respiratória? Isto inclui doença pulmonar obstrutiva crónica, asma, hipertensão arterial pulmonar '
+                'Tem alguma doença respiratória? Isto inclui doença pulmonar obstrutiva crónica, asma, hipertensão arterial pulmonar '
               }
             </Text>
             <Radio.Group
@@ -1167,7 +1159,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="103">
                 <Text color="white">
                   {
-                    'Você tem dificuldade em controlar sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver tomando medicamentos ou fazendo outros tratamentos no momento)'
+                    'Tem dificuldade em controlar a sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver a tomar medicamentos ou a fazer outros tratamentos no momento)'
                   }
                 </Text>
                 <Radio.Group
@@ -1191,7 +1183,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="104">
                 <Text color="white">
                   {
-                    'O médico alguma vez disse que você tem baixos níveis de oxigênio no sangue em repouso ou durante exercício e/ou que você precisa de terapia de oxigênio suplementar?'
+                    'O médico alguma vez disse que tem baixos níveis de oxigênio no sangue em repouso ou durante exercício e/ou que precisa de terapia de oxigênio suplementar?'
                   }
                 </Text>
                 <Radio.Group
@@ -1215,7 +1207,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="105">
                 <Text color="white">
                   {
-                    'Se asmático você atualmente apresenta sintomas como sensação de aperto no peito, respiração sibilante, dificuldade em respirar, tosse constante (mais de 2 dias/semana) ou você usou sua medição de resgate mais 2 vezes na ultima semana?'
+                    'Se é asmático e apresenta sintomas como sensação de aperto no peito, respiração sibilante, dificuldade em respirar, tosse constante (mais de 2 dias/semana) ou usou sua medição de resgate mais 2 vezes na ultima semana?'
                   }
                 </Text>
                 <Radio.Group
@@ -1239,7 +1231,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="106">
                 <Text color="white">
                   {
-                    'O médico alguma vez disse que você tem pressão alta nos vasos sanguíneos dos pulmões?'
+                    'O médico alguma vez disse que tem pressão alta nos vasos sanguíneos dos pulmões?'
                   }
                 </Text>
                 <Radio.Group
@@ -1268,7 +1260,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl key="107">
             <Text color="white">
               {
-                'Você tem alguma lesão na medula espinhal? Isto inclui tetraplegia e paraplegia?'
+                'Tem alguma lesão na medula espinhal? Isto inclui tetraplegia e paraplegia?'
               }
             </Text>
             <Radio.Group
@@ -1294,7 +1286,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="108">
                 <Text color="white">
                   {
-                    'Você tem dificuldade em controlar sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver tomando medicamentos ou fazendo outros tratamentos no momento) '
+                    'Tem dificuldade em controlar a sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver a tomar medicamentos ou a fazer outros tratamentos no momento) '
                   }
                 </Text>
                 <Radio.Group
@@ -1318,7 +1310,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="109">
                 <Text color="white">
                   {
-                    'Você costuma apresentar pressão arterial baixa em repouso a ponto de causar tonturas e/ou desmaios?'
+                    'Costuma apresentar pressão arterial baixa em repouso a ponto de causar tonturas e/ou desmaios?'
                   }
                 </Text>
                 <Radio.Group
@@ -1342,7 +1334,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="109">
                 <Text color="white">
                   {
-                    'O médico alguma vez mencionou que você apresenta surtos repentinos de pressão arterial (reconhecidos como disreflexia autonômica)'
+                    'O médico alguma vez mencionou que apresenta surtos repentinos de pressão arterial (reconhecidos como disreflexia autonômica)'
                   }
                 </Text>
                 <Radio.Group
@@ -1371,7 +1363,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl key="110">
             <Text color="white">
               {
-                'Você já teve derrame cerebral? Isto inclui ataque isquémico transitório ou acidente vascular cerebral '
+                'Já teve derrame cerebral? Isto inclui ataque isquémico transitório ou acidente vascular cerebral '
               }
             </Text>
             <Radio.Group
@@ -1397,7 +1389,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="111">
                 <Text color="white">
                   {
-                    'Você tem dificuldade em controlar sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver tomando medicamentos ou fazendo outros tratamentos no momento)'
+                    'Tem dificuldade em controlar a sua condição com medicamentos ou outros tratamentos prescritos por médicos? (Responda NÃO se não estiver a tomar medicamentos ou a fazer outros tratamentos no momento)'
                   }
                 </Text>
                 <Radio.Group
@@ -1420,9 +1412,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <Divider />
               <FormControl key="112">
                 <Text color="white">
-                  {
-                    'Você tem dificuldade para caminhar ou mobilidade comprometida?'
-                  }
+                  {'Tem dificuldade para caminhar ou mobilidade comprometida?'}
                 </Text>
                 <Radio.Group
                   key="51"
@@ -1445,7 +1435,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="113">
                 <Text color="white">
                   {
-                    'Você sofreu um derrame ou teve comprometimento nos nervos ou músculos nos últimos 6 meses?'
+                    'Sofreu algum derrame ou teve comprometimento nos nervos ou músculos nos últimos 6 meses?'
                   }
                 </Text>
                 <Radio.Group
@@ -1474,7 +1464,7 @@ const Questions = ({navigation, state, setSelected}) => {
           <FormControl key="114">
             <Text color="white">
               {
-                'Você tem qualquer outro problema de saúde não listado acima, ou você tem dois ou mais problemas de saúde?'
+                'Tem qualquer outro problema de saúde não listado acima, ou tem dois ou mais problemas de saúde?'
               }
             </Text>
             <Radio.Group
@@ -1500,7 +1490,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="115">
                 <Text color="white">
                   {
-                    'Você sofreu de escurecimento de visão, desmaio ou perda de consciência como resultado de lesão na cabeça nos últimos 12 meses OU você teve uma concussão cerebral diagnosticada nos últimos 12 meses?'
+                    'Sofreu de escurecimento de visão, desmaio ou perda de consciência como resultado de lesão na cabeça nos últimos 12 meses OU teve uma concussão cerebral diagnosticada nos últimos 12 meses?'
                   }
                 </Text>
                 <Radio.Group
@@ -1524,7 +1514,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <FormControl key="115">
                 <Text color="white">
                   {
-                    'Você tem um problema de saúde que não está listada (como epilepsia, problemas neurológicos, problemas renais)'
+                    'Tem um problema de saúde que não está listada (como epilepsia, problemas neurológicos, problemas renais)'
                   }
                 </Text>
                 <Radio.Group
@@ -1547,7 +1537,7 @@ const Questions = ({navigation, state, setSelected}) => {
               <Divider />
               <FormControl key="115">
                 <Text color="white">
-                  {'Você tem atualmente dois ou mais problemas de saúde?'}
+                  {'Tem atualmente dois ou mais problemas de saúde?'}
                 </Text>
                 <Radio.Group
                   key="54"

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import I18n from '../utils/language';
 
 import {COLORS, SIZES, images} from '../constants';
 
@@ -29,7 +30,9 @@ const Onboarding = ({navigation}) => {
 
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View style={{alignItems: 'center', marginHorizontal: SIZES.padding}}>
-          <Text style={{fontWeight: '600', fontSize: 45}}>Mobility One</Text>
+          <Text style={{fontWeight: '600', fontSize: 45}}>
+            {I18n.t('APP_name')}
+          </Text>
           <Text
             style={{
               color: COLORS.gray,
@@ -37,7 +40,7 @@ const Onboarding = ({navigation}) => {
               textAlign: 'center',
               fontSize: 15,
             }}>
-            All transports in your pocket
+            {I18n.t('ONBOARDING_title')}
           </Text>
         </View>
 
@@ -64,7 +67,9 @@ const Onboarding = ({navigation}) => {
             colors={['#46aeff', '#5884ff']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}>
-            <Text style={{color: COLORS.white}}>Start !</Text>
+            <Text style={{color: COLORS.white}}>
+              {I18n.t('ONBOARDING_start')}
+            </Text>
           </LinearGradient>
         </TouchableOpacity>
       </View>

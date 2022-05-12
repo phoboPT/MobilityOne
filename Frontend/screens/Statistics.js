@@ -5,7 +5,7 @@ import {View, Button, Center, Container, ScrollView, Stack} from 'native-base';
 import {BarChart, ProgressChart} from 'react-native-chart-kit';
 import {icons, SIZES} from '../constants/index';
 import {Dimensions} from 'react-native';
-import {Circle} from 'react-native-svg';
+import I18n from '../utils/language';
 
 const {RecommendationsManager} = NativeModules;
 
@@ -77,7 +77,7 @@ const Statistics = ({navigation}) => {
           />
         </TouchableOpacity>
         <View style={styles.view_2}>
-          <Text style={styles.text_settings}>Statistics</Text>
+          <Text style={styles.text_settings}>{I18n.t('STATISTICS_title')}</Text>
         </View>
       </View>
     );
@@ -388,7 +388,9 @@ const Statistics = ({navigation}) => {
                 />
               </View>
               <View style={{margin: 10}}>
-                <Text style={styles.text_settings}>Atividade Diária</Text>
+                <Text style={styles.text_settings}>
+                  {I18n.t('STATISTICS_dayly_activity')}
+                </Text>
                 <BarChart
                   data={{
                     labels: ['Parado', 'Caminhar', 'Correr', 'Bicicleta'],
@@ -437,14 +439,14 @@ const Statistics = ({navigation}) => {
                       style={styles.button}
                       onPress={() => previous()}
                       disabled={index > 0 ? false : true}>
-                      Previous
+                      {I18n.t('BUTTON_previous')}
                     </Button>
 
                     <Button
                       style={styles.button}
                       onPress={() => next()}
                       disabled={index < mets.length - 1 ? false : true}>
-                      Next
+                      {I18n.t('BUTTON_next')}
                     </Button>
                   </Stack>
                 </Center>

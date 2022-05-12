@@ -4,7 +4,8 @@ import {Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import ActivityDB from './ActivityDBModule';
 import {View, Button, Center, Container, Switch, ScrollView} from 'native-base';
 import {icons, SIZES} from '../constants/index';
-const {HAR_Module, UserProfileModule} = NativeModules;
+import I18n from '../utils/language';
+const {HAR_Module} = NativeModules;
 
 const styles = StyleSheet.create({
   container: {
@@ -77,7 +78,7 @@ const SettingsScreen = ({navigation}) => {
           />
         </TouchableOpacity>
         <View style={styles.view_2}>
-          <Text style={styles.text_settings}>Settings</Text>
+          <Text style={styles.text_settings}>{I18n.t('SETTINGS_title')}</Text>
         </View>
       </View>
     );
@@ -91,10 +92,10 @@ const SettingsScreen = ({navigation}) => {
         <Container>
           <ScrollView h="80">
             <Center>
-              <Text>Activity Recognition </Text>
+              <Text>{I18n.t('SETTINGS_activity')} </Text>
 
               <Text>
-                Avtivity Recognition
+                {I18n.t('SETTINGS_activity')}
                 <Switch
                   size="md"
                   onToggle={() => manageAR()}
@@ -104,7 +105,7 @@ const SettingsScreen = ({navigation}) => {
 
               <Text> </Text>
               <Button onPress={() => navigation.navigate('Survey')}>
-                Health Survey
+                {I18n.t('SETTINGS_survey')}
               </Button>
             </Center>
             <Text> </Text>
