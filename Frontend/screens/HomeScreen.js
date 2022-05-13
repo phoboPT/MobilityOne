@@ -20,8 +20,9 @@ import Geolocation from '@react-native-community/geolocation';
 import {FlatGrid} from 'react-native-super-grid';
 import api from '../services/api';
 import Moment from 'moment';
-import {Button, withTheme} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
+import I18n from '../utils/language';
 
 const HomeScreen = ({navigation}) => {
   const [hasNextRide, setHasNextRide] = useState(false);
@@ -113,10 +114,8 @@ const HomeScreen = ({navigation}) => {
   );
 
   const searchRoutes = () => {
-    if (startLocation == endLocation) {
-      Alert.alert(
-        'Start Location and End Location are the same! Please change!',
-      );
+    if (startLocation === endLocation) {
+      Alert.alert(I18n.t('HOME_error_inputs'));
     } else {
       const nameLocation = items.filter(obj => {
         return obj.value === endLocation;
@@ -250,7 +249,7 @@ const HomeScreen = ({navigation}) => {
               name: item[0].label,
             });
           }}
-          placeholder="Where you want to go?"
+          placeholder={I18n.t('HOME_dropdown_placeholder')}
           setOpen={setOpen}
           setValue={setValue}
           containerStyle={{
@@ -281,7 +280,7 @@ const HomeScreen = ({navigation}) => {
             fontWeight: '400',
             marginTop: 30,
           }}>
-          Your next travel
+          {I18n.t('HOME_next_travel')}
         </Text>
         <View
           style={{
@@ -308,13 +307,14 @@ const HomeScreen = ({navigation}) => {
                   ]}>
                   <View>
                     <Text style={styles.itemName}>
-                      Start: {item.startLocation}
+                      {I18n.t('GERAL_start')} {item.startLocation}
                     </Text>
                     <Text style={styles.itemDate}>
                       {Moment(item.startDate).format('lll')}
                     </Text>
                     <Text style={styles.itemCode}>
-                      Estimated Time: {item.estimatedTime} Minutes
+                      {I18n.t('GERAL_time')} {item.estimatedTime}{' '}
+                      {I18n.t('GERAL_minutes')}
                     </Text>
                   </View>
                 </View>
@@ -368,7 +368,7 @@ const HomeScreen = ({navigation}) => {
             position: 'relative',
             fontWeight: '400',
           }}>
-          Search Routes
+          {I18n.t('HOME_title')}
         </Text>
         <View style={{alignContent: 'center', alignItems: 'center'}}>
           <DropDownPicker

@@ -8,15 +8,14 @@ import {
   Alert,
   TouchableOpacity,
   Image,
-  Modal,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {images, icons, SIZES, COLORS} from '../constants';
+import {images, icons, SIZES} from '../constants';
 import api from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import Moment from 'moment';
-import {company} from 'faker';
+import I18n from '../utils/language';
 
 const DestinationSearch = ({route, navigation}) => {
   const [loading, setLoading] = useState(true);
@@ -35,7 +34,7 @@ const DestinationSearch = ({route, navigation}) => {
         filterRoutes(response.data);
       } catch (err) {
         console.log(err);
-        Alert.alert('Error! Please try again later!');
+        Alert.alert(I18n.t('DESTINATIONSEARCH_error_alert'));
         setLoading(false);
       }
     }
@@ -54,7 +53,7 @@ const DestinationSearch = ({route, navigation}) => {
   const filterRoutes = routes => {
     if (routes.length == 0) {
       setRoutes([]);
-      Alert.alert('No Routes Available');
+      Alert.alert(I18n.t('DESTINATIONSEARCH_no_routes_alert'));
     } else {
       routes.forEach(element => {
         setRoutesList(oldArray => [...oldArray, element]);
@@ -132,10 +131,18 @@ const DestinationSearch = ({route, navigation}) => {
           <TouchableOpacity onPress={() => getRouteDetails(item)}>
             <View style={[styles.itemContainer, {backgroundColor: 'white'}]}>
               <View>
-                <Text style={styles.itemName}>Start: {startLocation}</Text>
-                <Text style={styles.itemName}>End: {endLocation}</Text>
                 <Text style={styles.itemName}>
-                  Estimated Time: {item[0].estimatedTime} Minutes
+                  {I18n.t('GERAL_start')}
+                  {startLocation}
+                </Text>
+                <Text style={styles.itemName}>
+                  {I18n.t('GERAL_end')}
+                  {endLocation}
+                </Text>
+                <Text style={styles.itemName}>
+                  {I18n.t('GERAL_time')}
+                  {item[0].estimatedTime}
+                  {I18n.t('GERAL_minutes')}
                 </Text>
                 <Text style={styles.itemDate}>
                   {Moment(item.startDate).format('lll')}

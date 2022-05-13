@@ -19,6 +19,7 @@ import {
 } from 'native-base';
 import {ImageBackground} from 'react-native';
 import {Dimensions} from 'react-native';
+import I18n from '../../utils/language';
 
 const SignInScreen = ({navigation}) => {
   async function saveUser(user) {
@@ -66,7 +67,7 @@ const SignInScreen = ({navigation}) => {
               _dark={{
                 color: 'warmGray.50',
               }}>
-              Mobility Service
+              {I18n.t('SIGNIN_title')}
             </Heading>
             <Heading
               mt="1"
@@ -76,14 +77,14 @@ const SignInScreen = ({navigation}) => {
               color="coolGray.400"
               fontWeight="medium"
               size="xs">
-              Sign in to continue!
+              {I18n.t('SIGNIN_subtitle')}
             </Heading>
 
             <VStack space={5} mt="3">
               <FormControl>
                 <FormControl.Label>
                   <Text color="white" type="email" autoComplete="email">
-                    Email ID
+                    {I18n.t('SIGNIN_email')}
                   </Text>
                 </FormControl.Label>
                 <Input
@@ -94,7 +95,7 @@ const SignInScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Password</Text>
+                  <Text color="white">{I18n.t('SIGNIN_password')}</Text>
                 </FormControl.Label>
                 <Input
                   color="white"
@@ -105,7 +106,7 @@ const SignInScreen = ({navigation}) => {
                 />
               </FormControl>
               <Button onPress={onSubmit} mt="2" colorScheme="indigo">
-                Sign in
+                {I18n.t('SIGNIN_button')}
               </Button>
               <TouchableOpacity
                 onPress={() => navigation.navigate('SignUpScreen')}>
@@ -115,7 +116,7 @@ const SignInScreen = ({navigation}) => {
                   _dark={{
                     color: 'coolGray.200',
                   }}>
-                  I'm a new user.
+                  {I18n.t('SIGNIN_new_user')}
                 </Text>
               </TouchableOpacity>
               <HStack mt="6" justifyContent="center" />

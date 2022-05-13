@@ -18,6 +18,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import api from '../services/api';
 import NumericInput from 'react-native-numeric-input';
 import AsyncStorage from '@react-native-community/async-storage';
+import I18n from '../utils/language';
 
 const styles = StyleSheet.create({
   container: {flexDirection: 'row', height: 50},
@@ -62,21 +63,17 @@ const CreateCarPooling = ({navigation}) => {
       try {
         const response = await api.get('/vehicles/me');
         if (response.data.length === 0) {
-          Alert.alert(
-            'You need to create a vehicle to introduce a ride',
-            null,
-            [
-              {
-                text: 'Cancel',
-                onPress: () => navigation.navigate('Home'),
-                style: 'cancel',
-              },
-              {
-                text: 'Create Vehicle',
-                onPress: () => navigation.navigate('CreateVehicle'),
-              },
-            ],
-          );
+          Alert.alert(I18n.t('CREATECARPOOLING_needs_vehicle'), null, [
+            {
+              text: I18n.t('CREATECARPOOLING_cancel'),
+              onPress: () => navigation.navigate('Home'),
+              style: 'cancel',
+            },
+            {
+              text: I18n.t('CREATECARPOOLING_add_vehicle'),
+              onPress: () => navigation.navigate('CreateVehicle'),
+            },
+          ]);
         } else {
           setUserVehicles(response.data);
           setLoading(false);
@@ -114,7 +111,7 @@ const CreateCarPooling = ({navigation}) => {
       vehicle == null ||
       capacity == null
     ) {
-      Alert.alert('There is missing information!');
+      Alert.alert(I18n.t('CREATECARPOOLING_missing_information'));
     } else {
       postCarPooling();
     }
@@ -134,10 +131,10 @@ const CreateCarPooling = ({navigation}) => {
         userImage: userImage,
         capacity: capacity,
       });
-      Alert.alert('Ride created with success!');
+      Alert.alert(I18n.t('CREATECARPOOLING_success'));
       navigation.navigate('Home');
     } catch (err) {
-      Alert.alert('Error on creating new ride. Please try Again!');
+      Alert.alert(I18n.t('CREATECARPOOLING_error'));
     }
   };
 
@@ -195,7 +192,7 @@ const CreateCarPooling = ({navigation}) => {
             justifyContent: 'center',
           }}>
           <Text style={{fontSize: 24, fontWeight: '400'}}>
-            Create Car Pooling
+            {I18n.t('CREATECARPOOLING_title')}
           </Text>
         </View>
       </View>
@@ -311,7 +308,7 @@ const CreateCarPooling = ({navigation}) => {
           }}
         />
 
-        {vehicleChoosed ? (
+        {vehicleChoosed && (
           <DropDownPicker
             open={open3}
             closeAfterSelecting={true}
@@ -344,7 +341,7 @@ const CreateCarPooling = ({navigation}) => {
               alignItems: 'center',
             }}
           />
-        ) : null}
+        )}
 
         <View style={{zIndex: -3}}>
           <Text
@@ -356,14 +353,12 @@ const CreateCarPooling = ({navigation}) => {
               fontWeight: '400',
               color: COLORS.black,
             }}>
-            Estimated Time
+            {I18n.t('CREATECARPOOLING_estimatedTime')}
           </Text>
           <NumericInput
             value={estimatedTime}
             onChange={value => setEstimatedTime(value)}
-            onLimitReached={() =>
-              Alert.alert('Reached the minimum value of 10 minutes!')
-            }
+            onLimitReached={() => Alert.alert(I18n.t('CREATECARPOOLING_alert'))}
             totalWidth={240}
             editable
             minValue={10}
@@ -399,7 +394,7 @@ const CreateCarPooling = ({navigation}) => {
               fontWeight: '400',
               color: COLORS.black,
             }}>
-            Start Time
+            {I18n.t('CREATECARPOOLING_startTime')}
           </Text>
           <DatePicker
             collapsable
@@ -428,7 +423,7 @@ const CreateCarPooling = ({navigation}) => {
             />
           }
           iconRight
-          title="Create Ride"
+          title={I18n.t('CREATECARPOOLING_create')}
         />
       </View>
     );

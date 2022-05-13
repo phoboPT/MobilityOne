@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import api from '../services/api';
 import NumericInput from 'react-native-numeric-input';
 import {ScrollView} from 'react-native';
+import I18n from '../utils/language';
 
 const CreateVehicle = ({navigation}) => {
   const [carModel, setCarModel] = React.useState('');
@@ -22,7 +23,7 @@ const CreateVehicle = ({navigation}) => {
   const validateInputs = () => {
     //Enviar dados
     if (carModel === '') {
-      Alert.alert('You need to add the Car Model');
+      Alert.alert(I18n.t('CREATEVIHECLE_car_model_alert'));
     } else {
       postCreateVehicle();
     }
@@ -35,12 +36,12 @@ const CreateVehicle = ({navigation}) => {
         type: 2,
         capacity: capacity,
       });
-      if (response.data != undefined) {
-        Alert.alert('Vehicle created');
+      if (response.data !== undefined) {
+        Alert.alert(I18n.t('CREATEVIHECLE_success_alert'));
         navigation.navigate('Drawer');
       }
     } catch (err) {
-      Alert.alert('Error on new vehicle. Please try Again!');
+      Alert.alert(I18n.t('CREATEVIHECLE_error_alert'));
     }
   };
 
@@ -71,7 +72,9 @@ const CreateVehicle = ({navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{fontSize: 24, fontWeight: '400'}}>Create Vehicle</Text>
+          <Text style={{fontSize: 24, fontWeight: '400'}}>
+            {I18n.t('CREATEVIHECLE_title')}
+          </Text>
         </View>
       </View>
     );
@@ -87,7 +90,7 @@ const CreateVehicle = ({navigation}) => {
           flexDirection: 'column',
         }}>
         <Input
-          placeholder="Car Model"
+          placeholder={I18n.t('CREATEVIHECLE_car_model_placeholder')}
           multiline
           placeholderTextColor="black"
           containerStyle={{marginTop: 15, width: '90%', zIndex: -2}}
@@ -108,7 +111,9 @@ const CreateVehicle = ({navigation}) => {
           <NumericInput
             value={capacity}
             onChange={value => setCapacity(value)}
-            onLimitReached={() => Alert.alert('Minimum vehicle capacity is 2')}
+            onLimitReached={() =>
+              Alert.alert(I18n.t('CREATEVIHECLE_limit_alert'))
+            }
             totalWidth={240}
             editable
             maxValue={9}
@@ -139,7 +144,7 @@ const CreateVehicle = ({navigation}) => {
             <Icon name="car" style={{marginLeft: 10}} size={28} color="white" />
           }
           iconRight
-          title="Create Vehicle"
+          title={I18n.t('CREATEVIHECLE_button')}
         />
       </View>
     );

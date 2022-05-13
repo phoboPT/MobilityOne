@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
-// import Form from 'react-native-basic-form';
 import api from '../../services/api';
-// import {COLORS} from '../../constants';
 import {Alert} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Avatar} from 'react-native-elements';
@@ -17,9 +15,9 @@ import {
   Button,
   HStack,
   Center,
-  // Image,
   NativeBaseProvider,
 } from 'native-base';
+import I18n from '../../utils/language';
 
 const SignUpScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -81,7 +79,7 @@ const SignUpScreen = ({navigation}) => {
           }
         })
         .catch(err => {
-          Alert.alert('An Error Occured While Creating');
+          Alert.alert(I18n.t('SIGNUP_error'), err.message);
           console.log(err.data.errors);
         });
     } catch (err) {
@@ -102,12 +100,12 @@ const SignUpScreen = ({navigation}) => {
       });
       if (response.data !== undefined) {
         setLoading(false);
-        Alert.alert('User successfully registered!');
+        Alert.alert(I18n.t('SIGNUP_success'));
         navigation.navigate('SignInScreen');
       }
     } catch (err) {
       console.log(err);
-      Alert.alert('Error creating new user!');
+      Alert.alert(I18n.t('SIGNUP_error'));
       setLoading(false);
     }
   }
@@ -126,7 +124,7 @@ const SignUpScreen = ({navigation}) => {
               _dark={{
                 color: 'warmGray.50',
               }}>
-              Register
+              {I18n.t('SIGNUP_title')}
             </Heading>
             <VStack space={5} mt="3">
               {photo ? (
@@ -143,7 +141,7 @@ const SignUpScreen = ({navigation}) => {
                     onPress={() => removeImage()}
                     mt="3"
                     colorScheme="indigo">
-                    Remove Image
+                    {I18n.t('SIGNUP_removeImage')}
                   </Button>
                 </>
               ) : (
@@ -151,12 +149,12 @@ const SignUpScreen = ({navigation}) => {
                   onPress={() => openPicker()}
                   colorScheme="indigo"
                   mt="8">
-                  Upload Image
+                  {I18n.t('SIGNUP_uploadImage')}
                 </Button>
               )}
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Name</Text>
+                  <Text color="white">{I18n.t('SIGNUP_name')} </Text>
                 </FormControl.Label>
                 <Input
                   color="white"
@@ -167,7 +165,7 @@ const SignUpScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Email</Text>
+                  <Text color="white">{I18n.t('SIGNUP_email')}</Text>
                 </FormControl.Label>
                 <Input
                   color="white"
@@ -177,7 +175,7 @@ const SignUpScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Password</Text>
+                  <Text color="white">{I18n.t('SIGNUP_password')}</Text>
                 </FormControl.Label>
                 <Input
                   color="white"
@@ -189,11 +187,11 @@ const SignUpScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Biography</Text>
+                  <Text color="white">{I18n.t('SIGNUP_biography')}</Text>
                 </FormControl.Label>
                 <Input
                   color="white"
-                  placeholder="Something about Yourself"
+                  placeholder={I18n.t('SIGNUP_biography_placeholder')}
                   onChangeText={value =>
                     setData({...formData, biography: value})
                   }
@@ -201,7 +199,7 @@ const SignUpScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Contact</Text>
+                  <Text color="white">{I18n.t('SIGNUP_contact')}</Text>
                 </FormControl.Label>
                 <Input
                   keyboardType="phone-pad"
@@ -213,7 +211,7 @@ const SignUpScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Birth date</Text>
+                  <Text color="white">{I18n.t('SIGNUP_birthday')}</Text>
                 </FormControl.Label>
                 <Input
                   keyboardType="phone-pad"
@@ -227,7 +225,7 @@ const SignUpScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Body Mass</Text>
+                  <Text color="white">{I18n.t('SIGNUP_body_mass')}</Text>
                 </FormControl.Label>
                 <Input
                   keyboardType="phone-pad"
@@ -239,7 +237,7 @@ const SignUpScreen = ({navigation}) => {
               </FormControl>
               <FormControl>
                 <FormControl.Label>
-                  <Text color="white">Height</Text>
+                  <Text color="white">{I18n.t('SIGNUP_height')}</Text>
                 </FormControl.Label>
                 <Input
                   keyboardType="phone-pad"
@@ -250,7 +248,7 @@ const SignUpScreen = ({navigation}) => {
                 />
               </FormControl>
               <Button onPress={onSubmit} mt="2" colorScheme="indigo">
-                Create Account
+                {I18n.t('SIGNUP_button')}
               </Button>
               <TouchableOpacity
                 onPress={() => navigation.navigate('SignInScreen')}>
@@ -260,7 +258,7 @@ const SignUpScreen = ({navigation}) => {
                   _dark={{
                     color: 'coolGray.200',
                   }}>
-                  I already have an Account
+                  {I18n.t('SIGNUP_signIn')}
                 </Text>
               </TouchableOpacity>
             </VStack>

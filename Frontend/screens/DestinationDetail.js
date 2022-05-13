@@ -14,6 +14,7 @@ import {images, icons, COLORS, SIZES} from '../constants';
 import {ScrollView} from 'react-native';
 import api from '../services/api';
 import Moment from 'moment';
+import I18n from '../utils/language';
 
 const StarReview = ({rate}) => {
   var starComponents = [];
@@ -103,7 +104,7 @@ const DestinationDetail = ({navigation, route}) => {
   const [user, setUser] = useState(null);
   const [haveBus, setHaveBus] = useState(null);
   useEffect(() => {
-    if (allData != undefined && allData.length > 1) {
+    if (allData !== undefined && allData.length > 1) {
       setHaveBus(true);
     }
     async function getUserInfo() {
@@ -120,24 +121,24 @@ const DestinationDetail = ({navigation, route}) => {
     getUserInfo();
   }, []);
 
-  async function createOrder(){
+  async function createOrder() {
     try {
       const response = await api.post('/orders', {
         routeId: data.id,
       });
-      if (response.data != undefined) {
+      if (response.data !== undefined) {
         console.log(response.data);
-        Alert.alert('Your request was sent!');
+        Alert.alert(I18n.t('GERAL_created'));
         navigation.navigate('Home');
       }
     } catch (err) {
-      if (err.data.errors[0].message != undefined) {
+      if (err.data.errors[0].message !== undefined) {
         Alert.alert(err.data.errors[0].message);
       } else {
-        Alert.alert('An error occurred!');
+        Alert.alert(I18n.t('GERAL_error'));
       }
     }
-  };
+  }
 
   const showRoute = () => {
     if (haveBus) {
@@ -156,11 +157,11 @@ const DestinationDetail = ({navigation, route}) => {
     }
   };
   const iconToShow = (item, index) => {
-    if (index == 0) {
+    if (index === 0) {
       return (
         <IconLabel
           icon={icons.frontCar}
-          label={`${item.estimatedTime} Minutes`}
+          label={`${item.estimatedTime} ${I18n.t('GERAL_minutes')}`}
         />
       );
     } else {
@@ -342,7 +343,7 @@ const DestinationDetail = ({navigation, route}) => {
                 />
                 <IconLabel
                   icon={icons.frontCar}
-                  label={`${data.estimatedTime}Minutes`}
+                  label={`${data.estimatedTime} ${I18n.t('GERAL_minutes')}`}
                 />
               </>
             )}
@@ -361,7 +362,8 @@ const DestinationDetail = ({navigation, route}) => {
         ) : null}
         <View style={{marginTop: 10, paddingHorizontal: SIZES.padding}}>
           <Text style={{...SIZES.body2, fontWeight: '700'}}>
-            Start Date: {Moment(data.startDate).format('LLL')}
+            {I18n.t('DESTINATIONDETAIL_start_date')}{' '}
+            {Moment(data.startDate).format('LLL')}
           </Text>
         </View>
 
@@ -372,11 +374,12 @@ const DestinationDetail = ({navigation, route}) => {
           }}>
           {haveBus ? (
             <Text style={{...SIZES.body2, fontWeight: '700'}}>
-              Available Seats on Car: {data.capacity - 1}
+              {I18n.t('DESTINATIONDETAIL_available_seats_car')}{' '}
+              {data.capacity - 1}
             </Text>
           ) : (
             <Text style={{...SIZES.body2, fontWeight: '700'}}>
-              Available Seats: {data.capacity - 1}
+              {I18n.t('DESTINATIONDETAIL_available_seats')} {data.capacity - 1}
             </Text>
           )}
         </View>
@@ -386,7 +389,9 @@ const DestinationDetail = ({navigation, route}) => {
             marginTop: SIZES.padding - 10,
             paddingHorizontal: SIZES.padding,
           }}>
-          <Text style={{...SIZES.h2, fontWeight: '700'}}>Description</Text>
+          <Text style={{...SIZES.h2, fontWeight: '700'}}>
+            {I18n.t('DESTINATIONDETAIL_description')}
+          </Text>
           <ScrollView style={{marginBottom: 140}}>
             <Text
               style={{
@@ -429,7 +434,9 @@ const DestinationDetail = ({navigation, route}) => {
             colors={['#D1D100', '#757500']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}>
-            <Text style={{color: COLORS.white, ...SIZES.h2}}>Show Route</Text>
+            <Text style={{color: COLORS.white, ...SIZES.h2}}>
+              {I18n.t('DESTINATIONDETAIL_show_route')}
+            </Text>
           </LinearGradient>
         </TouchableOpacity>
         <TouchableOpacity
@@ -451,7 +458,9 @@ const DestinationDetail = ({navigation, route}) => {
             colors={[COLORS.primary, '#5884ff']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}>
-            <Text style={{color: COLORS.white, ...SIZES.h2}}>GO</Text>
+            <Text style={{color: COLORS.white, ...SIZES.h2}}>
+              {I18n.t('DESTINATIONDETAIL_go')}
+            </Text>
           </LinearGradient>
         </TouchableOpacity>
       </View>

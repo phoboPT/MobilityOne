@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {NativeModules} from 'react-native';
 import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import {Text, Button, ScrollView} from 'native-base';
+import I18n from '../utils/language';
 
 const {ActivitiesDatabaseModule} = NativeModules;
 
@@ -11,7 +12,7 @@ const ActivityDB = () => {
   const resetDB = () => {
     ActivitiesDatabaseModule.DeleteAllRecordsFromDB();
     // eslint-disable-next-line no-alert
-    alert('Deleted.');
+    alert(I18n.t('ACTIVITYMODULE_reset_db'));
   };
 
   const printEntireDB = () => {
@@ -24,7 +25,9 @@ const ActivityDB = () => {
   return (
     <View>
       <View>
-        <Button onPress={() => printEntireDB()}>Show All DB Records</Button>
+        <Button onPress={() => printEntireDB()}>
+          {I18n.t('ACTIVITYMODULE_show_all_records')}
+        </Button>
 
         <ScrollView
           maxW="400"
@@ -48,7 +51,9 @@ const ActivityDB = () => {
         <TouchableOpacity
           style={styles.submitButtonBig}
           onPress={() => resetDB()}>
-          <Text style={styles.submitButtonText}> Delete All DB Records </Text>
+          <Text style={styles.submitButtonText}>
+            {I18n.t('ACTIVITYMODULE_delete_all_records')}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
