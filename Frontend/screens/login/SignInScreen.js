@@ -17,6 +17,7 @@ import {
   NativeBaseProvider,
   KeyboardAvoidingView,
 } from 'native-base';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {ImageBackground} from 'react-native';
 import {Dimensions} from 'react-native';
 import I18n from '../../utils/language';
@@ -50,8 +51,7 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <NativeBaseProvider>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <KeyboardAwareScrollView>
         <ImageBackground
           source={images.logo}
           style={{
@@ -123,9 +123,10 @@ const SignInScreen = ({navigation}) => {
             </VStack>
           </Box>
         </Center>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </NativeBaseProvider>
   );
 };
 
 export default SignInScreen;
+
