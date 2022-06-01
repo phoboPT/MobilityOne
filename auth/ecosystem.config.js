@@ -10,7 +10,7 @@ module.exports = {
         MONGO_URI: 'mongodb://localhost:27017/auth',
         NATS_CLUSTER_ID: 'orders',
         NATS_CLIENT_ID: '1',
-        NATS_URL: 'http://nats-srv:4222',
+        NATS_URL: 'localhost:4222',
         PORT: 3000,
       },
     },
