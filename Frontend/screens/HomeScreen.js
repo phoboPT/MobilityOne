@@ -18,7 +18,7 @@ import ActionButton from 'react-native-action-button';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Geolocation from '@react-native-community/geolocation';
 import {FlatGrid} from 'react-native-super-grid';
-import api from '../services/api';
+import {routes} from '../services/api';
 import Moment from 'moment';
 import {Button} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -190,7 +190,9 @@ const HomeScreen = ({navigation}) => {
   async function getRecommendations(startLocation) {
     const recommendations = [];
     try {
-      const response = await api.get('/routes/startLocation/' + startLocation);
+      const response = await routes.get(
+        '/routes/startLocation/' + startLocation,
+      );
       if (response.data.length !== 0) {
         response.data.forEach(element => {
           if (element.userId !== JSON.parse(userId)) {
@@ -211,7 +213,7 @@ const HomeScreen = ({navigation}) => {
 
   async function getMyNextTravel() {
     try {
-      const response = await api.get('/routes/user');
+      const response = await routes.get('/routes/user');
       if (response.data.lenght !== undefined) {
         setHasNextRide(true);
         setNextTravel(response.data);

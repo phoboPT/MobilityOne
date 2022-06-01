@@ -11,7 +11,7 @@ import {
 import {icons, SIZES, COLORS, images} from '../constants';
 import {Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import api from '../services/api';
+import {vehicles} from '../services/api';
 import NumericInput from 'react-native-numeric-input';
 import {ScrollView} from 'react-native';
 import I18n from '../utils/language';
@@ -31,7 +31,7 @@ const CreateVehicle = ({navigation}) => {
 
   const postCreateVehicle = async () => {
     try {
-      const response = await api.post('/vehicles', {
+      const response = await vehicles.post('/vehicles', {
         carModel: carModel,
         type: 2,
         capacity: capacity,

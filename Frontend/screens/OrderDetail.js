@@ -13,7 +13,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {images, icons, COLORS, SIZES} from '../constants';
 import {ScrollView} from 'react-native';
-import api from '../services/api';
+import {auth, routes, orders} from '../services/api';
 import Moment from 'moment';
 import {Rating, Button} from 'react-native-elements';
 
@@ -120,7 +120,7 @@ const OrderDetail = ({navigation, route}) => {
 
   async function getRouteInfo(id) {
     try {
-      const response = await api.get('/routes/' + id);
+      const response = await routes.get('/routes/' + id);
       setRouteInfo(response.data);
       setBackgroundImage(response.data.endLocation);
       getUserInfo(response.data.userId);
@@ -132,7 +132,7 @@ const OrderDetail = ({navigation, route}) => {
 
   async function getUserInfo(id) {
     try {
-      const response = await api.get('/users/' + id);
+      const response = await auth.get('/users/' + id);
       setUser(response.data);
       setLoading(false);
     } catch (err) {
@@ -148,7 +148,7 @@ const OrderDetail = ({navigation, route}) => {
 
   async function cancelledOrder() {
     try {
-      const response = await api.post('/orders/cancelled', {
+      const response = await orders.post('/orders/cancelled', {
         id: data.id,
       });
       Alert.alert('Order Cancelled!');

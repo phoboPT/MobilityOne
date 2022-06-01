@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {images, icons, SIZES, COLORS} from '../constants';
-import api from '../services/api';
+import {orders, routes} from '../services/api';
 import Moment from 'moment';
 import {SectionGrid} from 'react-native-super-grid';
 import {Avatar} from 'react-native-elements';
@@ -26,7 +26,7 @@ const MyRoutesScreen = ({navigation}) => {
     async function getRequests() {
       setLoading(true);
       try {
-        const response = await api.get('/routes/user');
+        const response = await routes.get('/routes/user');
         console.log(response.data);
         setMyRoutes(response.data);
         getRequestsSent();
@@ -37,7 +37,7 @@ const MyRoutesScreen = ({navigation}) => {
     }
     async function getRequestsSent() {
       try {
-        const response = await api.get('/orders/userId');
+        const response = await orders.get('/orders/userId');
         setSentRequests(response.data);
         setLoading(false);
       } catch (err) {

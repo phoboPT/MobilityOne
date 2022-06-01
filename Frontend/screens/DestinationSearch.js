@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {images, icons, SIZES} from '../constants';
-import api from '../services/api';
+import {routes} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import Moment from 'moment';
 import I18n from '../utils/language';
@@ -28,7 +28,7 @@ const DestinationSearch = ({route, navigation}) => {
     async function getRoutes() {
       setLoading(true);
       try {
-        const response = await api.get(
+        const response = await routes.get(
           '/routes/start/' + startLocation + '/end/' + endLocation,
         );
         filterRoutes(response.data);

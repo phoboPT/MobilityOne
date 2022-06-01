@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 import {
   StyleSheet,
@@ -16,7 +16,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import {images, icons, COLORS, SIZES} from '../constants';
-import api from '../services/api';
+import {auth, vehicles} from '../services/api';
 import {Icon} from 'react-native-elements';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Button} from 'react-native-elements';
@@ -50,7 +50,7 @@ const MyProfile = ({navigation}) => {
       setModalVisible2(!modalVisible2);
     }
     try {
-      const response = await api.post('/users/edit', {
+      const response = await auth.post('/users/edit', {
         biography: biography,
         photoUrl:
           'https://www.pavilionweb.com/wp-content/uploads/2017/03/man.png',
@@ -66,12 +66,12 @@ const MyProfile = ({navigation}) => {
   useFocusEffect(
     React.useCallback(() => {
       getMyInfo();
-    }, [])
+    }, []),
   );
 
   async function getMyInfo() {
     try {
-      const response = await api.get('/users/currentUser');
+      const response = await auth.get('/users/currentUser');
       setData(response.data);
       setContact(response.data.contact);
       setBiography(response.data.biography);
@@ -85,7 +85,7 @@ const MyProfile = ({navigation}) => {
   useEffect(() => {
     async function checkIfUserHasVehicles() {
       try {
-        const response = await api.get('/vehicles/me');
+        const response = await vehicles.get('/vehicles/me');
         setUserVehicles(response.data);
       } catch (error) {
         console.log(error);
