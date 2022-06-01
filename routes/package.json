@@ -24,6 +24,7 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/cookie-session": "^2.0.42",
     "@types/express": "^4.17.11",
+    "del-cli": "^4.0.1",
     "@types/express-serve-static-core": "^4.17.26",
     "comboios": "^1.0.1",
     "cookie-session": "^1.4.0",
