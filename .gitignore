@@ -121,3 +121,8 @@ PORTIC_MODULES/PORTIC_TECH_MODULES/package-lock.json
 Frontend/ios/Pods/
 
 *.hprof
+
+auth/build/
+orders/build/
+routes/build/
+vehicles/build/
