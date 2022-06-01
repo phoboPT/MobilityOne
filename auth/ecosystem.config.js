@@ -11,6 +11,7 @@ module.exports = {
         NATS_CLUSTER_ID: 'orders',
         NATS_CLIENT_ID: '1',
         NATS_URL: 'http://nats-srv:4222',
+        PORT: 3000,
       },
     },
   ],

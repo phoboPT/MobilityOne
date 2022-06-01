@@ -34,8 +34,8 @@ const start = async () => {
   } catch (err) {
     console.error(`Error on start ${err}`);
   }
-  app.listen(3000, () => {
-    console.log('Listening port 3000!!!!!!!!');
+  app.listen(process.env.PORT, () => {
+    console.log(`Listening port ${process.env.PORT}!!!!!!!!`);
   });
 };
 
