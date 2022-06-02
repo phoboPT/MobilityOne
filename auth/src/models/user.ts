@@ -67,6 +67,7 @@ interface UserAttrs {
   cronicIllness: string;
   medications: string;
   boneIllnessList: string;
+  twoOrMoreProblems: string;
 }
 
 //Interface that describes a UserModel
@@ -141,6 +142,7 @@ interface UserDoc extends mongoose.Document {
   cronicIllness: string;
   medications: string;
   boneIllnessList: string;
+  twoOrMoreProblems: string;
 }
 
 const userSchema = new mongoose.Schema(

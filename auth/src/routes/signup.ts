@@ -92,6 +92,7 @@ router.post(
       cronicIllness: '',
       medications: '',
       boneIllnessList: '',
+      twoOrMoreProblems: '',
     });
     await user.save();
     //Generate and setting token
