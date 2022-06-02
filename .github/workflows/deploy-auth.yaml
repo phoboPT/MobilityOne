@@ -22,6 +22,5 @@ jobs:
           cd /home/tecnicoesce/Documentos/MobilityOne
           git pull
           cd auth
-          pm2 stop auth
           npm start
-
+          pm2 reload auth

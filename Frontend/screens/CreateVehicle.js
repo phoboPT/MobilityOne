@@ -106,7 +106,7 @@ const CreateVehicle = ({navigation}) => {
               fontWeight: '400',
               color: COLORS.black,
             }}>
-            Vehicle Capacity
+            {I18n.t('CREATEVIHECLE_capacity')}
           </Text>
           <NumericInput
             value={capacity}

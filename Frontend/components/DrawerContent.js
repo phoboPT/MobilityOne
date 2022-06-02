@@ -3,7 +3,7 @@ import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Avatar, Title, Caption, Drawer} from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {auth} from '../services/api';
-
+import I18n from '../utils/language';
 import {COLORS, icons, images} from '../constants';
 import AsyncStorage from '@react-native-community/async-storage';
 const styles = StyleSheet.create({
@@ -124,7 +124,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Home"
+              label={I18n.t('NAVIGATION_home')}
               onPress={() => {
                 props.navigation.navigate('Home');
               }}
@@ -142,7 +142,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Requests"
+              label={I18n.t('NAVIGATION_requests')}
               onPress={() => {
                 props.navigation.navigate('My Routes');
               }}
@@ -161,7 +161,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Settings"
+              label={I18n.t('NAVIGATION_settings')}
               onPress={() => {
                 props.navigation.navigate('Settings');
               }}
@@ -179,7 +179,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Statistics"
+              label={I18n.t('NAVIGATION_stats')}
               onPress={() => {
                 props.navigation.navigate('Statistics');
               }}

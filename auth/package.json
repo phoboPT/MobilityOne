@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "clean": "del-cli ./build/*",
-    "start": "npm run build && pm2 start ecosystem.config.js",
+    "start": " npm run build && pm2 start ecosystem.config.js",
     "test": "jest --watchAll --no-cache --coverage",
     "test:ci": "jest",
     "build": "npm run clean && tsc",

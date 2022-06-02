@@ -385,7 +385,7 @@ const HomeScreen = ({navigation}) => {
               value: 'value',
             }}
             items={items}
-            placeholder="Start Location"
+            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
             setOpen={setOpen}
             setValue={setValue}
             onChangeValue={() => setStartLocation(value)}
@@ -419,7 +419,7 @@ const HomeScreen = ({navigation}) => {
               value: 'value',
             }}
             items={items}
-            placeholder="End Location"
+            placeholder={I18n.t('HOME_dropdown_placeholder_end')}
             onChangeValue={() => setEndLocation(value1)}
             setOpen={setOpen1}
             setValue={setValue1}
@@ -460,7 +460,7 @@ const HomeScreen = ({navigation}) => {
                 }}
               />
             }
-            title="Search"
+            title={I18n.t('HOME_search')}
           />
         </View>
       </View>
@@ -479,7 +479,7 @@ const HomeScreen = ({navigation}) => {
             position: 'relative',
             fontWeight: '400',
           }}>
-          Recomendations:
+          {I18n.t('HOME_recommended')}
         </Text>
         <FlatList
           data={recommendations}
@@ -514,7 +514,9 @@ const HomeScreen = ({navigation}) => {
                     {Moment(item.startDate).format('lll')}
                   </Text>
                   <Text style={styles.itemCode}>
-                    Estimated Time: {item.estimatedTime}Minutes
+                    {I18n.t('GERAL_time') +
+                      item.estimatedTime +
+                      I18n.t('GERAL_minutes')}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -561,7 +563,9 @@ const HomeScreen = ({navigation}) => {
             justifyContent: 'center',
             marginRight: 40,
           }}>
-          <Text style={{fontSize: 24, fontWeight: '400'}}>Home</Text>
+          <Text style={{fontSize: 24, fontWeight: '400'}}>
+            {I18n.t('HOME_title')}
+          </Text>
         </View>
       </View>
     );

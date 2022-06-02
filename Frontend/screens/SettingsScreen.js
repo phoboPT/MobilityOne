@@ -5,6 +5,7 @@ import ActivityDB from './ActivityDBModule';
 import {View, Button, Center, Container, Switch, ScrollView} from 'native-base';
 import {icons, SIZES} from '../constants/index';
 import I18n from '../utils/language';
+import AsyncStorage from '@react-native-community/async-storage';
 const {HAR_Module} = NativeModules;
 
 const styles = StyleSheet.create({
@@ -41,17 +42,28 @@ const styles = StyleSheet.create({
 });
 
 const SettingsScreen = ({navigation}) => {
-  const [checked, setCheked] = useState('');
+  const [checked, setCheked] = useState(false);
 
   useEffect(() => {
-    // console.log(HAR_Module.isMyServiceRunning());
+    async function setAR() {
+      const isChecked = await AsyncStorage.getItem('@App:activityRequest');
+      if (isChecked === 'true') {
+        setCheked(true);
+      } else {
+        setCheked(false);
+      }
+    }
+
+    setAR();
   });
 
-  const manageAR = () => {
+  const manageAR = async () => {
     if (!checked) {
       HAR_Module.HAR_Begin_Service();
+      await AsyncStorage.setItem('@App:activityRequest', 'true');
     } else {
       HAR_Module.HAR_Stop_Service();
+      await AsyncStorage.setItem('@App:activityRequest', 'false');
     }
     setCheked(!checked);
   };
@@ -92,8 +104,7 @@ const SettingsScreen = ({navigation}) => {
         <Container>
           <ScrollView h="80">
             <Center>
-              <Text>{I18n.t('SETTINGS_activity')} </Text>
-
+              <Text />
               <Text>
                 {I18n.t('SETTINGS_activity')}
                 <Switch

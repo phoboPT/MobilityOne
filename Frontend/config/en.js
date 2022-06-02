@@ -77,5 +77,9 @@ export default {
   HOME_dropdown_placeholder: 'Where you want to go?',
   HOME_next_travel: 'Your next travel',
   HOME_title: 'Search routes',
+  NAVIGATION_home: 'Home',
+  NAVIGATION_requests: 'Requests',
+  NAVIGATION_settings: 'Settings',
+  NAVIGATION_stats: 'Statistics',
   SEND: 'Send',
 };
