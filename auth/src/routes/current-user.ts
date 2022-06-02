@@ -12,6 +12,7 @@ router.get('/api/users/currentUser', currentUser, async (req, res) => {
 
 router.post('/api/users/edit', currentUser, async (req, res) => {
   const {
+    name,
     photoUrl,
     biography,
     contact,
@@ -72,6 +73,7 @@ router.post('/api/users/edit', currentUser, async (req, res) => {
     illness,
     cronicIllness,
     boneIllnessList,
+    medications,
   } = req.body;
   const user = await User.findById(req.currentUser?.id);
 
@@ -80,6 +82,7 @@ router.post('/api/users/edit', currentUser, async (req, res) => {
   }
 
   user.set({
+    name: name || user.name,
     photoUrl: photoUrl || user.photoUrl,
     biography: biography || user.briography,
     contact: contact || user.contact,
@@ -140,6 +143,7 @@ router.post('/api/users/edit', currentUser, async (req, res) => {
     illness: illness || user.illness,
     cronicIllness: cronicIllness || user.cronicIllness,
     boneIllnessList: boneIllnessList || user.boneIllnessList,
+    medications: medications || user.medications,
   });
 
   await user.save();
