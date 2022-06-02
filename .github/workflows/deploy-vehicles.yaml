@@ -1,24 +1,25 @@
-name: deploy-vehicles
-
+name: deploy vehicles
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'vehicles/**'
 jobs:
+
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: cd vehicles && docker build -t phobopt/vehicles .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      - run: docker push phobopt/vehicles
-      - uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{secrets.DIGITALOCEAN_ACCESS_TOKEN}}
-      - run: doctl kubernetes cluster kubeconfig save server
-      - run: kubectl rollout restart deployment vehicles-depl
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd /home/tecnicoesce/Documentos/MobilityOne
+          git pull
+          pm2 reload vehicles
+
