@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
-
 const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY not defined');
@@ -19,18 +18,18 @@ const start = async () => {
     throw new Error('NATS_URL not defined');
   }
   try {
-    console.log('orders', process.env.NATS_CLIENT_ID, process.env.NATS_URL);
+    // console.log('orders', process.env.NATS_CLIENT_ID, process.env.NATS_URL);
 
-    await natsWrapper.connect(process.env.NATS_CLUSTER_ID, process.env.NATS_CLIENT_ID, process.env.NATS_URL);
-    natsWrapper.client.on('close', () => {
-      console.log('NATS connection closed');
-      process.exit();
-    });
-    natsWrapper.client.on('connect', () => {
-      console.log('NATS connection started');
-    });
-    process.on('SIGINT', () => natsWrapper.client.close());
-    process.on('SIGTERM', () => natsWrapper.client.close());
+    // await natsWrapper.connect(process.env.NATS_CLUSTER_ID, process.env.NATS_CLIENT_ID, process.env.NATS_URL);
+    // natsWrapper.client.on('close', () => {
+    //   console.log('NATS connection closed');
+    //   process.exit();
+    // });
+    // natsWrapper.client.on('connect', () => {
+    //   console.log('NATS connection started');
+    // });
+    // process.on('SIGINT', () => natsWrapper.client.close());
+    // process.on('SIGTERM', () => natsWrapper.client.close());
 
     await mongoose.connect(process.env.MONGO_URI);
 
