@@ -82,7 +82,7 @@ interface UserDoc extends mongoose.Document {
   name: string;
   photoUrl: string;
   rating: number;
-  briography: string;
+  biography: string;
   contact: string;
   birthDate: string;
   risk: string;

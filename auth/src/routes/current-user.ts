@@ -84,7 +84,7 @@ router.post('/api/users/edit', currentUser, async (req, res) => {
   user.set({
     name: name || user.name,
     photoUrl: photoUrl || user.photoUrl,
-    biography: biography || user.briography,
+    biography: biography || user.biography,
     contact: contact || user.contact,
     risk: risk || user.risk,
     cardioIllnes: cardioIllnes || user.cardioIllnes,
