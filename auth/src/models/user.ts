@@ -63,6 +63,10 @@ interface UserAttrs {
   otherHealthProblems: number;
   concussion: number;
   otherProblems: number;
+  illness: string;
+  cronicIllness: string;
+  medications: string;
+  boneIllnessList: string;
 }
 
 //Interface that describes a UserModel
@@ -90,7 +94,7 @@ interface UserDoc extends mongoose.Document {
   activity: number;
   balance: number;
   cronicDesease: string;
-  medication: number;
+  medication: string;
   boneIllness: number;
   medicalSuvervision: number;
   artriteOrRelated: number;
@@ -134,6 +138,10 @@ interface UserDoc extends mongoose.Document {
   concussion: number;
   otherProblems: number;
   twoOrMoreProblems: number;
+  illness: string;
+  cronicIllness: string;
+  medications: string;
+  boneIllnessList: string;
 }
 
 const userSchema = new mongoose.Schema(
@@ -385,6 +393,22 @@ const userSchema = new mongoose.Schema(
     },
     twoOrMoreProblems: {
       type: Number,
+      required: false,
+    },
+    illness: {
+      type: String,
+      required: false,
+    },
+    cronicIllness: {
+      type: String,
+      required: false,
+    },
+    medications: {
+      type: String,
+      required: false,
+    },
+    boneIllnessList: {
+      type: String,
       required: false,
     },
   },

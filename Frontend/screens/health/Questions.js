@@ -1,6 +1,16 @@
 import React, {useState} from 'react';
-import {Text, FormControl, Input, Radio, Divider, Checkbox} from 'native-base';
-
+import {
+  Text,
+  FormControl,
+  Input,
+  Radio,
+  Divider,
+  Checkbox,
+  Button,
+  Alert,
+} from 'native-base';
+import {auth} from '../../services/api';
+import I18n from '../../utils/language';
 const Questions = ({navigation, state, setSelected}) => {
   const [formData, setData] = useState({});
   const [risk, setRisk] = useState('one');
@@ -58,6 +68,74 @@ const Questions = ({navigation, state, setSelected}) => {
   const [concussion, setConcussion] = useState('0');
   const [otherProblems, setOtherProblems] = useState('0');
   const [twoOrMoreProblems, setTwoOrMoreProblems] = useState('0');
+
+  async function onSubmit() {
+    try {
+      const response = await auth.post('/users/edit', {
+        ...formData,
+        risk,
+        cardioIllness,
+        heartAtack,
+        smoke,
+        colesterol,
+        diabetes,
+        pressure,
+        activity,
+        balance,
+        cronicDesease,
+        medication,
+        boneIllness,
+        medicalSuvervision,
+        artriteOrRelated,
+        artriteMeds,
+        articularProblems,
+        injections,
+        cancer,
+        cancertType,
+        cancerTreatment,
+        heartProblem,
+        controllingHeartCondition,
+        irregularHeartStrokes,
+        insufficentCardiac,
+        activityCronicDesiese,
+        highPressure,
+        highPressureMeds,
+        highPressureRelaxed,
+        metabolicProblem,
+        hipoglicemy,
+        diabetesComplication,
+        intenseExercise,
+        mentalIllness,
+        mentalIllnessMeds,
+        downSindrome,
+        breathingIllness,
+        breathingIllnessMeds,
+        lowOxygen,
+        asmatic,
+        highBloodPressure,
+        spinal,
+        spinalMeds,
+        lowBloodPressure,
+        bloodPressureSurges,
+        stroke,
+        strokeMeds,
+        compromisedMobility,
+        strokeOrMuscle,
+        metabolicProblemMeds,
+        metabolicOther,
+        otherHealthProblems,
+        concussion,
+        otherProblems,
+      });
+    } catch (err) {
+      console.log(err);
+      if (err.data.errors[0].message !== undefined) {
+        Alert.alert(err.data.errors[0].message);
+      } else {
+        Alert.alert('Error! Please try again!');
+      }
+    }
+  }
   return (
     <>
       {/* <Heading
@@ -435,7 +513,7 @@ const Questions = ({navigation, state, setSelected}) => {
                   color="white"
                   placeholder=""
                   onChangeText={value => {
-                    setData({...formData, medication: value});
+                    setData({...formData, medications: value});
                     setSelected(true);
                   }}
                   key="14"
@@ -483,7 +561,7 @@ const Questions = ({navigation, state, setSelected}) => {
                   color="white"
                   placeholder=""
                   onChangeText={value => {
-                    setData({...formData, boneIllness: value});
+                    setData({...formData, boneIllnessList: value});
                     setSelected(true);
                   }}
                   key="16"
@@ -1559,6 +1637,11 @@ const Questions = ({navigation, state, setSelected}) => {
             </>
           )}
         </>
+      )}
+      {state === 24 && (
+        <Button onPress={onSubmit}>
+          <Text>{I18n.t('SEND')}</Text>
+        </Button>
       )}
     </>
   );

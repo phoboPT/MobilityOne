@@ -88,6 +88,7 @@ router.post(
       otherHealthProblems: 0,
       concussion: 0,
       otherProblems: 0,
+      illness: '',
     });
     await user.save();
     //Generate and setting token
