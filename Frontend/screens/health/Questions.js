@@ -7,8 +7,8 @@ import {
   Divider,
   Checkbox,
   Button,
-  Alert,
 } from 'native-base';
+import {Alert} from 'react-native';
 import {auth} from '../../services/api';
 import I18n from '../../utils/language';
 const Questions = ({navigation, state, setSelected}) => {

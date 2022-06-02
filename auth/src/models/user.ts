@@ -10,59 +10,59 @@ interface UserAttrs {
   biography: string;
   contact: string;
   birthDate: string;
-  risk: number;
-  cardioIllnes: number;
-  heartAtack: number;
-  smoke: number;
-  colesterol: number;
-  diabetes: number;
-  pressure: number;
-  activity: number;
-  balance: number;
-  cronicDesease: number;
-  medication: number;
-  boneIllness: number;
-  medicalSuvervision: number;
-  artriteOrRelated: number;
-  artriteMeds: number;
-  articularProblems: number;
-  injections: number;
-  cancer: number;
-  cancertType: number;
-  cancerTreatment: number;
-  heartProblem: number;
-  controllingHeartCondition: number;
-  irregularHeartStrokes: number;
-  insufficentCardiac: number;
-  activityCronicDesiese: number;
-  highPressure: number;
-  highPressureMeds: number;
-  highPressureRelaxed: number;
-  metabolicProblem: number;
-  hipoglicemy: number;
-  diabetesComplication: number;
-  intenseExercise: number;
-  mentalIllness: number;
-  mentalIllnessMeds: number;
-  downSindrome: number;
-  breathingIllness: number;
-  breathingIllnessMeds: number;
-  lowOxygen: number;
-  asmatic: number;
-  highBloodPressure: number;
-  spinal: number;
-  spinalMeds: number;
-  lowBloodPressure: number;
-  bloodPressureSurges: number;
-  stroke: number;
-  strokeMeds: number;
-  compromisedMobility: number;
-  strokeOrMuscle: number;
-  metabolicProblemMeds: number;
-  metabolicOther: number;
-  otherHealthProblems: number;
-  concussion: number;
-  otherProblems: number;
+  risk: string;
+  cardioIllnes: string;
+  heartAtack: string;
+  smoke: string;
+  colesterol: string;
+  diabetes: string;
+  pressure: string;
+  activity: string;
+  balance: string;
+  cronicDesease: string;
+  medication: string;
+  boneIllness: string;
+  medicalSuvervision: string;
+  artriteOrRelated: string;
+  artriteMeds: string;
+  articularProblems: string;
+  injections: string;
+  cancer: string;
+  cancertType: string;
+  cancerTreatment: string;
+  heartProblem: string;
+  controllingHeartCondition: string;
+  irregularHeartStrokes: string;
+  insufficentCardiac: string;
+  activityCronicDesiese: string;
+  highPressure: string;
+  highPressureMeds: string;
+  highPressureRelaxed: string;
+  metabolicProblem: string;
+  hipoglicemy: string;
+  diabetesComplication: string;
+  intenseExercise: string;
+  mentalIllness: string;
+  mentalIllnessMeds: string;
+  downSindrome: string;
+  breathingIllness: string;
+  breathingIllnessMeds: string;
+  lowOxygen: string;
+  asmatic: string;
+  highBloodPressure: string;
+  spinal: string;
+  spinalMeds: string;
+  lowBloodPressure: string;
+  bloodPressureSurges: string;
+  stroke: string;
+  strokeMeds: string;
+  compromisedMobility: string;
+  strokeOrMuscle: string;
+  metabolicProblemMeds: string;
+  metabolicOther: string;
+  otherHealthProblems: string;
+  concussion: string;
+  otherProblems: string;
   illness: string;
   cronicIllness: string;
   medications: string;
@@ -84,60 +84,59 @@ interface UserDoc extends mongoose.Document {
   briography: string;
   contact: string;
   birthDate: string;
-  risk: number;
-  cardioIllnes: number;
-  heartAtack: number;
-  smoke: number;
-  colesterol: number;
-  diabetes: number;
-  pressure: number;
-  activity: number;
-  balance: number;
+  risk: string;
+  cardioIllnes: string;
+  heartAtack: string;
+  smoke: string;
+  colesterol: string;
+  diabetes: string;
+  pressure: string;
+  activity: string;
+  balance: string;
   cronicDesease: string;
   medication: string;
-  boneIllness: number;
-  medicalSuvervision: number;
-  artriteOrRelated: number;
-  artriteMeds: number;
-  articularProblems: number;
-  injections: number;
-  cancer: number;
-  cancertType: number;
-  cancerTreatment: number;
-  heartProblem: number;
-  controllingHeartCondition: number;
-  irregularHeartStrokes: number;
-  insufficentCardiac: number;
-  activityCronicDesiese: number;
-  highPressure: number;
-  highPressureMeds: number;
-  highPressureRelaxed: number;
-  metabolicProblem: number;
-  hipoglicemy: number;
-  diabetesComplication: number;
-  intenseExercise: number;
-  mentalIllness: number;
-  mentalIllnessMeds: number;
-  downSindrome: number;
-  breathingIllness: number;
-  breathingIllnessMeds: number;
-  lowOxygen: number;
-  asmatic: number;
-  highBloodPressure: number;
-  spinal: number;
-  spinalMeds: number;
-  lowBloodPressure: number;
-  bloodPressureSurges: number;
-  stroke: number;
-  strokeMeds: number;
-  compromisedMobility: number;
-  strokeOrMuscle: number;
-  metabolicProblemMeds: number;
-  metabolicOther: number;
-  otherHealthProblems: number;
-  concussion: number;
-  otherProblems: number;
-  twoOrMoreProblems: number;
+  boneIllness: string;
+  medicalSuvervision: string;
+  artriteOrRelated: string;
+  artriteMeds: string;
+  articularProblems: string;
+  injections: string;
+  cancer: string;
+  cancertType: string;
+  cancerTreatment: string;
+  heartProblem: string;
+  controllingHeartCondition: string;
+  irregularHeartStrokes: string;
+  insufficentCardiac: string;
+  activityCronicDesiese: string;
+  highPressure: string;
+  highPressureMeds: string;
+  highPressureRelaxed: string;
+  metabolicProblem: string;
+  hipoglicemy: string;
+  diabetesComplication: string;
+  intenseExercise: string;
+  mentalIllness: string;
+  mentalIllnessMeds: string;
+  downSindrome: string;
+  breathingIllness: string;
+  breathingIllnessMeds: string;
+  lowOxygen: string;
+  asmatic: string;
+  highBloodPressure: string;
+  spinal: string;
+  spinalMeds: string;
+  lowBloodPressure: string;
+  bloodPressureSurges: string;
+  stroke: string;
+  strokeMeds: string;
+  compromisedMobility: string;
+  strokeOrMuscle: string;
+  metabolicProblemMeds: string;
+  metabolicOther: string;
+  otherHealthProblems: string;
+  concussion: string;
+  otherProblems: string;
   illness: string;
   cronicIllness: string;
   medications: string;
@@ -179,220 +178,220 @@ const userSchema = new mongoose.Schema(
       required: false,
     },
     risk: {
-      type: Number,
+      type: String,
       required: false,
     },
 
     cardioIllnes: {
-      type: Number,
+      type: String,
       required: false,
     },
     heartAtack: {
-      type: Number,
+      type: String,
       required: false,
     },
     smoke: {
-      type: Number,
+      type: String,
       required: false,
     },
     colesterol: {
-      type: Number,
+      type: String,
       required: false,
     },
     diabetes: {
-      type: Number,
+      type: String,
       required: false,
     },
     pressure: {
-      type: Number,
+      type: String,
       required: false,
     },
     activity: {
-      type: Number,
+      type: String,
       required: false,
     },
     balance: {
-      type: Number,
+      type: String,
       required: false,
     },
     cronicDesease: {
-      type: Number,
+      type: String,
       required: false,
     },
     medication: {
-      type: Number,
+      type: String,
       required: false,
     },
     boneIllness: {
-      type: Number,
+      type: String,
       required: false,
     },
     medicalSuvervision: {
-      type: Number,
+      type: String,
       required: false,
     },
     artriteOrRelated: {
-      type: Number,
+      type: String,
       required: false,
     },
     artriteMeds: {
-      type: Number,
+      type: String,
       required: false,
     },
     articularProblems: {
-      type: Number,
+      type: String,
       required: false,
     },
     injections: {
-      type: Number,
+      type: String,
       required: false,
     },
     cancer: {
-      type: Number,
+      type: String,
       required: false,
     },
     cancertType: {
-      type: Number,
+      type: String,
       required: false,
     },
     cancerTreatment: {
-      type: Number,
+      type: String,
       required: false,
     },
     heartProblem: {
-      type: Number,
+      type: String,
       required: false,
     },
     controllingHeartCondition: {
-      type: Number,
+      type: String,
       required: false,
     },
     irregularHeartStrokes: {
-      type: Number,
+      type: String,
       required: false,
     },
     insufficentCardiac: {
-      type: Number,
+      type: String,
       required: false,
     },
     activityCronicDesiese: {
-      type: Number,
+      type: String,
       required: false,
     },
     highPressure: {
-      type: Number,
+      type: String,
       required: false,
     },
     highPressureMeds: {
-      type: Number,
+      type: String,
       required: false,
     },
     highPressureRelaxed: {
-      type: Number,
+      type: String,
       required: false,
     },
     metabolicProblem: {
-      type: Number,
+      type: String,
       required: false,
     },
     hipoglicemy: {
-      type: Number,
+      type: String,
       required: false,
     },
     diabetesComplication: {
-      type: Number,
+      type: String,
       required: false,
     },
     intenseExercise: {
-      type: Number,
+      type: String,
       required: false,
     },
     mentalIllness: {
-      type: Number,
+      type: String,
       required: false,
     },
     mentalIllnessMeds: {
-      type: Number,
+      type: String,
       required: false,
     },
     downSindrome: {
-      type: Number,
+      type: String,
       required: false,
     },
     breathingIllness: {
-      type: Number,
+      type: String,
       required: false,
     },
     breathingIllnessMeds: {
-      type: Number,
+      type: String,
       required: false,
     },
     lowOxygen: {
-      type: Number,
+      type: String,
       required: false,
     },
     asmatic: {
-      type: Number,
+      type: String,
       required: false,
     },
     highBloodPressure: {
-      type: Number,
+      type: String,
       required: false,
     },
     spinal: {
-      type: Number,
+      type: String,
       required: false,
     },
     spinalMeds: {
-      type: Number,
+      type: String,
       required: false,
     },
     lowBloodPressure: {
-      type: Number,
+      type: String,
       required: false,
     },
     bloodPressureSurges: {
-      type: Number,
+      type: String,
       required: false,
     },
     stroke: {
-      type: Number,
+      type: String,
       required: false,
     },
     strokeMeds: {
-      type: Number,
+      type: String,
       required: false,
     },
     compromisedMobility: {
-      type: Number,
+      type: String,
       required: false,
     },
     strokeOrMuscle: {
-      type: Number,
+      type: String,
       required: false,
     },
     metabolicProblemMeds: {
-      type: Number,
+      type: String,
       required: false,
     },
     metabolicOther: {
-      type: Number,
+      type: String,
       required: false,
     },
     otherHealthProblems: {
-      type: Number,
+      type: String,
       required: false,
     },
     concussion: {
-      type: Number,
+      type: String,
       required: false,
     },
     otherProblems: {
-      type: Number,
+      type: String,
       required: false,
     },
     twoOrMoreProblems: {
-      type: Number,
+      type: String,
       required: false,
     },
     illness: {
