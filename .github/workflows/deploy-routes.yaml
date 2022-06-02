@@ -21,5 +21,7 @@ jobs:
         script: |
           cd /home/tecnicoesce/Documentos/MobilityOne
           git pull
-          pm2 reload routes
+          cd routes
+          pm2 stop routes
+          npm start
 
