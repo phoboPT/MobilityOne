@@ -69,6 +69,9 @@ router.post('/api/users/edit', currentUser, async (req, res) => {
     concussion,
     otherProblems,
     twoOrMoreProblems,
+    illness,
+    cronicIllness,
+    boneIllnessList,
   } = req.body;
   const user = await User.findById(req.currentUser?.id);
 
@@ -134,6 +137,9 @@ router.post('/api/users/edit', currentUser, async (req, res) => {
     concussion: concussion || user.concussion,
     otherProblems: otherProblems || user.otherProblems,
     twoOrMoreProblems: twoOrMoreProblems || user.twoOrMoreProblems,
+    illness: illness || user.illness,
+    cronicIllness: cronicIllness || user.cronicIllness,
+    boneIllnessList: boneIllnessList || user.boneIllnessList,
   });
 
   await user.save();
