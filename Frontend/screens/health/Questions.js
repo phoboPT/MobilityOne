@@ -71,7 +71,7 @@ const Questions = ({navigation, state, setSelected}) => {
 
   async function onSubmit() {
     try {
-      const response = await auth.post('/users/edit', {
+      await auth.post('/users/edit', {
         ...formData,
         risk,
         cardioIllness,
