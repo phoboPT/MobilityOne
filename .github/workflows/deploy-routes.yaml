@@ -22,5 +22,5 @@ jobs:
           cd /home/tecnicoesce/Documentos/MobilityOne
           git pull
           cd routes
-          npm start
+          npm run build
           pm2 reload routes
