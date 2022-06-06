@@ -19,9 +19,11 @@ import {vehicles, routes} from '../services/api';
 import NumericInput from 'react-native-numeric-input';
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../utils/language';
+import {Select, NativeBaseProvider} from 'native-base';
 
 const styles = StyleSheet.create({
   container: {flexDirection: 'row', height: 50},
+  container2: {flexDirection: 'column', height: 50},
 });
 
 const CreateCarPooling = ({navigation}) => {
@@ -187,7 +189,7 @@ const CreateCarPooling = ({navigation}) => {
         <View
           style={{
             paddingRight: 35,
-            flex: 1,
+
             alignItems: 'center',
             justifyContent: 'center',
           }}>
@@ -200,232 +202,222 @@ const CreateCarPooling = ({navigation}) => {
   }
 
   function renderCreateCarPooling() {
+    console.log(startLocation);
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          alignContent: 'center',
-          flexDirection: 'column',
-        }}>
-        <DropDownPicker
-          open={open}
-          closeAfterSelecting={true}
-          itemSeparator={true}
-          value={value}
-          itemKey="label"
-          theme="DARK"
-          schema={{
-            label: 'value',
-            value: 'label',
-          }}
-          items={items}
-          placeholder="Start Location"
-          setOpen={setOpen}
-          setValue={setValue}
-          onChangeValue={() => setStartLocation(value)}
-          containerStyle={{
-            width: '88%',
-            marginBottom: 10,
-            zIndex: 2,
-            marginLeft: 30,
-            marginRight: 30,
-            marginTop: 10,
-            borderRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          searchTextInputStyle={{
-            borderRadius: 30,
-            backgroundColor: 'transparent',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        />
-        <DropDownPicker
-          open={open1}
-          closeAfterSelecting={true}
-          itemSeparator={true}
-          value={value1}
-          itemKey="label"
-          theme="DARK"
-          schema={{
-            label: 'value',
-            value: 'label',
-          }}
-          items={items}
-          placeholder="End Location"
-          onChangeValue={() => setEndLocation(value1)}
-          setOpen={setOpen1}
-          setValue={setValue1}
-          containerStyle={{
-            width: '88%',
-            marginBottom: 10,
-            zIndex: 1,
-            marginLeft: 30,
-            marginRight: 30,
-            borderRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          searchTextInputStyle={{
-            borderRadius: 30,
-            backgroundColor: 'transparent',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        />
-        <DropDownPicker
-          open={open2}
-          closeAfterSelecting={true}
-          itemSeparator={true}
-          value={value2}
-          theme="DARK"
-          schema={{
-            label: 'carModel',
-            value: 'id',
-          }}
-          items={userVehicles}
-          placeholder="Vehicle"
-          setOpen={setOpen2}
-          setValue={setValue2}
-          onChangeValue={() => CarPoolingCapacity(value2)}
-          containerStyle={{
-            width: '88%',
-            marginBottom: 10,
-            zIndex: -1,
-            marginLeft: 30,
-            marginRight: 30,
-            borderRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          searchTextInputStyle={{
-            borderRadius: 30,
-            backgroundColor: 'transparent',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        />
-
-        {vehicleChoosed && (
-          <DropDownPicker
-            open={open3}
-            closeAfterSelecting={true}
-            itemSeparator={true}
-            value={value3}
-            theme="DARK"
-            schema={{
-              label: 'label',
-              value: 'value',
+      <NativeBaseProvider>
+        <View style={styles.container2}>
+          <Select
+            selectedValue={startLocation}
+            minWidth="300"
+            mx={{
+              base: 0,
+              md: 'auto',
             }}
-            items={capacities}
-            placeholder="Seats"
-            setOpen={setOpen3}
-            setValue={setValue3}
-            onChangeValue={() => setCapacity(value3)}
-            containerStyle={{
-              width: '88%',
-              marginBottom: 10,
-              zIndex: -2,
-              marginLeft: 30,
-              marginRight: 30,
-              borderRadius: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            searchTextInputStyle={{
-              borderRadius: 30,
-              backgroundColor: 'transparent',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          />
-        )}
-
-        <View style={{zIndex: -3}}>
-          <Text
-            style={{
-              alignSelf: 'center',
-              fontSize: SIZES.body2,
-              zIndex: -3,
-              marginBottom: 15,
-              fontWeight: '400',
-              color: COLORS.black,
+            accessibilityLabel={"I18n.t('HOME_dropdown_placeholder_start')"}
+            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
+            items={items}
+            onValueChange={itemValue => setStartLocation(itemValue)}
+            _selectedItem={{
+              bg: 'cyan.600',
             }}>
-            {I18n.t('CREATECARPOOLING_estimatedTime')}
-          </Text>
-          <NumericInput
-            value={estimatedTime}
-            onChange={value => setEstimatedTime(value)}
-            onLimitReached={() => Alert.alert(I18n.t('CREATECARPOOLING_alert'))}
-            totalWidth={240}
-            editable
-            minValue={10}
-            totalHeight={50}
-            iconSize={25}
-            step={5}
-            containerStyle={{
-              zIndex: -3,
-              marginBottom: 17,
-            }}
-            valueType="real"
-            rounded
-            textColor="black"
-            iconStyle={{color: 'white'}}
-            rightButtonBackgroundColor={COLORS.primary}
-            leftButtonBackgroundColor={COLORS.gray}
-          />
-        </View>
-
-        <Input
-          placeholder="Description (Optional)"
-          multiline
-          placeholderTextColor="black"
-          containerStyle={{width: '90%', zIndex: -3}}
-          onChangeText={value => setDescription(value)}
-        />
-
-        <View style={{zIndex: -3}}>
-          <Text
-            style={{
-              alignSelf: 'center',
-              fontSize: SIZES.body2,
-              fontWeight: '400',
-              color: COLORS.black,
-            }}>
-            {I18n.t('CREATECARPOOLING_startTime')}
-          </Text>
-          <DatePicker
-            collapsable
-            minimumDate={new Date()}
-            locale="pt"
-            is24hourSource="locale"
-            androidVariant="iosClone"
-            date={date}
-            onDateChange={setDate}
-          />
-        </View>
-
-        <Button
-          onPress={() => validateInputs()}
-          buttonStyle={{
-            backgroundColor: COLORS.primary,
-            borderRadius: 10,
-          }}
-          titleStyle={{color: COLORS.white}}
-          icon={
-            <Icon
-              name="chevron-circle-down"
-              style={{marginLeft: 10}}
-              size={28}
-              color="white"
+            <Select.Item
+              label="Escola Superior de Tecnologia e Gestão"
+              value="ESTG"
+              lat="41.693463"
+              long="-8.846654"
             />
-          }
-          iconRight
-          title={I18n.t('CREATECARPOOLING_create')}
-        />
-      </View>
+            <Select.Item
+              label="Escola Superior de Educação"
+              value="ESE"
+              lat="41.702491"
+              long="-8.820698"
+            />
+            <Select.Item
+              label="Escola Superior Agrária"
+              value="ESA"
+              lat="41.793549"
+              long="-8.54277"
+            />
+            <Select.Item
+              label="Escola Superior de Saúde"
+              value="ESS"
+              lat="41.697553"
+              long="-8.836266"
+            />
+          </Select>
+          <Select
+            selectedValue={endLocation}
+            minWidth="300"
+            mx={{
+              base: 0,
+              md: 'auto',
+            }}
+            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
+            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
+            items={items}
+            onValueChange={itemValue => setEndLocation(itemValue)}
+            _selectedItem={{
+              bg: 'cyan.600',
+            }}>
+            <Select.Item
+              label="Escola Superior de Tecnologia e Gestão"
+              value="ESTG"
+              lat="41.693463"
+              long="-8.846654"
+            />
+            <Select.Item
+              label="Escola Superior de Educação"
+              value="ESE"
+              lat="41.702491"
+              long="-8.820698"
+            />
+            <Select.Item
+              label="Escola Superior Agrária"
+              value="ESA"
+              lat="41.793549"
+              long="-8.54277"
+            />
+            <Select.Item
+              label="Escola Superior de Saúde"
+              value="ESS"
+              lat="41.697553"
+              long="-8.836266"
+            />
+            <Select.Item
+              label="Escola Superior de Desporto e Lazer"
+              value="ESDL"
+              lat="42.117427"
+              long="-8.271185"
+            />
+            <Select.Item
+              label="Escola Superior de Ciências Empresariais"
+              value="ESCE"
+              lat="42.031629"
+              long="-8.632825"
+            />
+            <Select.Item
+              label="Serviços Académicos"
+              value="SAS"
+              lat="41.693286"
+              long="-8.832566"
+            />
+          </Select>
+          <Select
+            selectedValue={value2}
+            minWidth="300"
+            mx={{
+              base: 0,
+              md: 'auto',
+            }}
+            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
+            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
+            items={userVehicles}
+            onValueChange={itemValue => CarPoolingCapacity(itemValue)}
+            _selectedItem={{
+              bg: 'cyan.600',
+            }}></Select>
+
+          {vehicleChoosed && (
+            <Select
+              selectedValue={value3}
+              minWidth="300"
+              mx={{
+                base: 0,
+                md: 'auto',
+              }}
+              accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
+              placeholder={I18n.t('HOME_dropdown_placeholder_start')}
+              items={capacities}
+              onValueChange={itemValue => setCapacity(itemValue)}
+              _selectedItem={{
+                bg: 'cyan.600',
+              }}></Select>
+          )}
+
+          <View>
+            <Text
+              style={{
+                alignSelf: 'center',
+                fontSize: SIZES.body2,
+                marginBottom: 15,
+                fontWeight: '400',
+                color: COLORS.black,
+              }}>
+              {I18n.t('CREATECARPOOLING_estimatedTime')}
+            </Text>
+            <NumericInput
+              value={estimatedTime}
+              z
+              onLimitReached={() =>
+                Alert.alert(I18n.t('CREATECARPOOLING_alert'))
+              }
+              totalWidth={240}
+              editable
+              minValue={10}
+              totalHeight={50}
+              iconSize={25}
+              step={5}
+              containerStyle={{
+                marginBottom: 17,
+              }}
+              valueType="real"
+              rounded
+              textColor="black"
+              iconStyle={{color: 'white'}}
+              rightButtonBackgroundColor={COLORS.primary}
+              leftButtonBackgroundColor={COLORS.gray}
+            />
+          </View>
+
+          <Input
+            placeholder="Description (Optional)"
+            multiline
+            placeholderTextColor="black"
+            containerStyle={{width: '90%'}}
+            onChangeText={value => setDescription(value)}
+          />
+
+          <View>
+            <Text
+              style={{
+                alignSelf: 'center',
+                fontSize: SIZES.body2,
+                fontWeight: '400',
+                color: COLORS.black,
+              }}>
+              {I18n.t('CREATECARPOOLING_startTime')}
+            </Text>
+            <DatePicker
+              collapsable
+              minimumDate={new Date()}
+              locale="pt"
+              is24hourSource="locale"
+              androidVariant="iosClone"
+              date={date}
+              onDateChange={setDate}
+            />
+          </View>
+
+          <Button
+            onPress={() => validateInputs()}
+            buttonStyle={{
+              backgroundColor: COLORS.primary,
+              borderRadius: 10,
+            }}
+            titleStyle={{color: COLORS.white}}
+            icon={
+              <Icon
+                name="chevron-circle-down"
+                style={{marginLeft: 10}}
+                size={28}
+                color="white"
+              />
+            }
+            iconRight
+            title={I18n.t('CREATECARPOOLING_create')}
+          />
+        </View>
+      </NativeBaseProvider>
     );
   }
 
@@ -448,3 +440,4 @@ const CreateCarPooling = ({navigation}) => {
 };
 
 export default CreateCarPooling;
+

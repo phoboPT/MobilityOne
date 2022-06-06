@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, {PROVIDER_GOOGLE, Geojson} from 'react-native-maps';
+
 import {images, icons} from '../constants';
 
 let lat;
@@ -279,3 +280,4 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
+

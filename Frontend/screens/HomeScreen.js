@@ -23,6 +23,7 @@ import Moment from 'moment';
 import {Button} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../utils/language';
+import {Select} from 'native-base';
 
 const HomeScreen = ({navigation}) => {
   const [hasNextRide, setHasNextRide] = useState(false);
@@ -373,73 +374,120 @@ const HomeScreen = ({navigation}) => {
           {I18n.t('HOME_title')}
         </Text>
         <View style={{alignContent: 'center', alignItems: 'center'}}>
-          <DropDownPicker
-            open={open}
-            closeAfterSelecting={true}
-            itemSeparator={true}
-            value={value}
-            itemKey="label"
-            theme="DARK"
-            schema={{
-              label: 'label',
-              value: 'value',
+          <Select
+            selectedValue={startLocation}
+            minWidth="300"
+            mx={{
+              base: 0,
+              md: 'auto',
             }}
-            items={items}
+            accessibilityLabel={"I18n.t('HOME_dropdown_placeholder_start')"}
             placeholder={I18n.t('HOME_dropdown_placeholder_start')}
-            setOpen={setOpen}
-            setValue={setValue}
-            onChangeValue={() => setStartLocation(value)}
-            containerStyle={{
-              width: '88%',
-              marginBottom: 10,
-              zIndex: 2,
-              marginLeft: 30,
-              marginRight: 30,
-              marginTop: 10,
-              borderRadius: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            searchTextInputStyle={{
-              borderRadius: 30,
-              backgroundColor: 'transparent',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          />
-          <DropDownPicker
-            open={open1}
-            closeAfterSelecting={true}
-            itemSeparator={true}
-            value={value1}
-            itemKey="label"
-            theme="DARK"
-            schema={{
-              label: 'label',
-              value: 'value',
-            }}
             items={items}
-            placeholder={I18n.t('HOME_dropdown_placeholder_end')}
-            onChangeValue={() => setEndLocation(value1)}
-            setOpen={setOpen1}
-            setValue={setValue1}
-            containerStyle={{
-              width: '88%',
-              marginBottom: 10,
-              zIndex: 1,
-              marginLeft: 30,
-              marginRight: 30,
-              borderRadius: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
+            onValueChange={itemValue => setStartLocation(itemValue)}
+            _selectedItem={{
+              bg: 'cyan.600',
+            }}>
+            <Select.Item
+              label="Escola Superior de Tecnologia e Gestão"
+              value="ESTG"
+              lat="41.693463"
+              long="-8.846654"
+            />
+            <Select.Item
+              label="Escola Superior de Educação"
+              value="ESE"
+              lat="41.702491"
+              long="-8.820698"
+            />
+            <Select.Item
+              label="Escola Superior Agrária"
+              value="ESA"
+              lat="41.793549"
+              long="-8.54277"
+            />
+            <Select.Item
+              label="Escola Superior de Saúde"
+              value="ESS"
+              lat="41.697553"
+              long="-8.836266"
+            />
+            <Select.Item
+              label="Escola Superior de Desporto e Lazer"
+              value="ESDL"
+              lat="42.117427"
+              long="-8.271185"
+            />
+            <Select.Item
+              label="Escola Superior de Ciências Empresariais"
+              value="ESCE"
+              lat="42.031629"
+              long="-8.632825"
+            />
+            <Select.Item
+              label="Serviços Académicos"
+              value="SAS"
+              lat="41.693286"
+              long="-8.832566"
+            />
+          </Select>
+          <Select
+            selectedValue={endLocation}
+            minWidth="300"
+            mx={{
+              base: 0,
+              md: 'auto',
             }}
-            searchTextInputStyle={{
-              borderRadius: 30,
-              backgroundColor: 'transparent',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          />
+            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
+            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
+            items={items}
+            onValueChange={itemValue => setEndLocation(itemValue)}
+            _selectedItem={{
+              bg: 'cyan.600',
+            }}>
+            <Select.Item
+              label="Escola Superior de Tecnologia e Gestão"
+              value="ESTG"
+              lat="41.693463"
+              long="-8.846654"
+            />
+            <Select.Item
+              label="Escola Superior de Educação"
+              value="ESE"
+              lat="41.702491"
+              long="-8.820698"
+            />
+            <Select.Item
+              label="Escola Superior Agrária"
+              value="ESA"
+              lat="41.793549"
+              long="-8.54277"
+            />
+            <Select.Item
+              label="Escola Superior de Saúde"
+              value="ESS"
+              lat="41.697553"
+              long="-8.836266"
+            />
+            <Select.Item
+              label="Escola Superior de Desporto e Lazer"
+              value="ESDL"
+              lat="42.117427"
+              long="-8.271185"
+            />
+            <Select.Item
+              label="Escola Superior de Ciências Empresariais"
+              value="ESCE"
+              lat="42.031629"
+              long="-8.632825"
+            />
+            <Select.Item
+              label="Serviços Académicos"
+              value="SAS"
+              lat="41.693286"
+              long="-8.832566"
+            />
+          </Select>
           <Button
             iconRight
             onPress={() => searchRoutes()}
@@ -676,3 +724,4 @@ const styles = StyleSheet.create({
   },
 });
 export default HomeScreen;
+
