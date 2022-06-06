@@ -438,8 +438,8 @@ const HomeScreen = ({navigation}) => {
               base: 0,
               md: 'auto',
             }}
-            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
-            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
+            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_end')}
+            placeholder={I18n.t('HOME_dropdown_placeholder_end')}
             items={items}
             onValueChange={itemValue => setEndLocation(itemValue)}
             _selectedItem={{
