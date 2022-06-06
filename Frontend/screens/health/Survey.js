@@ -65,7 +65,7 @@ const Survey = ({navigation}) => {
   const [formData, setData] = useState({});
   const [showQuestion, setShowQuestion] = useState(0);
   const [selectedQuestion, setSelectedQuestion] = useState(false);
-  const maxQuestions = 23;
+  const maxQuestions = 24;
 
   const renderHeader = () => {
     return (

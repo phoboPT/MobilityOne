@@ -18,7 +18,7 @@ import ActionButton from 'react-native-action-button';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Geolocation from '@react-native-community/geolocation';
 import {FlatGrid} from 'react-native-super-grid';
-import api from '../services/api';
+import {routes} from '../services/api';
 import Moment from 'moment';
 import {Button} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -190,7 +190,9 @@ const HomeScreen = ({navigation}) => {
   async function getRecommendations(startLocation) {
     const recommendations = [];
     try {
-      const response = await api.get('/routes/startLocation/' + startLocation);
+      const response = await routes.get(
+        '/routes/startLocation/' + startLocation,
+      );
       if (response.data.length !== 0) {
         response.data.forEach(element => {
           if (element.userId !== JSON.parse(userId)) {
@@ -211,7 +213,7 @@ const HomeScreen = ({navigation}) => {
 
   async function getMyNextTravel() {
     try {
-      const response = await api.get('/routes/user');
+      const response = await routes.get('/routes/user');
       if (response.data.lenght !== undefined) {
         setHasNextRide(true);
         setNextTravel(response.data);
@@ -383,7 +385,7 @@ const HomeScreen = ({navigation}) => {
               value: 'value',
             }}
             items={items}
-            placeholder="Start Location"
+            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
             setOpen={setOpen}
             setValue={setValue}
             onChangeValue={() => setStartLocation(value)}
@@ -417,7 +419,7 @@ const HomeScreen = ({navigation}) => {
               value: 'value',
             }}
             items={items}
-            placeholder="End Location"
+            placeholder={I18n.t('HOME_dropdown_placeholder_end')}
             onChangeValue={() => setEndLocation(value1)}
             setOpen={setOpen1}
             setValue={setValue1}
@@ -458,7 +460,7 @@ const HomeScreen = ({navigation}) => {
                 }}
               />
             }
-            title="Search"
+            title={I18n.t('HOME_search')}
           />
         </View>
       </View>
@@ -477,7 +479,7 @@ const HomeScreen = ({navigation}) => {
             position: 'relative',
             fontWeight: '400',
           }}>
-          Recomendations:
+          {I18n.t('HOME_recommended')}
         </Text>
         <FlatList
           data={recommendations}
@@ -512,7 +514,9 @@ const HomeScreen = ({navigation}) => {
                     {Moment(item.startDate).format('lll')}
                   </Text>
                   <Text style={styles.itemCode}>
-                    Estimated Time: {item.estimatedTime}Minutes
+                    {I18n.t('GERAL_time') +
+                      item.estimatedTime +
+                      I18n.t('GERAL_minutes')}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -559,7 +563,9 @@ const HomeScreen = ({navigation}) => {
             justifyContent: 'center',
             marginRight: 40,
           }}>
-          <Text style={{fontSize: 24, fontWeight: '400'}}>Home</Text>
+          <Text style={{fontSize: 24, fontWeight: '400'}}>
+            {I18n.t('HOME_title')}
+          </Text>
         </View>
       </View>
     );

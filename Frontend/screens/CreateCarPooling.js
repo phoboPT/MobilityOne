@@ -15,7 +15,7 @@ import {Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
-import api from '../services/api';
+import {vehicles, routes} from '../services/api';
 import NumericInput from 'react-native-numeric-input';
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../utils/language';
@@ -61,7 +61,7 @@ const CreateCarPooling = ({navigation}) => {
   useEffect(() => {
     async function checkIfUserHasVehicles() {
       try {
-        const response = await api.get('/vehicles/me');
+        const response = await vehicles.get('/vehicles/me');
         if (response.data.length === 0) {
           Alert.alert(I18n.t('CREATECARPOOLING_needs_vehicle'), null, [
             {
@@ -119,7 +119,7 @@ const CreateCarPooling = ({navigation}) => {
 
   const postCarPooling = async () => {
     try {
-      await api.post('/routes', {
+      await routes.post('/routes', {
         type: '2',
         startLocation: startLocation,
         endLocation: endLocation,

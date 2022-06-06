@@ -7,9 +7,9 @@ I18n.translations = {
   en,
 };
 
-I18n.fallbacks = true; // If an English translation is not available in en.js, it will look inside hi.js
+I18n.fallbacks = true; // If an English translation is not available in en.js, it will look inside pt.js
 I18n.missingBehaviour = 'guess'; // It will convert HOME_noteTitle to "HOME note title" if the value of HOME_noteTitle doesn't exist in any of the translation files.
-I18n.defaultLocale = 'pt'; // If the current locale in device is not en or hi
+I18n.defaultLocale = 'pt'; // If the current locale in device is not en or pt
 // I18n.locale = 'en'; // If we do not want the framework to use the phone's locale by default
 
 export const setLocale = locale => {

@@ -12,7 +12,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {images, icons, COLORS, SIZES} from '../constants';
 import {ScrollView} from 'react-native';
-import api from '../services/api';
+import {auth, orders} from '../services/api';
 import Moment from 'moment';
 import I18n from '../utils/language';
 
@@ -109,7 +109,7 @@ const DestinationDetail = ({navigation, route}) => {
     }
     async function getUserInfo() {
       try {
-        const response = await api.get('/users/' + data.userId);
+        const response = await auth.get('/users/' + data.userId);
         setUser(response.data);
         setLoading(false);
       } catch (err) {
@@ -123,7 +123,7 @@ const DestinationDetail = ({navigation, route}) => {
 
   async function createOrder() {
     try {
-      const response = await api.post('/orders', {
+      const response = await orders.post('/orders', {
         routeId: data.id,
       });
       if (response.data !== undefined) {

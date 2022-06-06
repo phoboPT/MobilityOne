@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Avatar, Title, Caption, Drawer} from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import api from '../services/api';
-
+import {auth} from '../services/api';
+import I18n from '../utils/language';
 import {COLORS, icons, images} from '../constants';
 import AsyncStorage from '@react-native-community/async-storage';
 const styles = StyleSheet.create({
@@ -48,7 +48,7 @@ export function DrawerContent(props) {
   const [user, setUser] = useState(null);
   async function signOut() {
     try {
-      await api.get('/users/signout');
+      await auth.get('/users/signout');
       await AsyncStorage.removeItem('@App:userID');
     } catch (err) {
       console.log(err);
@@ -63,7 +63,7 @@ export function DrawerContent(props) {
   useEffect(() => {
     async function getCurrentUserDetails() {
       try {
-        const response = await api.get('/users/currentUser');
+        const response = await auth.get('/users/currentUser');
         setUser(response.data);
         if (response.data.photoUrl == null) {
           console.log('este utilizador nao tem foto');
@@ -124,7 +124,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Home"
+              label={I18n.t('NAVIGATION_home')}
               onPress={() => {
                 props.navigation.navigate('Home');
               }}
@@ -142,7 +142,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Requests"
+              label={I18n.t('NAVIGATION_requests')}
               onPress={() => {
                 props.navigation.navigate('My Routes');
               }}
@@ -161,7 +161,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Settings"
+              label={I18n.t('NAVIGATION_settings')}
               onPress={() => {
                 props.navigation.navigate('Settings');
               }}
@@ -179,7 +179,7 @@ export function DrawerContent(props) {
                   }}
                 />
               )}
-              label="Statistics"
+              label={I18n.t('NAVIGATION_stats')}
               onPress={() => {
                 props.navigation.navigate('Statistics');
               }}

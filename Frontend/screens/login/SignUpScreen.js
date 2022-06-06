@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
-import api from '../../services/api';
+import {auth} from '../../services/api';
 import {Alert} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Avatar} from 'react-native-elements';
@@ -90,7 +90,7 @@ const SignUpScreen = ({navigation}) => {
 
   async function signUp(photo) {
     try {
-      const response = await api.post('/users/signup', {
+      const response = await auth.post('/users/signup', {
         name: formData.name,
         email: formData.email,
         password: formData.password,

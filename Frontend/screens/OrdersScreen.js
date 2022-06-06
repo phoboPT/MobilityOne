@@ -10,7 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {images, icons, SIZES} from '../constants';
-import api from '../services/api';
+import {auth, routes, orders} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import {Avatar} from 'react-native-elements';
 import {Alert} from 'react-native';
@@ -28,7 +28,7 @@ const OrdersScreen = ({navigation, route}) => {
   async function getOrders() {
     setLoading(true);
     try {
-      const response = await api.get('/orders/routeId/' + data.id);
+      const response = await orders.get('/orders/routeId/' + data.id);
       setOrders(response.data);
       getUsers(response.data);
       setLoading(false);
@@ -46,7 +46,7 @@ const OrdersScreen = ({navigation, route}) => {
 
   async function endRoute() {
     try {
-      await api.put('/routes/' + data.id);
+      await routes.put('/routes/' + data.id);
       Alert.alert(I18n.t('ORDER_end_route'));
     } catch (err) {
       console.log(err);
@@ -55,7 +55,7 @@ const OrdersScreen = ({navigation, route}) => {
 
   async function getUserInfo(id) {
     try {
-      const response = await api.get('/users/' + id);
+      const response = await auth.get('/users/' + id);
       setUsers(users => [...users, response.data]);
     } catch (err) {
       console.log(err);
@@ -76,7 +76,7 @@ const OrdersScreen = ({navigation, route}) => {
 
   async function acceptOrder(order) {
     try {
-      await api.post('/orders/accepted', {
+      await orders.post('/orders/accepted', {
         id: order.id,
       });
       Alert.alert(I18n.t('ORDER_accepted'));
@@ -88,7 +88,7 @@ const OrdersScreen = ({navigation, route}) => {
 
   async function cancelledOrder(order) {
     try {
-      await api.post('/orders/cancelled', {
+      await orders.post('/orders/cancelled', {
         id: order.id,
       });
       Alert.alert(I18n.t('ORDER_cancelled'));

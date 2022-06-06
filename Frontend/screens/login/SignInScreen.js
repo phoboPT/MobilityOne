@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {TouchableOpacity, Alert, Platform} from 'react-native';
-import api from '../../services/api';
+import {auth} from '../../services/api';
 import images from '../../constants/images';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
@@ -13,7 +13,6 @@ import {
   Button,
   HStack,
   Center,
-  Image,
   NativeBaseProvider,
   KeyboardAvoidingView,
 } from 'native-base';
@@ -30,7 +29,7 @@ const SignInScreen = ({navigation}) => {
   // temail@testdefff.com
   async function onSubmit() {
     try {
-      const response = await api.post('/users/signin', {
+      const response = await auth.post('/users/signin', {
         email: formData.email,
         password: formData.password,
       });
