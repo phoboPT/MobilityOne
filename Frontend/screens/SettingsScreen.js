@@ -49,7 +49,9 @@ const SettingsScreen = ({navigation}) => {
       const isChecked = await AsyncStorage.getItem('@App:activityRequest');
       if (isChecked === 'true') {
         setCheked(true);
+        HAR_Module.HAR_Begin_Service();
       } else {
+        HAR_Module.HAR_Stop_Service();
         setCheked(false);
       }
     }

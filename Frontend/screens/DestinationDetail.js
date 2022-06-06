@@ -104,7 +104,7 @@ const DestinationDetail = ({navigation, route}) => {
   const [user, setUser] = useState(null);
   const [haveBus, setHaveBus] = useState(null);
   useEffect(() => {
-    if (allData !== undefined && allData.length > 1) {
+    if (allData !== null && allData.length > 1) {
       setHaveBus(true);
     }
     async function getUserInfo() {
@@ -127,7 +127,6 @@ const DestinationDetail = ({navigation, route}) => {
         routeId: data.id,
       });
       if (response.data !== undefined) {
-        console.log(response.data);
         Alert.alert(I18n.t('GERAL_created'));
         navigation.navigate('Home');
       }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,9 +11,25 @@ import LinearGradient from 'react-native-linear-gradient';
 import I18n from '../utils/language';
 
 import {COLORS, SIZES, images} from '../constants';
+import AsyncStorage from '@react-native-community/async-storage';
+import {NativeModules} from 'react-native';
+const {HAR_Module} = NativeModules;
 
 const Onboarding = ({navigation}) => {
   // Render
+
+  useEffect(() => {
+    async function setAR() {
+      const isChecked = await AsyncStorage.getItem('@App:activityRequest');
+      if (isChecked === 'true') {
+        HAR_Module.HAR_Begin_Service();
+      } else {
+        HAR_Module.HAR_Stop_Service();
+      }
+    }
+
+    setAR();
+  });
 
   return (
     <SafeAreaView style={styles.container}>
