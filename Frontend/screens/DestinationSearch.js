@@ -33,7 +33,7 @@ const DestinationSearch = ({route, navigation}) => {
         );
         filterRoutes(response.data);
       } catch (err) {
-        console.log(err);
+        console.log(`error: ${err}`);
         Alert.alert(I18n.t('DESTINATIONSEARCH_error_alert'));
         setLoading(false);
       }

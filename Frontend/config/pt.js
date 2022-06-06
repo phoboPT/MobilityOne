@@ -82,7 +82,7 @@ export default {
   HOME_dropdown_placeholder_start: 'Onde está:',
   HOME_dropdown_placeholder_end: 'Onde deseja ir:',
   HOME_search: 'Pesquisar',
-  HOME_recommended: 'Rotas recomendadas:',
+  HOME_recommended: 'Perto de si:',
   NAVIGATION_home: 'Inicio',
   NAVIGATION_requests: 'Pedidos',
   NAVIGATION_settings: 'Configurações',

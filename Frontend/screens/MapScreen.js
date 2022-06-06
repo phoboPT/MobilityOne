@@ -21,7 +21,6 @@ const MapScreen = ({navigation, route}) => {
   const [GeoJsonCar, setGeoJsonCar] = useState(null);
   const [haveBus, setHaveBus] = useState(false);
   const {mapType, startLocation, endLocation, middleLocation} = route.params;
-  const {region, setRegion} = useState([]);
   const [endLocationDescription, setEndLocationDescription] = useState({
     name: endLocation,
     latitude: null,
@@ -44,10 +43,8 @@ const MapScreen = ({navigation, route}) => {
   const findCoordinates = () => {
     Geolocation.getCurrentPosition(
       position => {
-        lat1 = JSON.stringify(position.coords.latitude);
-        lng1 = JSON.stringify(position.coords.longitude);
-        lat = lat1;
-        lng = lng1;
+        lat = JSON.stringify(position.coords.latitude);
+        lng = JSON.stringify(position.coords.longitude);
         if (lat !== undefined) {
           setInitialPosition({
             latitude: Number(lat),
@@ -63,67 +60,65 @@ const MapScreen = ({navigation, route}) => {
     );
   };
 
-  const getBusRoute = (start, end) => {
-    return fetch(
-      'https://raw.githubusercontent.com/phoboPT/MobilityApp/development/mobility-one-routes/' +
-        start +
-        '/' +
-        end +
-        '.geojson',
-    )
-      .then(response => response.json())
-      .then(json => {
-        if (json !== null) {
-          setGeoJsonBus(json);
-          setHaveBus(true);
-          setLoading(false);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  const getBusRoute = async (start, end) => {
+    try {
+      const response = await fetch(
+        'https://raw.githubusercontent.com/phoboPT/MobilityApp/development/mobility-one-routes/' +
+          start +
+          '/' +
+          end +
+          '.geojson',
+      );
+      const json = await response.json();
+      if (json !== null) {
+        setGeoJsonBus(json);
+        setHaveBus(true);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const getCarRoute = (start, end) => {
-    return fetch(
-      'https://raw.githubusercontent.com/phoboPT/MobilityApp/main/mobility-one-routes/' +
-        start +
-        '/' +
-        end +
-        '.geojson',
-    )
-      .then(response => response.json())
-      .then(json => {
-        if (json !== null) {
-          setGeoJsonCar(json);
-          setEndLocationDescription({
-            name: json.features[2].properties.name,
-            latitude: json.features[2].geometry.coordinates[1],
-            longitude: json.features[2].geometry.coordinates[0],
-          });
-          setStartLocationDescription({
-            name: json.features[1].properties.name,
-            latitude: json.features[1].geometry.coordinates[1],
-            longitude: json.features[1].geometry.coordinates[0],
-          });
-          getRegionForCoordinates(
-            startLocationDescription,
-            endLocationDescription,
-          );
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  const getCarRoute = async (start, end) => {
+    try {
+      const response = await fetch(
+        'https://raw.githubusercontent.com/phoboPT/MobilityApp/main/mobility-one-routes/' +
+          start +
+          '/' +
+          end +
+          '.geojson',
+      );
+      const json = await response.json();
+      if (json !== null) {
+        setGeoJsonCar(json);
+        setEndLocationDescription({
+          name: json.features[2].properties.name,
+          latitude: json.features[2].geometry.coordinates[1],
+          longitude: json.features[2].geometry.coordinates[0],
+        });
+        setStartLocationDescription({
+          name: json.features[1].properties.name,
+          latitude: json.features[1].geometry.coordinates[1],
+          longitude: json.features[1].geometry.coordinates[0],
+        });
+        getRegionForCoordinates(
+          startLocationDescription,
+          endLocationDescription,
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     findCoordinates();
-    if (mapType == 'Bus') {
+    if (mapType === 'Bus') {
       getBusRoute();
-    } else if (mapType == 'Car') {
+    } else if (mapType === 'Car') {
       getCarRoute(startLocation, endLocation);
-    } else if (mapType == 'Mixed') {
+    } else if (mapType === 'Mixed') {
       getCarRoute(startLocation, middleLocation);
       getBusRoute(middleLocation, endLocation);
     }
@@ -132,7 +127,7 @@ const MapScreen = ({navigation, route}) => {
   const userLocationChanged = event => {
     const newRegion = event.nativeEvent.coordinate;
 
-    if (!(newRegion.latitude == lat && newRegion.longitude == lng)) {
+    if (!(newRegion.latitude === lat && newRegion.longitude === lng)) {
       lat = newRegion.latitude;
       lng = newRegion.longitude;
     }
@@ -143,20 +138,20 @@ const MapScreen = ({navigation, route}) => {
     lngDelta = event.longitudeDelta * 0.77426815;
   };
 
-  const onMarkerPress = e => {
-    console.log(e.nativeEvent.coordinate);
-  };
+  // const onMarkerPress = e => {
+  //   console.log(e.nativeEvent.coordinate);
+  // };
 
-  const centrarUtl = () => {
-    var initialRegion = {
-      latitude: Number(lat),
-      longitude: Number(lng),
-      longitudeDelta: 0.01,
-      latitudeDelta: 0.01,
-    };
+  // const centrarUtl = () => {
+  //   var initialRegion = {
+  //     latitude: Number(lat),
+  //     longitude: Number(lng),
+  //     longitudeDelta: 0.01,
+  //     latitudeDelta: 0.01,
+  //   };
 
-    setInitialPosition(initialRegion);
-  };
+  //   setInitialPosition(initialRegion);
+  // };
 
   const getRegionForCoordinates = (startPoint, finishPoint) => {
     // points should be an array of { latitude: X, longitude: Y }
@@ -181,10 +176,10 @@ const MapScreen = ({navigation, route}) => {
       maxY = Math.max(maxY, point.longitude);
     });
 
-    const midX = (minX + maxX) / 2;
-    const midY = (minY + maxY) / 2;
-    const deltaX = maxX - minX;
-    const deltaY = maxY - minY;
+    // const midX = (minX + maxX) / 2;
+    // const midY = (minY + maxY) / 2;
+    // const deltaX = maxX - minX;
+    // const deltaY = maxY - minY;
 
     setLoading(false);
   };

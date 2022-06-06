@@ -1,13 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {create} from 'apisauce';
-
+const token = await AsyncStorage.getItem('@App:token');
 const auth = create({
   baseURL: 'http://smob.esce.ipvc.pt:3000/api',
 });
 
 auth.addAsyncRequestTransform(request => async () => {
-  const token = await AsyncStorage.getItem('@App:token');
-
   if (token) {
     request.headers.Authorization = `Bearer ${token}`;
   }
@@ -24,8 +22,6 @@ const orders = create({
 });
 
 orders.addAsyncRequestTransform(request => async () => {
-  const token = await AsyncStorage.getItem('@App:token');
-
   if (token) {
     request.headers.Authorization = `Bearer ${token}`;
   }
@@ -42,8 +38,6 @@ const routes = create({
 });
 
 routes.addAsyncRequestTransform(request => async () => {
-  const token = await AsyncStorage.getItem('@App:token');
-
   if (token) {
     request.headers.Authorization = `Bearer ${token}`;
   }
@@ -60,8 +54,6 @@ const vehicles = create({
 });
 
 vehicles.addAsyncRequestTransform(request => async () => {
-  const token = await AsyncStorage.getItem('@App:token');
-
   if (token) {
     request.headers.Authorization = `Bearer ${token}`;
   }
