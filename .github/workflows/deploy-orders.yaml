@@ -22,5 +22,6 @@ jobs:
           cd /home/tecnicoesce/Documentos/MobilityOne
           git pull
           cd orders
-          npm run build
-          pm2 reload orders
+          pm2 stop orders
+          npm start
+          

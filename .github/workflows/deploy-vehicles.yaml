@@ -22,5 +22,5 @@ jobs:
           cd /home/tecnicoesce/Documentos/MobilityOne
           git pull
           cd vehicles
-          npm run build
-          pm2 reload vehicles
+          pm2 stop vehicles
+          npm start
