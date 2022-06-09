@@ -20,16 +20,16 @@ const start = async () => {
   }
 
   try {
-    // await natsWrapper.connect('orders', process.env.NATS_CLIENT_ID, process.env.NATS_URL);
-    // natsWrapper.client.on('close', () => {
-    //   console.log('NATS connection closed');
-    //   process.exit();
-    // });
-    // process.on('SIGINT', () => natsWrapper.client.close());
-    // process.on('SIGTERM', () => natsWrapper.client.close());
-    // new OrderCreatedListener(natsWrapper.client).listen();
-    // new OrderUpdatedListener(natsWrapper.client).listen();
-    // new OrderFinishedListener(natsWrapper.client).listen();
+    await natsWrapper.connect('orders', process.env.NATS_CLIENT_ID, process.env.NATS_URL);
+    natsWrapper.client.on('close', () => {
+      console.log('NATS connection closed');
+      process.exit();
+    });
+    process.on('SIGINT', () => natsWrapper.client.close());
+    process.on('SIGTERM', () => natsWrapper.client.close());
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderUpdatedListener(natsWrapper.client).listen();
+    new OrderFinishedListener(natsWrapper.client).listen();
     await mongoose.connect(process.env.MONGO_URI);
 
     console.log('Connected to mongo DB');
