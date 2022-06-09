@@ -21,7 +21,7 @@ const start = async () => {
   }
 
   try {
-    await natsWrapper.connect('orders', '1', 'nats://nats:4222');
+    await natsWrapper.connect('orders', '2', 'nats://localhost:4222');
     natsWrapper.client.on('close', () => {
       console.log('NATS connection closed');
       process.exit();
