@@ -34,7 +34,6 @@ const HomeScreen = ({navigation}) => {
   const [startLocation, setStartLocation] = React.useState('');
   const [endLocation, setEndLocation] = React.useState('');
   const [open, setOpen] = useState(false);
-  const [open1, setOpen1] = useState(false);
   const [nextTravel, setNextTravel] = useState(null);
   const [value, setValue] = useState(null);
   const [value1, setValue1] = useState(null);
@@ -724,4 +723,3 @@ const styles = StyleSheet.create({
   },
 });
 export default HomeScreen;
-

@@ -71,7 +71,7 @@ export function DrawerContent(props) {
           await AsyncStorage.setItem('@App:userIMAGE', response.data.photoUrl);
         }
       } catch (err) {
-        AsyncStorage.removeItem('@App:userID');
+        await AsyncStorage.removeItem('@App:userID');
         props.navigation.reset({
           index: 0,
           routes: [{name: 'SignInScreen'}],

@@ -14,16 +14,15 @@ import {icons, SIZES, COLORS, images} from '../constants';
 import {Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-date-picker';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {vehicles, routes} from '../services/api';
 import NumericInput from 'react-native-numeric-input';
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../utils/language';
-import {Select, NativeBaseProvider} from 'native-base';
+import {Select, NativeBaseProvider, Container, Box, Center} from 'native-base';
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row', height: 50},
-  container2: {flexDirection: 'column', height: 50},
+  container: {flexDirection: 'row', height: 50, zIndex: 1},
+  container2: {flexDirection: 'column', height: 50, zIndex: 20},
 });
 
 const CreateCarPooling = ({navigation}) => {
@@ -33,22 +32,15 @@ const CreateCarPooling = ({navigation}) => {
   const [estimatedTime, setEstimatedTime] = React.useState(10);
   const [userVehicles, setUserVehicles] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
-  const [vehicle, setVehicle] = React.useState(null);
+  const [vehicle, setVehicle] = React.useState([]);
   const [capacities, setCapacities] = React.useState(null);
   const [capacity, setCapacity] = React.useState(null);
   const [userImage, setUserImage] = React.useState(null);
-  const [vehicleChoosed, setVehicleChoosed] = React.useState(false);
+  const [vehicleChoosed, setVehicleChoosed] = React.useState(null);
   const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [open3, setOpen3] = useState(false);
-  const [value, setValue] = useState(null);
-  const [value1, setValue1] = useState(null);
+
   const [value2, setValue2] = useState(null);
   const [value3, setValue3] = useState(null);
-
-  const [capacityOptions, setCapacityOptions] = useState(null);
 
   const [items, setItems] = useState([
     {label: 'ESTG', value: 'Escola Superior de Tecnologia e Gestão'},
@@ -140,7 +132,7 @@ const CreateCarPooling = ({navigation}) => {
     }
   };
 
-  const CarPoolingCapacity = async idVehicle => {
+  const carPoolingCapacity = async idVehicle => {
     setVehicle(idVehicle);
     var capacityList = [];
     var arrayOfObjects = [];
@@ -202,12 +194,11 @@ const CreateCarPooling = ({navigation}) => {
   }
 
   function renderCreateCarPooling() {
-    console.log(startLocation);
     return (
-      <NativeBaseProvider>
-        <View style={styles.container2}>
+      <Center>
+        <Box>
           <Select
-            selectedValue={startLocation}
+            value={startLocation}
             minWidth="300"
             mx={{
               base: 0,
@@ -244,9 +235,27 @@ const CreateCarPooling = ({navigation}) => {
               lat="41.697553"
               long="-8.836266"
             />
+            <Select.Item
+              label="Escola Superior de Desporto e Lazer"
+              value="ESDL"
+              lat="42.117427"
+              long="-8.271185"
+            />
+            <Select.Item
+              label="Escola Superior de Ciências Empresariais"
+              value="ESCE"
+              lat="42.031629"
+              long="-8.632825"
+            />
+            <Select.Item
+              label="Serviços Académicos"
+              value="SAS"
+              lat="41.693286"
+              long="-8.832566"
+            />
           </Select>
           <Select
-            selectedValue={endLocation}
+            value={endLocation}
             minWidth="300"
             mx={{
               base: 0,
@@ -302,101 +311,117 @@ const CreateCarPooling = ({navigation}) => {
               long="-8.832566"
             />
           </Select>
-          <Select
-            selectedValue={value2}
-            minWidth="300"
-            mx={{
-              base: 0,
-              md: 'auto',
-            }}
-            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
-            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
-            items={userVehicles}
-            onValueChange={itemValue => CarPoolingCapacity(itemValue)}
-            _selectedItem={{
-              bg: 'cyan.600',
-            }}></Select>
 
-          {vehicleChoosed && (
+          <Text />
+          {/* {vehicle && (
             <Select
-              selectedValue={value3}
               minWidth="300"
               mx={{
                 base: 0,
                 md: 'auto',
               }}
-              accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
-              placeholder={I18n.t('HOME_dropdown_placeholder_start')}
-              items={capacities}
-              onValueChange={itemValue => setCapacity(itemValue)}
+              items={vehicle}
+              accessibilityLabel={I18n.t('HOME_dropdown_car')}
+              placeholder={I18n.t('HOME_dropdown_car')}
+              onValueChange={itemValue => setVehicleChoosed(itemValue)}
               _selectedItem={{
                 bg: 'cyan.600',
-              }}></Select>
-          )}
-
-          <View>
-            <Text
-              style={{
-                alignSelf: 'center',
-                fontSize: SIZES.body2,
-                marginBottom: 15,
-                fontWeight: '400',
-                color: COLORS.black,
               }}>
-              {I18n.t('CREATECARPOOLING_estimatedTime')}
-            </Text>
-            <NumericInput
-              value={estimatedTime}
-              z
-              onLimitReached={() =>
-                Alert.alert(I18n.t('CREATECARPOOLING_alert'))
-              }
-              totalWidth={240}
-              editable
-              minValue={10}
-              totalHeight={50}
-              iconSize={25}
-              step={5}
-              containerStyle={{
-                marginBottom: 17,
-              }}
-              valueType="real"
-              rounded
-              textColor="black"
-              iconStyle={{color: 'white'}}
-              rightButtonBackgroundColor={COLORS.primary}
-              leftButtonBackgroundColor={COLORS.gray}
+              <Select.Item
+                label="Serviços Académicos"
+                value="SAS"
+                lat="41.693286"
+                long="-8.832566"
+              />
+              {vehicle.map(item => {
+                return <Select.Item label="23" value={item.id} />;
+              })}
+            </Select>
+          )} */}
+
+          <Select
+            value={vehicleChoosed}
+            minWidth="300"
+            mx={{
+              base: 0,
+              md: 'auto',
+            }}
+            items={vehicle}
+            accessibilityLabel={I18n.t('HOME_dropdown_car')}
+            placeholder={I18n.t('HOME_dropdown_car')}
+            onValueChange={itemValue => setVehicleChoosed(itemValue)}
+            _selectedItem={{
+              bg: 'cyan.600',
+            }}>
+            <Select.Item
+              label="Serviços Académicos"
+              value="SAS"
+              lat="41.693286"
+              long="-8.832566"
             />
-          </View>
+            {vehicle.map(item => {
+              console.log(item);
+              return <Input label="23" value={item.id} />;
+            })}
+          </Select>
+
+          <Text
+            style={{
+              alignSelf: 'center',
+              fontSize: SIZES.body2,
+              marginBottom: 15,
+              fontWeight: '400',
+              color: COLORS.black,
+            }}>
+            {I18n.t('CREATECARPOOLING_estimatedTime')}
+          </Text>
+          <NumericInput
+            value={estimatedTime}
+            onChange={value => setEstimatedTime(value)}
+            onLimitReached={() => Alert.alert(I18n.t('CREATECARPOOLING_alert'))}
+            totalWidth={240}
+            editable
+            minValue={10}
+            totalHeight={50}
+            iconSize={25}
+            step={5}
+            containerStyle={{
+              marginBottom: 17,
+            }}
+            valueType="real"
+            rounded
+            textColor="black"
+            iconStyle={{color: 'white'}}
+            rightButtonBackgroundColor={COLORS.primary}
+            leftButtonBackgroundColor={COLORS.gray}
+          />
 
           <Input
-            placeholder="Description (Optional)"
+            placeholder={I18n.t('CREATECARPOOLING_description')}
             multiline
             placeholderTextColor="black"
             containerStyle={{width: '90%'}}
             onChangeText={value => setDescription(value)}
           />
 
-          <View>
-            <Text
-              style={{
-                alignSelf: 'center',
-                fontSize: SIZES.body2,
-                fontWeight: '400',
-                color: COLORS.black,
-              }}>
-              {I18n.t('CREATECARPOOLING_startTime')}
-            </Text>
-            <DatePicker
-              collapsable
-              minimumDate={new Date()}
-              locale="pt"
-              is24hourSource="locale"
-              androidVariant="iosClone"
-              date={date}
-              onDateChange={setDate}
-            />
-          </View>
+          <Text
+            style={{
+              alignSelf: 'center',
+              fontSize: SIZES.body2,
+              fontWeight: '400',
+              color: COLORS.black,
+            }}>
+            {I18n.t('CREATECARPOOLING_startTime')}
+          </Text>
+          <DatePicker
+            collapsable
+            minimumDate={new Date()}
+            locale="pt"
+            is24hourSource="locale"
+            androidVariant="iosClone"
+            date={date}
+            onDateChange={setDate}
+          />
 
           <Button
             onPress={() => validateInputs()}
@@ -416,28 +441,29 @@ const CreateCarPooling = ({navigation}) => {
             iconRight
             title={I18n.t('CREATECARPOOLING_create')}
           />
-        </View>
-      </NativeBaseProvider>
+        </Box>
+      </Center>
     );
   }
 
   return (
-    <ImageBackground
-      style={{flex: 1, resizeMode: 'cover'}}
-      source={images.background}>
-      {loading ? (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <ActivityIndicator size="large" color={COLORS.primary} />
-        </View>
-      ) : (
-        <SafeAreaView>
-          {renderHeader()}
-          {renderCreateCarPooling()}
-        </SafeAreaView>
-      )}
-    </ImageBackground>
+    <NativeBaseProvider>
+      <ImageBackground
+        style={{flex: 1, resizeMode: 'cover'}}
+        source={images.background}>
+        {loading ? (
+          <View>
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          </View>
+        ) : (
+          <>
+            {renderHeader()}
+            {renderCreateCarPooling()}
+          </>
+        )}
+      </ImageBackground>
+    </NativeBaseProvider>
   );
 };
 
 export default CreateCarPooling;
-

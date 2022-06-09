@@ -60,6 +60,8 @@ export default {
   CREATEVIHECLE_limit_alert: 'Capacidade minima de veículo é 2',
   CREATEVIHECLE_button: 'Criar',
   CREATEVIHECLE_capacity: 'Capacidade',
+  CREATECARPOOLING_description: 'Descrição',
+  HOME_dropdown_car: 'Veículos',
   GERAL_minutes: 'minutos',
   GERAL_error: 'Occoreu um erro!',
   GERAL_created: 'Criado',

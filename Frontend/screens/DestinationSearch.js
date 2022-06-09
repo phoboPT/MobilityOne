@@ -12,11 +12,43 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {images, icons, SIZES} from '../constants';
-import {routes} from '../services/api';
+import {routes as routeAPI} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import Moment from 'moment';
 import I18n from '../utils/language';
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  gridView: {
+    marginTop: 10,
+    flex: 1,
+  },
+  itemContainer: {
+    justifyContent: 'flex-start',
+    borderRadius: 25,
+    padding: 10,
+    height: 150,
+  },
+  itemName: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  itemDate: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  userName: {
+    fontSize: 16,
+    marginTop: 3,
+    fontWeight: '800',
+  },
+  itemCode: {
+    fontWeight: '500',
+    fontSize: 12,
+    opacity: 0.99,
+  },
+});
 const DestinationSearch = ({route, navigation}) => {
   const [loading, setLoading] = useState(true);
   const {name, endLocation, startLocation} = route.params;
@@ -28,7 +60,7 @@ const DestinationSearch = ({route, navigation}) => {
     async function getRoutes() {
       setLoading(true);
       try {
-        const response = await routes.get(
+        const response = await routeAPI.get(
           '/routes/start/' + startLocation + '/end/' + endLocation,
         );
         filterRoutes(response.data);
@@ -176,37 +208,3 @@ const DestinationSearch = ({route, navigation}) => {
 };
 
 export default DestinationSearch;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gridView: {
-    marginTop: 10,
-    flex: 1,
-  },
-  itemContainer: {
-    justifyContent: 'flex-start',
-    borderRadius: 25,
-    padding: 10,
-    height: 150,
-  },
-  itemName: {
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  itemDate: {
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  userName: {
-    fontSize: 16,
-    marginTop: 3,
-    fontWeight: '800',
-  },
-  itemCode: {
-    fontWeight: '500',
-    fontSize: 12,
-    opacity: 0.99,
-  },
-});

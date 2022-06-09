@@ -1,11 +1,8 @@
 import React, {useState} from 'react';
 import {Platform, StyleSheet, TouchableOpacity} from 'react-native';
-import api from '../../services/api';
-import AsyncStorage from '@react-native-community/async-storage';
 import {
   Box,
   Heading,
-  VStack,
   Center,
   NativeBaseProvider,
   Button,

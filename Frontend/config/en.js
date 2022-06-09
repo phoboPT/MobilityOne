@@ -58,6 +58,8 @@ export default {
   CREATEVIHECLE_car_model_placeholder: 'Car Model',
   CREATEVIHECLE_limit_alert: 'Minimum vehicle capacity is 2',
   CREATEVIHECLE_button: 'Create',
+  CREATECARPOOLING_description: 'Description',
+  HOME_dropdown_car: 'Car',
   GERAL_minutes: 'minutes',
   GERAL_error: 'An error occurred!',
   GERAL_created: 'Created',
