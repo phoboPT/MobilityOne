@@ -23,12 +23,12 @@ router.post(
     });
     await vehicle.save();
 
-    await new VehiculeCreatedPublisher(natsWrapper.client).publish({
-      id: vehicle.id,
-      type: vehicle.type,
-      userId: vehicle.userId,
-      location: '',
-    });
+    // await new VehiculeCreatedPublisher(natsWrapper.client).publish({
+    //   id: vehicle.id,
+    //   type: vehicle.type,
+    //   userId: vehicle.userId,
+    //   location: '',
+    // });
 
     res.status(201).send(vehicle);
   }
