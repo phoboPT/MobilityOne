@@ -1,13 +1,9 @@
-import { OrderCancelledPublisher } from './../events/publishers/order-cancelled-publisher';
-import { natsWrapper } from './../nats-wrapper';
-
 import { requiredAuth, validateRequest, NotFoundError, OrderStatus } from '@mobileorg/common-lib';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import mongoose from 'mongoose';
 import { Order } from '../models/order';
-import { Route } from '../../../routes/src/models/route';
-import { OrderFinishPublisher } from '../events/publishers/order-finish-publisher';
+// import { Route } from '../../../routes/src/models/route';
 
 const router = express.Router();
 
@@ -40,11 +36,11 @@ router.post(
 
     await order.save();
 
-    const route = await Route.findById(order.route.id);
-    if (route) {
-      route.set({ actualCapacity: route.actualCapacity + 1 });
-      await route.save();
-    }
+    // const route = await Route.findById(order.route.id);
+    // if (route) {
+    //   route.set({ actualCapacity: route.actualCapacity + 1 });
+    //   await route.save();
+    // }
     res.status(201).send(order);
   }
 );
@@ -85,11 +81,11 @@ router.post(
     //     },
     // });
 
-    const route = await Route.findById(order.route.id);
-    if (route) {
-      route.set({ actualCapacity: route.actualCapacity - 1 });
-      await route.save();
-    }
+    // const route = await Route.findById(order.route.id);
+    // if (route) {
+    //   route.set({ actualCapacity: route.actualCapacity - 1 });
+    //   await route.save();
+    // }
     res.status(201).send(order);
   }
 );
@@ -126,12 +122,12 @@ router.post(
       //       id: item.routeId,
       //     },
       //   });
-      const routes = await Route.findById(item.routeId);
-      if (routes) {
-        routes.set({ actualCapacity: routes.capacity });
-        await routes.save();
-      }
-      await item.save();
+      // const routes = await Route.findById(item.routeId);
+      // if (routes) {
+      //   routes.set({ actualCapacity: routes.capacity });
+      //   await routes.save();
+      // }
+      // await item.save();
     });
 
     res.status(201).send(order);

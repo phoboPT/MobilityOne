@@ -20,15 +20,6 @@ const start = async () => {
   }
 
   try {
-    // console.log('orders', process.env.NATS_CLIENT_ID, process.env.NATS_URL);
-    // await natsWrapper.connect('orders', '4', 'nats://localhost:4222');
-    // natsWrapper.client.on('close', () => {
-    //   console.log('NATS connection closed');
-    //   process.exit();
-    // });
-    // process.on('SIGINT', () => natsWrapper.client.close());
-    // process.on('SIGTERM', () => natsWrapper.client.close());
-
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to mongo DB');
   } catch (err) {

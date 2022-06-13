@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/api/users/currentUser', currentUser, async (req, res) => {
   const user = await User.findById(req.currentUser?.id);
-  console.log(user);
+  console.log(req.currentUser?.id);
   res.status(200).send(user);
 });
 

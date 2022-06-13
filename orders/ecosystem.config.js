@@ -4,7 +4,7 @@ module.exports = {
       name: 'orders',
       exec_mode: 'cluster',
       instances: 1,
-      script: './build/index.js',
+      script: './build/orders/src/index.js',
       env: {
         JWT_KEY: 'asjdfhasjd²³²¡€32461²¡€856jhdjAFSD!@#^$@73',
         MONGO_URI: 'mongodb://localhost:27017/orders',

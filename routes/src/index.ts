@@ -1,10 +1,6 @@
-import { OrderUpdatedListener } from './events/listeners/order-update-listener';
-import { OrderCreatedListener } from './events/listeners/order-created-listener';
-import { OrderFinishedListener } from './events/listeners/order-finished-listener';
 import mongoose from 'mongoose';
 import { app } from './app';
-import { natsWrapper } from './nats-wrapper';
-
+import 'dotenv/config';
 const start = async () => {
   if (!process.env.MONGO_URI) {
     throw new Error('MONGO_URI not defined');

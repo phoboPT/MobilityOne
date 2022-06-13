@@ -18,7 +18,14 @@ import {vehicles, routes} from '../services/api';
 import NumericInput from 'react-native-numeric-input';
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../utils/language';
-import {Select, NativeBaseProvider, Container, Box, Center} from 'native-base';
+import {
+  Select,
+  NativeBaseProvider,
+  Container,
+  Box,
+  Center,
+  KeyboardAvoidingView,
+} from 'native-base';
 
 const styles = StyleSheet.create({
   container: {flexDirection: 'row', height: 50, zIndex: 1},
@@ -397,22 +404,14 @@ const CreateCarPooling = ({navigation}) => {
           />
 
           <Input
+            style={{
+              width: '300px',
+            }}
+            variant="outline"
             placeholder={I18n.t('CREATECARPOOLING_description')}
             multiline
-            placeholderTextColor="black"
-            containerStyle={{width: '90%'}}
-            onChangeText={value => setDescription(value)}
           />
 
-          <Text
-            style={{
-              alignSelf: 'center',
-              fontSize: SIZES.body2,
-              fontWeight: '400',
-              color: COLORS.black,
-            }}>
-            {I18n.t('CREATECARPOOLING_startTime')}
-          </Text>
           <DatePicker
             collapsable
             minimumDate={new Date()}

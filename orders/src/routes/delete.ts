@@ -1,32 +1,30 @@
 import express, { Request, Response } from 'express';
-import { requiredAuth, NotFoundError, NotAuthorizedError, OrderStatus } from '@mobileorg/common-lib';
+import { doRequest, NotFoundError, NotAuthorizedError, OrderStatus } from '@mobileorg/common-lib';
 import { Order } from '../models/order';
-import { Route } from '../../../routes/src/models/route';
 
 const router = express.Router();
 
-router.delete('/api/orders/:orderId', requiredAuth, async (req: Request, res: Response) => {
-  const { orderId } = req.params;
+router.delete('/api/orders/:orderId', async (req: Request, res: Response) => {
+  try {
+    const { orderId } = req.params;
 
-  const order = await Order.findById(orderId).populate('route');
+    const order = await Order.findById(orderId).populate('route');
 
-  if (!order) {
-    throw new NotFoundError({ details: 'error' });
+    if (!order) {
+      throw new NotFoundError({ details: 'error' });
+    }
+    if (order.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
+    order.status = OrderStatus.Cancelled;
+    await order.save();
+
+    await doRequest(`http://localhost:3002/api/routes/${order.routeId}`, { incCapacity: true }, 'PUT');
+
+    res.status(204).send(order);
+  } catch (error) {
+    console.log(error);
   }
-  if (order.userId !== req.currentUser!.id) {
-    throw new NotAuthorizedError();
-  }
-  order.status = OrderStatus.Cancelled;
-  await order.save();
-
-
-  const route = await Route.findById(order.route.id);
-  if (route) {
-    route.set({ actualCapacity: route.actualCapacity + 1 });
-    await route.save();
-  }
-
-  res.status(204).send(order);
 });
 
 export { router as deleteOrderRouter };
