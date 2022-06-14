@@ -30,9 +30,7 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const { routeId } = req.body;
-    console.log(routeId);
     const route = await Route.findOne({ id: routeId });
-    console.log(route);
     if (!route) {
       throw new NotFoundError({ details: 'New order ' });
     }
@@ -58,6 +56,29 @@ router.post(
     await doRequest(`http://localhost:3002/api/routes/${order.routeId}`, { decCapacity: true }, 'PUT');
 
     res.status(201).send(order);
+  }
+);
+router.post(
+  '/api/orders/newRoute',
+
+  [
+    body('id')
+      .not()
+
+      .isEmpty()
+      .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage('Id must be valid'),
+  ],
+
+  validateRequest,
+  async (req: Request, res: Response) => {
+    const { id, capacity } = req.body;
+
+    const route = Route.build({ id, capacity });
+
+    await route.save();
+
+    res.status(201).send(route);
   }
 );
 

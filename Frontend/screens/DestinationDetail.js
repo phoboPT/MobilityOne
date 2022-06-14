@@ -123,6 +123,7 @@ const DestinationDetail = ({navigation, route}) => {
 
   async function createOrder() {
     try {
+      console.log(data);
       const response = await orders.post('/orders', {
         routeId: data.id,
       });

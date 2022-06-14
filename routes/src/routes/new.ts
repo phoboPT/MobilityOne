@@ -1,9 +1,8 @@
 import { requiredAuth, validateRequest, doRequest } from '@mobileorg/common-lib';
 import express, { Response, Request } from 'express';
 import { body } from 'express-validator';
-import { RouteCreatedPublisher } from '../events/publishers/route-created-publisher';
+
 import { Route } from '../models/route';
-import { natsWrapper } from '../nats-wrapper'; //import { natsWrapper } from "../nats-wrapper"
 
 const router = express.Router();
 
@@ -75,6 +74,8 @@ router.post(
     //   capacity: route.capacity,
     // });
     // await routes.save();
+
+    await doRequest(`http://localhost:3002/api/order/newRoute`, { id: route.id, capacity: route.capacity }, 'POST');
 
     res.status(201).send(route);
   }

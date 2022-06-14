@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {
-  View,
-  Text,
   StyleSheet,
   Alert,
   TouchableOpacity,
-  Image,
   SafeAreaView,
   ImageBackground,
   ActivityIndicator,
@@ -23,8 +20,18 @@ import Moment from 'moment';
 import {Button} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../utils/language';
-import {Select} from 'native-base';
+import {
+  Center,
+  Select,
+  View,
+  Text,
+  Image,
+  Container,
+  ScrollView,
+} from 'native-base';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
+const google_api_key = 'AIzaSyDH_jy13qugt-fXmVxtENy6n-BozWpBpUQ';
 const HomeScreen = ({navigation}) => {
   const [hasNextRide, setHasNextRide] = useState(false);
   const [hasRecommendations, setHasRecommendations] = useState(false);
@@ -230,7 +237,7 @@ const HomeScreen = ({navigation}) => {
   function renderMyNextTravel() {
     return (
       <View>
-        <DropDownPicker
+        {/* <DropDownPicker
           open={open}
           closeAfterSelecting={true}
           itemSeparator={true}
@@ -271,7 +278,7 @@ const HomeScreen = ({navigation}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-        />
+        /> */}
         <Text
           style={{
             marginLeft: 15,
@@ -361,140 +368,84 @@ const HomeScreen = ({navigation}) => {
   function renderDestinations() {
     return (
       <View>
-        <Text
-          style={{
-            marginLeft: 15,
-            fontSize: 24,
-            fontFamily: 'Arial',
-            color: 'white',
-            position: 'relative',
-            fontWeight: '400',
-          }}>
-          {I18n.t('HOME_title')}
-        </Text>
-        <View style={{alignContent: 'center', alignItems: 'center'}}>
-          <Select
-            selectedValue={startLocation}
-            minWidth="300"
-            mx={{
-              base: 0,
-              md: 'auto',
-            }}
-            accessibilityLabel={"I18n.t('HOME_dropdown_placeholder_start')"}
-            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
-            items={items}
-            onValueChange={itemValue => setStartLocation(itemValue)}
-            _selectedItem={{
-              bg: 'cyan.600',
+        <Text />
+
+        <Center>
+          <Container
+            style={{
+              height: 150,
+              zIndex: 5,
+              marginBottom: 200,
             }}>
-            <Select.Item
-              label="Escola Superior de Tecnologia e Gestão"
-              value="ESTG"
-              lat="41.693463"
-              long="-8.846654"
+            <GooglePlacesAutocomplete
+              placeholder="Where do you want to go?"
+              minLength={5}
+              returnKeyType={'search'}
+              listViewDisplayed="auto"
+              fetchDetails={true}
+              onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                console.log(details.geometry.location);
+              }}
+              query={{
+                key: google_api_key,
+                language: 'en',
+              }}
+              styles={{
+                textInputContainer: {
+                  width: '100%',
+                  backgroundColor: '#FFF',
+                },
+                listView: {},
+              }}
+              debounce={200}
             />
-            <Select.Item
-              label="Escola Superior de Educação"
-              value="ESE"
-              lat="41.702491"
-              long="-8.820698"
-            />
-            <Select.Item
-              label="Escola Superior Agrária"
-              value="ESA"
-              lat="41.793549"
-              long="-8.54277"
-            />
-            <Select.Item
-              label="Escola Superior de Saúde"
-              value="ESS"
-              lat="41.697553"
-              long="-8.836266"
-            />
-            <Select.Item
-              label="Escola Superior de Desporto e Lazer"
-              value="ESDL"
-              lat="42.117427"
-              long="-8.271185"
-            />
-            <Select.Item
-              label="Escola Superior de Ciências Empresariais"
-              value="ESCE"
-              lat="42.031629"
-              long="-8.632825"
-            />
-            <Select.Item
-              label="Serviços Académicos"
-              value="SAS"
-              lat="41.693286"
-              long="-8.832566"
-            />
-          </Select>
-          <Select
-            selectedValue={endLocation}
-            minWidth="300"
-            mx={{
-              base: 0,
-              md: 'auto',
-            }}
-            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_end')}
-            placeholder={I18n.t('HOME_dropdown_placeholder_end')}
-            items={items}
-            onValueChange={itemValue => setEndLocation(itemValue)}
-            _selectedItem={{
-              bg: 'cyan.600',
+          </Container>
+
+          <Container
+            style={{
+              height: 150,
+              zIndex: 4,
+              position: 'absolute',
+              width: '100%',
             }}>
-            <Select.Item
-              label="Escola Superior de Tecnologia e Gestão"
-              value="ESTG"
-              lat="41.693463"
-              long="-8.846654"
+            <GooglePlacesAutocomplete
+              placeholder="Where do you want to go?"
+              minLength={5}
+              returnKeyType={'search'}
+              listViewDisplayed="auto"
+              fetchDetails={true}
+              onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                console.log(details.geometry.location);
+              }}
+              query={{
+                key: google_api_key,
+                language: 'en',
+              }}
+              styles={{
+                textInputContainer: {
+                  width: '100%',
+                  backgroundColor: '#FFF',
+                },
+                listView: {
+                  backgroundColor: 'gray',
+                },
+              }}
+              debounce={200}
             />
-            <Select.Item
-              label="Escola Superior de Educação"
-              value="ESE"
-              lat="41.702491"
-              long="-8.820698"
-            />
-            <Select.Item
-              label="Escola Superior Agrária"
-              value="ESA"
-              lat="41.793549"
-              long="-8.54277"
-            />
-            <Select.Item
-              label="Escola Superior de Saúde"
-              value="ESS"
-              lat="41.697553"
-              long="-8.836266"
-            />
-            <Select.Item
-              label="Escola Superior de Desporto e Lazer"
-              value="ESDL"
-              lat="42.117427"
-              long="-8.271185"
-            />
-            <Select.Item
-              label="Escola Superior de Ciências Empresariais"
-              value="ESCE"
-              lat="42.031629"
-              long="-8.632825"
-            />
-            <Select.Item
-              label="Serviços Académicos"
-              value="SAS"
-              lat="41.693286"
-              long="-8.832566"
-            />
-          </Select>
+          </Container>
           <Button
             iconRight
             onPress={() => searchRoutes()}
             containerStyle={{
               borderRadius: 30,
-              marginTop: 10,
-              marginBottom: 10,
+              position: 'absolute',
+              bottom: 0,
+              marginBottom: 100,
+
               width: 150,
+              zIndex: 5,
             }}
             icon={
               <Image
@@ -509,7 +460,7 @@ const HomeScreen = ({navigation}) => {
             }
             title={I18n.t('HOME_search')}
           />
-        </View>
+        </Center>
       </View>
     );
   }
@@ -538,7 +489,6 @@ const HomeScreen = ({navigation}) => {
                 margin: 1,
               }}
             />;
-            console.log('item', item);
             return (
               <TouchableOpacity
                 onPress={() =>
@@ -578,8 +528,8 @@ const HomeScreen = ({navigation}) => {
     return (
       <View>
         {hasNextRide ? renderMyNextTravel() : renderDestinations()}
-        <RecomCard />
-        {hasRecommendations ? RecomCard : null}
+        {/* <RecomCard /> */}
+        {hasRecommendations ? <RecomCard /> : null}
       </View>
     );
   }
@@ -646,15 +596,18 @@ const HomeScreen = ({navigation}) => {
     );
   }
   return (
-    <ImageBackground
-      style={{flex: 1, resizeMode: 'cover'}}
-      source={images.background}>
-      <SafeAreaView style={{flex: 1}}>
-        {renderHeader()}
-        {renderBody()}
-        {renderActionButton()}
-      </SafeAreaView>
-    </ImageBackground>
+    <ScrollView>
+      <ImageBackground
+        style={{flex: 1, resizeMode: 'cover'}}
+        source={images.background}>
+        <SafeAreaView style={{flex: 1}}>
+          {renderHeader()}
+
+          {renderBody()}
+          {renderActionButton()}
+        </SafeAreaView>
+      </ImageBackground>
+    </ScrollView>
   );
 };
 

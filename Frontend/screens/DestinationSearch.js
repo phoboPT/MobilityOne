@@ -16,6 +16,7 @@ import {routes as routeAPI} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import Moment from 'moment';
 import I18n from '../utils/language';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -75,6 +76,7 @@ const DestinationSearch = ({route, navigation}) => {
 
   const getRouteDetails = route => {
     const allData = route;
+    console.log('allData', allData);
     navigation.navigate('DestinationDetail', {
       data: route[0],
       allData: allData,
@@ -165,6 +167,7 @@ const DestinationSearch = ({route, navigation}) => {
               <View>
                 <Text style={styles.itemName}>
                   {I18n.t('GERAL_start')}
+
                   {startLocation}
                 </Text>
                 <Text style={styles.itemName}>
