@@ -41,27 +41,27 @@ const MapScreen = ({navigation, route}) => {
     longitudeDelta: 0.01,
   });
 
-  // const findCoordinates = () => {
-  //   Geolocation.getCurrentPosition(
-  //     position => {
-  //       lat = JSON.stringify(position.coords.latitude);
-  //       lng = JSON.stringify(position.coords.longitude);
-  //       console.log(position.coords);
-  //       if (lat !== undefined) {
-  //         setInitialPosition({
-  //           latitude: Number(lat),
-  //           longitude: Number(lng),
-  //           latitudeDelta: 0.03,
-  //           longitudeDelta: 0.03,
-  //         });
-  //         setHaveUserLocation(true);
-  //       }
-  //     },
-  //     error => console.log('error', error),
-  //     // {enableHighAccuracy: true, timeout: 1000, maximumAge: 1000},
-  //   );
-  //   console.log(initialPosition);
-  // };
+  const findCoordinates = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        lat = JSON.stringify(position.coords.latitude);
+        lng = JSON.stringify(position.coords.longitude);
+        console.log(position.coords);
+        if (lat !== undefined) {
+          setInitialPosition({
+            latitude: Number(lat),
+            longitude: Number(lng),
+            latitudeDelta: 0.03,
+            longitudeDelta: 0.03,
+          });
+          setHaveUserLocation(true);
+        }
+      },
+      error => console.log('error', error),
+      // {enableHighAccuracy: true, timeout: 1000, maximumAge: 1000},
+    );
+    console.log(initialPosition);
+  };
 
   // const getBusRoute = async (start, end) => {
   //   try {
@@ -115,17 +115,17 @@ const MapScreen = ({navigation, route}) => {
   //   }
   // };
 
-  // useEffect(() => {
-  //   findCoordinates();
-  //   if (mapType === 'Bus') {
-  //     // getBusRoute();
-  //   } else if (mapType === 'Car') {
-  //     // getCarRoute(startLocation, endLocation);
-  //   } else if (mapType === 'Mixed') {
-  //     // getCarRoute(startLocation, middleLocation);
-  //     // getBusRoute(middleLocation, endLocation);
-  //   }
-  // }, []);
+  useEffect(() => {
+    findCoordinates();
+    if (mapType === 'Bus') {
+      // getBusRoute();
+    } else if (mapType === 'Car') {
+      // getCarRoute(startLocation, endLocation);
+    } else if (mapType === 'Mixed') {
+      // getCarRoute(startLocation, middleLocation);
+      // getBusRoute(middleLocation, endLocation);
+    }
+  }, []);
 
   // const userLocationChanged = event => {
   //   const newRegion = event.nativeEvent.coordinate;
@@ -262,19 +262,19 @@ const MapScreen = ({navigation, route}) => {
         // onUserLocationChange={event => userLocationChanged(event)}
         // onRegionChangeComplete={event => changeRegion(event)}
         zoomControlEnabled={true}>
-        {/* <MapViewDirections
+        <MapViewDirections
           origin={{
             latitude: initialPosition.latitude,
             longitude: initialPosition.longitude,
           }}
           destination={{
-            latitude: 41.84582,
-            longitude: -8.41922,
+            latitude: 41.693463,
+            longitude: -8.846654,
           }}
           strokeWidth={5}
           strokeColor={'#2d8cea'}
           apikey={google_api_key}
-        /> */}
+        />
       </MapView>
     </View>
   );

@@ -385,11 +385,13 @@ const HomeScreen = ({navigation}) => {
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
-                console.log(details.geometry.location);
+                console.log('hey');
+                console.log(data, '\n', details);
+                setStartLocation(data.geometry.location);
               }}
               query={{
                 key: google_api_key,
-                language: 'en',
+                language: 'pt',
               }}
               styles={{
                 textInputContainer: {
@@ -405,7 +407,7 @@ const HomeScreen = ({navigation}) => {
           <Container
             style={{
               height: 150,
-              zIndex: 4,
+              zIndex: 2,
               position: 'absolute',
               width: '100%',
             }}>
@@ -417,19 +419,18 @@ const HomeScreen = ({navigation}) => {
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
-                console.log(details.geometry.location);
+                console.log(details);
+                setEndLocation(data.geometry.location);
               }}
               query={{
                 key: google_api_key,
-                language: 'en',
+                language: 'pt',
               }}
               styles={{
+                description: {color: 'black'},
                 textInputContainer: {
                   width: '100%',
                   backgroundColor: '#FFF',
-                },
-                listView: {
-                  backgroundColor: 'gray',
                 },
               }}
               debounce={200}
@@ -445,7 +446,6 @@ const HomeScreen = ({navigation}) => {
               marginBottom: 100,
 
               width: 150,
-              zIndex: 5,
             }}
             icon={
               <Image
@@ -596,18 +596,21 @@ const HomeScreen = ({navigation}) => {
     );
   }
   return (
-    <ScrollView>
-      <ImageBackground
-        style={{flex: 1, resizeMode: 'cover'}}
-        source={images.background}>
-        <SafeAreaView style={{flex: 1}}>
-          {renderHeader()}
+    // <ScrollView
+    //   style={{
+    //     height: '100%',
+    //   }}>
+    <ImageBackground
+      style={{flex: 1, resizeMode: 'cover'}}
+      source={images.background}>
+      <SafeAreaView style={{flex: 1}}>
+        {renderHeader()}
 
-          {renderBody()}
-          {renderActionButton()}
-        </SafeAreaView>
-      </ImageBackground>
-    </ScrollView>
+        {renderBody()}
+        {renderActionButton()}
+      </SafeAreaView>
+    </ImageBackground>
+    // </ScrollView>
   );
 };
 
