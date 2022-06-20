@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
-  View,
-  Text,
-  Image,
   TouchableOpacity,
   Modal,
   ActivityIndicator,
-  Alert,
   ImageBackground,
 } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Alert,
+  ScrollView,
+  NativeBaseProvider,
+} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import {images, icons, COLORS, SIZES} from '../constants';
-import {ScrollView} from 'react-native';
 import {auth, routes, orders} from '../services/api';
 import Moment from 'moment';
 import {Rating, Button} from 'react-native-elements';
@@ -192,258 +195,267 @@ const OrderDetail = ({navigation, route}) => {
 
   if (loading) {
     return (
-      <ImageBackground
-        style={{flex: 1, resizeMode: 'cover'}}
-        source={images.background}>
-        <ActivityIndicator
-          size="large"
-          color="white"
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        />
-      </ImageBackground>
+      <NativeBaseProvider>
+        <ImageBackground
+          style={{flex: 1, resizeMode: 'cover'}}
+          source={images.background}>
+          <ActivityIndicator
+            size="large"
+            color="white"
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+          />
+        </ImageBackground>
+      </NativeBaseProvider>
     );
   }
 
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={{flex: 2}}>
-        <Image
-          source={{uri: endLocationImage}}
-          resizeMode="cover"
-          style={{
-            width: '100%',
-            height: '80%',
-          }}
-        />
-        <View
-          style={[
-            {
-              position: 'absolute',
-              bottom: '5%',
-              left: '5%',
-              right: '5%',
-              borderRadius: 15,
-              padding: SIZES.padding,
-              backgroundColor: COLORS.white,
-            },
-            styles.shadow,
-          ]}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('UserProfile', {
-                user: user,
-              })
-            }>
-            <View style={{flexDirection: 'row'}}>
-              <View style={styles.shadow}>
-                <Image
-                  source={{uri: user.photoUrl}}
-                  resizeMode="cover"
+    <NativeBaseProvider>
+      <View style={styles.container}>
+        {/* Header */}
+        <View style={{flex: 2}}>
+          <Image
+            source={{uri: endLocationImage}}
+            resizeMode="cover"
+            style={{
+              width: '100%',
+              height: '80%',
+            }}
+          />
+          <View
+            style={[
+              {
+                position: 'absolute',
+                bottom: '5%',
+                left: '5%',
+                right: '5%',
+                borderRadius: 15,
+                padding: SIZES.padding,
+                backgroundColor: COLORS.white,
+              },
+              styles.shadow,
+            ]}>
+            <TouchableOpacity
+              style={{
+                zIndex: 1,
+              }}
+              onPress={() =>
+                navigation.navigate('UserProfile', {
+                  user: user,
+                })
+              }>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.shadow}>
+                  <Image
+                    source={{uri: user.photoUrl}}
+                    resizeMode="cover"
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 15,
+                    }}
+                  />
+                </View>
+
+                <View
                   style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 15,
-                  }}
-                />
-              </View>
+                    marginHorizontal: SIZES.radius,
+                    justifyContent: 'space-around',
+                  }}>
+                  <Text style={{...SIZES.h3}}>{user.name}</Text>
 
-              <View
-                style={{
-                  marginHorizontal: SIZES.radius,
-                  justifyContent: 'space-around',
-                }}>
-                <Text style={{...SIZES.h3}}>{user.name}</Text>
-
-                <StarReview rate={user.rating} />
-                <View style={{marginTop: 5}}>
-                  <Text style={{color: COLORS.primary}}>{user.email}</Text>
+                  <StarReview rate={user.rating} />
+                  <View style={{marginTop: 5}}>
+                    <Text style={{color: COLORS.primary}}>{user.email}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        {/* Header Buttons */}
-        <View
-          style={{
-            position: 'absolute',
-            top: 50,
-            left: 20,
-            right: 20,
-            //height: 50,
-            flexDirection: 'row',
-          }}>
-          <View style={{flex: 1}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <Image
-                source={icons.back}
-                resizeMode="cover"
-                style={{
-                  width: 30,
-                  height: 30,
-                }}
-              />
             </TouchableOpacity>
           </View>
-          <View style={{flex: 1, alignItems: 'flex-end'}} />
-        </View>
-      </View>
 
-      {/* Body */}
-      <View style={{flex: 1.5}}>
-        {/* Icons */}
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: SIZES.base,
-            justifyContent: 'space-between',
-          }}>
-          <ScrollView horizontal>
-            <IconLabel
-              icon={icons.graduationHat}
-              label={`${routeInfo.startLocation}`}
-            />
-            <IconLabel
-              icon={icons.frontCar}
-              label={`${routeInfo.estimatedTime} Minutes`}
-            />
-            <IconLabel icon={icons.end} label={routeInfo.endLocation} />
-          </ScrollView>
-        </View>
-
-        <View style={{marginTop: 10, paddingHorizontal: SIZES.padding}}>
-          <Text style={{...SIZES.body2, fontWeight: '700'}}>
-            Start Date: {Moment(data.startDate).format('LLL')}
-          </Text>
-        </View>
-
-        <View
-          style={{
-            marginTop: 10,
-            paddingHorizontal: SIZES.padding,
-          }}>
-          <Text style={{...SIZES.body2, fontWeight: '700'}}>
-            Available Seats: {routeInfo.capacity}
-          </Text>
-        </View>
-
-        <View
-          style={{
-            marginTop: SIZES.padding - 10,
-            paddingHorizontal: SIZES.padding,
-          }}>
-          <Text style={{...SIZES.h2, fontWeight: '700'}}>Description</Text>
-          <ScrollView style={{marginBottom: 140}}>
-            <Text
-              style={{
-                marginTop: SIZES.radius,
-                color: COLORS.gray,
-                ...SIZES.body3,
-              }}>
-              {routeInfo.description}
-            </Text>
-          </ScrollView>
-        </View>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Rating
-              showRating
-              onFinishRating={value => setUserRating(value)}
-              style={{paddingVertical: 10}}
-            />
-            <View style={{flexDirection: 'row', margin: 10}}>
-              <Button
-                title="Cancel"
-                type="outline"
-                style={{marginRight: 10}}
-                onPress={() => setModalVisible(!modalVisible)}
-              />
-              <Button
-                style={{marginLeft: 10, backgroundColor: COLORS.primary}}
-                iconRight
-                title="Rate"
-                onPress={() => rateUser()}
-              />
+          {/* Header Buttons */}
+          <View
+            style={{
+              position: 'absolute',
+              top: 50,
+              left: 20,
+              right: 20,
+              //height: 50,
+              flexDirection: 'row',
+            }}>
+            <View style={{flex: 1}}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={icons.back}
+                  resizeMode="cover"
+                  style={{
+                    width: 30,
+                    height: 30,
+                  }}
+                />
+              </TouchableOpacity>
             </View>
+            <View style={{flex: 1, alignItems: 'flex-end'}} />
           </View>
         </View>
-      </Modal>
-      {/* Footer */}
-      <View
-        style={{
-          flex: 0.5,
-          alignContent: 'center',
-          alignItems: 'center',
-        }}>
-        {rating ? (
-          <TouchableOpacity
+
+        {/* Body */}
+        <View style={{flex: 1.5}}>
+          {/* Icons */}
+          <View
             style={{
-              width: 160,
-              height: '70%',
-              marginHorizontal: SIZES.radius,
-            }}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <LinearGradient
-              style={[
-                {
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 10,
-                },
-              ]}
-              colors={['#D1D100', '#757500']}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}>
-              <Text style={{color: COLORS.white, ...SIZES.h2}}>Rate User</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        ) : null}
-        {cancelRequest ? (
-          <TouchableOpacity
-            style={{
-              width: 160,
-              marginBottom: 20,
-              height: '70%',
-            }}
-            onPress={() => {
-              cancelledOrder();
+              flexDirection: 'row',
+              marginTop: SIZES.base,
+              justifyContent: 'space-between',
             }}>
-            <LinearGradient
-              style={[
-                {
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 10,
-                },
-              ]}
-              colors={[COLORS.black, 'red']}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}>
-              <Text style={{color: COLORS.white, ...SIZES.h2}}>
-                Cancel Request
+            <ScrollView horizontal>
+              <IconLabel
+                icon={icons.graduationHat}
+                label={`${routeInfo.startLocation}`}
+              />
+              <IconLabel
+                icon={icons.frontCar}
+                label={`${routeInfo.estimatedTime} Minutes`}
+              />
+              <IconLabel icon={icons.end} label={routeInfo.endLocation} />
+            </ScrollView>
+          </View>
+
+          <View style={{marginTop: 10, paddingHorizontal: SIZES.padding}}>
+            <Text style={{...SIZES.body2, fontWeight: '700'}}>
+              Start Date: {Moment(data.startDate).format('LLL')}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginTop: 10,
+              paddingHorizontal: SIZES.padding,
+            }}>
+            <Text style={{...SIZES.body2, fontWeight: '700'}}>
+              Available Seats: {routeInfo.capacity}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginTop: SIZES.padding - 10,
+              paddingHorizontal: SIZES.padding,
+            }}>
+            <Text style={{...SIZES.h2, fontWeight: '700'}}>Description</Text>
+            <ScrollView style={{marginBottom: 140}}>
+              <Text
+                style={{
+                  marginTop: SIZES.radius,
+                  color: COLORS.gray,
+                  ...SIZES.body3,
+                }}>
+                {routeInfo.description}
               </Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        ) : null}
+            </ScrollView>
+          </View>
+        </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(!modalVisible)}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Rating
+                showRating
+                onFinishRating={value => setUserRating(value)}
+                style={{paddingVertical: 10}}
+              />
+              <View style={{flexDirection: 'row', margin: 10}}>
+                <Button
+                  title="Cancel"
+                  type="outline"
+                  style={{marginRight: 10}}
+                  onPress={() => setModalVisible(!modalVisible)}
+                />
+                <Button
+                  style={{marginLeft: 10, backgroundColor: COLORS.primary}}
+                  iconRight
+                  title="Rate"
+                  onPress={() => rateUser()}
+                />
+              </View>
+            </View>
+          </View>
+        </Modal>
+        {/* Footer */}
+        <View
+          style={{
+            flex: 0.5,
+            alignContent: 'center',
+            alignItems: 'center',
+          }}>
+          {rating ? (
+            <TouchableOpacity
+              style={{
+                width: 160,
+                height: '70%',
+                marginHorizontal: SIZES.radius,
+              }}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <LinearGradient
+                style={[
+                  {
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 10,
+                  },
+                ]}
+                colors={['#D1D100', '#757500']}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}>
+                <Text style={{color: COLORS.white, ...SIZES.h2}}>
+                  Rate User
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          ) : null}
+          {cancelRequest ? (
+            <TouchableOpacity
+              style={{
+                width: 160,
+                marginBottom: 20,
+                height: '70%',
+              }}
+              onPress={() => {
+                cancelledOrder();
+              }}>
+              <LinearGradient
+                style={[
+                  {
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 10,
+                  },
+                ]}
+                colors={[COLORS.black, 'red']}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}>
+                <Text style={{color: COLORS.white, ...SIZES.h2}}>
+                  Cancel Request
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          ) : null}
+        </View>
       </View>
-    </View>
+    </NativeBaseProvider>
   );
 };
 

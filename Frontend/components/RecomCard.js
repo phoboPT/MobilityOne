@@ -5,6 +5,7 @@ const RecomCard = () => {
   return (
     <View style={styles.cardContainer}>
       <Image
+        alt="Recom"
         style={styles.imageStyle}
         source={require('../assets/images/ipvc.jpeg')}
       />

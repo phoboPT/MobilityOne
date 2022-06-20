@@ -2,15 +2,12 @@
 import React, {useState, useEffect} from 'react';
 import {
   ImageBackground,
-  View,
   ActivityIndicator,
-  Text,
-  Alert,
   TouchableOpacity,
-  Image,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
+import {Text, Alert, Image, View} from 'native-base';
 import {images, icons, SIZES} from '../constants';
 import {routes as routeAPI} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
@@ -61,9 +58,11 @@ const DestinationSearch = ({route, navigation}) => {
     async function getRoutes() {
       setLoading(true);
       try {
-        const response = await routeAPI.get(
-          '/routes/start/' + startLocation + '/end/' + endLocation,
-        );
+        const response = await routeAPI.post('/routes/search/', {
+          start: startLocation,
+          end: endLocation,
+          type: 'driver',
+        });
         filterRoutes(response.data);
       } catch (err) {
         console.log(`error: ${err}`);
@@ -76,7 +75,6 @@ const DestinationSearch = ({route, navigation}) => {
 
   const getRouteDetails = route => {
     const allData = route;
-    console.log('allData', allData);
     navigation.navigate('DestinationDetail', {
       data: route[0],
       allData: allData,
@@ -111,6 +109,7 @@ const DestinationSearch = ({route, navigation}) => {
             marginRight: 5,
           }}>
           <Image
+            alt="back"
             source={icons.back}
             resizeMode="contain"
             style={{
@@ -142,6 +141,7 @@ const DestinationSearch = ({route, navigation}) => {
             justifyContent: 'center',
           }}>
           <Image
+            alt="filter"
             source={icons.filter}
             resizeMode="contain"
             style={{

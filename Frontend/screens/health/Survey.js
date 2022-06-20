@@ -16,11 +16,10 @@ import {
   FormControl,
   Checkbox,
   Progress,
-  Column,
 } from 'native-base';
 import Questions from './Questions';
 import {icons, SIZES} from '../../constants/index';
-
+import I18n from '../../utils/language';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -59,26 +58,30 @@ const styles = StyleSheet.create({
   },
 });
 const Survey = ({navigation}) => {
-  const [formData, setData] = useState({});
   const [showQuestion, setShowQuestion] = useState(0);
   const [selectedQuestion, setSelectedQuestion] = useState(false);
   const maxQuestions = 24;
-
+  console.log(navigation);
+  const goBack = () => {
+    navigation.navigate('Settings');
+  };
   const renderHeader = () => {
     return (
       <View style={styles.view} key="94">
         <TouchableOpacity
-          onPress={() => navigation.toggleDrawer()}
+          onPress={() => navigation.goBack()}
           style={styles.touchable}>
           <Image
-            source={icons.menu}
+            source={icons.back}
             resizeMode="contain"
             style={styles.image}
             alt="menu"
           />
         </TouchableOpacity>
         <View style={styles.view_2} key="93">
-          <Text style={styles.text_settings}>Settings</Text>
+          <Text style={styles.text_settings}>
+            {I18n.t('SETTINGS_survey_tittle')}
+          </Text>
         </View>
       </View>
     );
@@ -100,7 +103,7 @@ const Survey = ({navigation}) => {
                   _dark={{
                     color: 'warmGray.50',
                   }}>
-                  Questionário
+                  {I18n.t('SETTINGS_survey')}
                 </Heading>
                 <Text />
                 <Progress
@@ -157,6 +160,7 @@ const Survey = ({navigation}) => {
                   <Questions
                     state={showQuestion}
                     key="99"
+                    goBack={goBack}
                     setSelected={setSelectedQuestion}
                   />
                 )}
@@ -175,7 +179,7 @@ const Survey = ({navigation}) => {
               mt="2"
               colorScheme="indigo"
               disabled={showQuestion < 1}>
-              Anterior
+              {I18n.t('BUTTON_previous')}
             </Button>
             <Button
               onPress={() => {
@@ -186,7 +190,7 @@ const Survey = ({navigation}) => {
               mt="2"
               disabled={!selectedQuestion}
               colorScheme="indigo">
-              Proximo
+              {I18n.t('BUTTON_next')}
             </Button>
           </Stack>
         </Center>

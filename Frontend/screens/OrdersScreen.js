@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import {
   ImageBackground,
-  View,
+  // View,
   ActivityIndicator,
-  Text,
+  // Text,
   TouchableOpacity,
-  Image,
+  // Image,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
+import {View, Text, Image, NativeBaseProvider} from 'native-base';
 import {images, icons, SIZES} from '../constants';
-import {auth, routes, orders} from '../services/api';
+import {auth, routes, orders as ordersFetch} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import {Avatar} from 'react-native-elements';
 import {Alert} from 'react-native';
@@ -23,12 +24,14 @@ const OrdersScreen = ({navigation, route}) => {
 
   useEffect(() => {
     getOrders();
-  });
+  }, []);
 
   async function getOrders() {
     setLoading(true);
     try {
-      const response = await orders.get('/orders/routeId/' + data.id);
+      console.log(data.id);
+      const response = await ordersFetch.get('/orders/routeId/' + data.id);
+
       setOrders(response.data);
       getUsers(response.data);
       setLoading(false);
@@ -66,7 +69,6 @@ const OrdersScreen = ({navigation, route}) => {
     // Nos estamos a receber o id do utilizador pois vamos realizar uma query nas orders
     // Na Flatgrid nao sabemos a order e temos que descobrila atraves do userId
     let order = orders.filter(item => item.userId === userId);
-    console.log(order);
     if (accept) {
       acceptOrder(order[0]);
     } else {
@@ -211,22 +213,28 @@ const OrdersScreen = ({navigation, route}) => {
   }
 
   return (
-    <ImageBackground
-      style={{flex: 1, resizeMode: 'cover'}}
-      source={images.background}>
-      <SafeAreaView style={styles.container}>
-        {renderHeader()}
-        {loading ? (
-          <ActivityIndicator
-            size="large"
-            color="white"
-            style={{flex: 1, justifyContent: 'center', alignContent: 'center'}}
-          />
-        ) : (
-          renderOrders()
-        )}
-      </SafeAreaView>
-    </ImageBackground>
+    <NativeBaseProvider>
+      <ImageBackground
+        style={{flex: 1, resizeMode: 'cover'}}
+        source={images.background}>
+        <SafeAreaView style={styles.container}>
+          {renderHeader()}
+          {loading ? (
+            <ActivityIndicator
+              size="large"
+              color="white"
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            />
+          ) : (
+            renderOrders()
+          )}
+        </SafeAreaView>
+      </ImageBackground>
+    </NativeBaseProvider>
   );
 };
 

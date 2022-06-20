@@ -7,13 +7,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 import {icons, SIZES, COLORS, images} from '../constants';
 import {Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {vehicles} from '../services/api';
 import NumericInput from 'react-native-numeric-input';
-import {ScrollView} from 'react-native';
+import {} from 'react-native';
 import I18n from '../utils/language';
 
 const CreateVehicle = ({navigation}) => {
@@ -56,6 +57,7 @@ const CreateVehicle = ({navigation}) => {
             justifyContent: 'center',
           }}>
           <Image
+            alt="back"
             source={icons.back}
             resizeMode="contain"
             style={{

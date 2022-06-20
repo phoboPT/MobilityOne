@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
-  Image,
   TouchableOpacity,
   ActivityIndicator,
-  View,
   ImageBackground,
 } from 'react-native';
+import {Image, NativeBaseProvider, View} from 'native-base';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
@@ -194,6 +193,7 @@ const MapScreen = ({navigation, route}) => {
           navigation.goBack();
         }}>
         <Image
+          alt="back"
           source={icons.back}
           resizeMode="cover"
           style={{
@@ -209,74 +209,57 @@ const MapScreen = ({navigation, route}) => {
     );
   };
 
-  // if (loading) {
-  //   return (
-  //     <ImageBackground
-  //       style={{flex: 1, resizeMode: 'cover'}}
-  //       source={images.background}>
-  //       {renderHeader()}
-  //       <ActivityIndicator
-  //         size="large"
-  //         color="white"
-  //         style={{
-  //           flex: 1,
-  //           justifyContent: 'center',
-  //           alignContent: 'center',
-  //         }}
-  //       />
-  //     </ImageBackground>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <NativeBaseProvider>
+        <ImageBackground
+          style={{flex: 1, resizeMode: 'cover'}}
+          source={images.background}>
+          {renderHeader()}
+          <ActivityIndicator
+            size="large"
+            color="white"
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+          />
+        </ImageBackground>
+      </NativeBaseProvider>
+    );
+  }
 
   return (
-    <View style={styles.container}>
-      {/* <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        region={initialPosition}
-        showsUserLocation
-        onUserLocationChange={event => userLocationChanged(event)}
-        onRegionChangeComplete={event => changeRegion(event)}>
+    <NativeBaseProvider>
+      <View style={styles.container}>
         {renderHeader()}
-        {haveBus ? (
-          <Geojson
-            geojson={GeoJsonBus}
-            strokeWidth={4}
-            fillColor="green"
-            strokeColor="green"
+
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          region={initialPosition}
+          showsUserLocation
+          zoomEnabled={true}
+          // onUserLocationChange={event => userLocationChanged(event)}
+          // onRegionChangeComplete={event => changeRegion(event)}
+          zoomControlEnabled={true}>
+          <MapViewDirections
+            origin={{
+              latitude: initialPosition.latitude,
+              longitude: initialPosition.longitude,
+            }}
+            destination={{
+              latitude: 41.693463,
+              longitude: -8.846654,
+            }}
+            strokeWidth={5}
+            strokeColor={'#2d8cea'}
+            apikey={google_api_key}
           />
-        ) : null}
-        <Geojson
-          geojson={GeoJsonCar}
-          strokeWidth={4}
-          fillColor="black"
-          strokeColor="black"
-        />
-      </MapView> */}
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        region={initialPosition}
-        showsUserLocation
-        zoomEnabled={true}
-        // onUserLocationChange={event => userLocationChanged(event)}
-        // onRegionChangeComplete={event => changeRegion(event)}
-        zoomControlEnabled={true}>
-        <MapViewDirections
-          origin={{
-            latitude: initialPosition.latitude,
-            longitude: initialPosition.longitude,
-          }}
-          destination={{
-            latitude: 41.693463,
-            longitude: -8.846654,
-          }}
-          strokeWidth={5}
-          strokeColor={'#2d8cea'}
-          apikey={google_api_key}
-        />
-      </MapView>
-    </View>
+        </MapView>
+      </View>
+    </NativeBaseProvider>
   );
 };
 

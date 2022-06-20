@@ -3,18 +3,21 @@ import {useFocusEffect} from '@react-navigation/native';
 
 import {
   StyleSheet,
-  View,
-  Text,
-  Alert,
-  Image,
-  Modal,
-  FlatList,
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
-  ScrollView,
   ImageBackground,
+  Modal,
 } from 'react-native';
+import {
+  NativeBaseProvider,
+  Text,
+  Alert,
+  Image,
+  View,
+  FlatList,
+  ScrollView,
+} from 'native-base';
 import {images, icons, COLORS, SIZES} from '../constants';
 import {auth, vehicles} from '../services/api';
 import {Icon} from 'react-native-elements';
@@ -146,304 +149,314 @@ const MyProfile = ({navigation}) => {
 
   if (loading) {
     return (
-      <ImageBackground
-        style={{flex: 1, resizeMode: 'cover'}}
-        source={images.background}>
-        <ActivityIndicator
-          size="large"
-          color="white"
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        />
-      </ImageBackground>
+      <NativeBaseProvider>
+        <ImageBackground
+          style={{flex: 1, resizeMode: 'cover'}}
+          source={images.background}>
+          <ActivityIndicator
+            size="large"
+            color="white"
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+          />
+        </ImageBackground>
+      </NativeBaseProvider>
     );
   }
 
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={{flex: 2}}>
-        <Image
-          source={images.background}
-          resizeMode="cover"
-          style={{
-            width: '100%',
-            height: '80%',
-          }}
-        />
-        <View
-          style={[
-            {
-              position: 'absolute',
-              bottom: '5%',
-              left: '5%',
-              right: '5%',
-              borderRadius: 15,
-              padding: SIZES.padding,
-              backgroundColor: COLORS.white,
-            },
-            styles.shadow,
-          ]}>
-          <View style={{flexDirection: 'row'}}>
-            <View style={styles.shadow}>
-              {data.photoUrl ? (
-                <View>
-                  <Image
-                    source={{uri: data.photoUrl}}
-                    resizeMode="cover"
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 15,
-                    }}
-                  />
-                  <TouchableOpacity
-                    onPress={() => openPicker()}
-                    style={{flexDirection: 'row', marginTop: 10}}>
-                    <Text
+    <NativeBaseProvider>
+      <View style={styles.container}>
+        {/* Header */}
+        <View style={{flex: 2}}>
+          <Image
+            source={images.background}
+            resizeMode="cover"
+            style={{
+              width: '100%',
+              height: '80%',
+            }}
+          />
+          <View
+            style={[
+              {
+                position: 'absolute',
+                bottom: '5%',
+                left: '5%',
+                right: '5%',
+                borderRadius: 15,
+                padding: SIZES.padding,
+                backgroundColor: COLORS.white,
+              },
+              styles.shadow,
+            ]}>
+            <View style={{flexDirection: 'row'}}>
+              <View style={styles.shadow}>
+                {data.photoUrl ? (
+                  <View>
+                    <Image
+                      source={{uri: data.photoUrl}}
+                      resizeMode="cover"
                       style={{
-                        color: COLORS.primary,
-                        marginTop: 3,
-                        marginRight: 3,
-                      }}>
-                      Change
-                    </Text>
-                    <Icon color={COLORS.primary} name="photo" />
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View>
-                  <Image
-                    source={images.defaultUser}
-                    resizeMode="cover"
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 15,
-                    }}
-                  />
-                  <TouchableOpacity
-                    onPress={() => openPicker()}
-                    style={{flexDirection: 'row', marginTop: 10}}>
-                    <Text
+                        width: 70,
+                        height: 70,
+                        borderRadius: 15,
+                      }}
+                    />
+                    <TouchableOpacity
+                      onPress={() => openPicker()}
+                      style={{flexDirection: 'row', marginTop: 10}}>
+                      <Text
+                        style={{
+                          color: COLORS.primary,
+                          marginTop: 3,
+                          marginRight: 3,
+                        }}>
+                        Change
+                      </Text>
+                      <Icon color={COLORS.primary} name="photo" />
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <View>
+                    <Image
+                      source={images.defaultUser}
+                      resizeMode="cover"
                       style={{
-                        color: COLORS.primary,
-                        marginTop: 3,
-                        marginRight: 3,
-                      }}>
-                      Change
-                    </Text>
-                    <Icon color={COLORS.primary} name="photo" />
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
+                        width: 70,
+                        height: 70,
+                        borderRadius: 15,
+                      }}
+                    />
+                    <TouchableOpacity
+                      onPress={() => openPicker()}
+                      style={{flexDirection: 'row', marginTop: 10}}>
+                      <Text
+                        style={{
+                          color: COLORS.primary,
+                          marginTop: 3,
+                          marginRight: 3,
+                        }}>
+                        Change
+                      </Text>
+                      <Icon color={COLORS.primary} name="photo" />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
 
-            <View
-              style={{
-                marginHorizontal: SIZES.radius,
-                justifyContent: 'space-around',
-              }}>
-              <Text style={{...SIZES.h3, fontWeight: '600'}}>{data.name}</Text>
-              <Text style={{color: COLORS.gray, ...SIZES.body3}}>
-                {data.email}
-              </Text>
+              <View
+                style={{
+                  marginHorizontal: SIZES.radius,
+                  justifyContent: 'space-around',
+                }}>
+                <Text style={{...SIZES.h3, fontWeight: '600'}}>
+                  {data.name}
+                </Text>
+                <Text style={{color: COLORS.gray, ...SIZES.body3}}>
+                  {data.email}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible2(!modalVisible2)}>
+                  {data.contact ? (
+                    <View style={{marginTop: 5}}>
+                      <Text style={{color: COLORS.primary}}>
+                        {data.contact}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View style={{marginTop: 5}}>
+                      <Text style={{color: COLORS.primary}}>Add Contact</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+
+          {/* Header Buttons */}
+          <View
+            style={{
+              position: 'absolute',
+              top: 50,
+              left: 20,
+              right: 20,
+              //height: 50,
+              flexDirection: 'row',
+            }}>
+            <View style={{flex: 1}}>
               <TouchableOpacity
-                onPress={() => setModalVisible2(!modalVisible2)}>
-                {data.contact ? (
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={icons.back}
+                  resizeMode="cover"
+                  style={{
+                    width: 30,
+                    height: 30,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, alignItems: 'flex-end'}} />
+          </View>
+        </View>
+
+        {/* Body */}
+        <View style={{flex: 1.5}}>
+          {/* About */}
+
+          <View
+            style={{
+              marginTop: SIZES.padding - 10,
+              paddingHorizontal: SIZES.padding,
+            }}>
+            <View style={{marginBottom: 10}}>
+              <Text style={{...SIZES.h1, fontWeight: '700'}}>My Cars</Text>
+              <FlatList
+                data={userVehicles}
+                renderItem={({item}) => (
+                  <View style={{flexDirection: 'row'}}>
+                    <Text>{item.carModel} </Text>
+                    <Text style={{...SIZES.h2, fontWeight: '600'}}>
+                      Car Capacity:{' '}
+                    </Text>
+                    <Text>{item.capacity}</Text>
+                  </View>
+                )}
+              />
+            </View>
+            <Text style={{...SIZES.h1, fontWeight: '600'}}>Biography</Text>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+              <ScrollView style={{marginBottom: 140}}>
+                {data.biography ? (
                   <View style={{marginTop: 5}}>
-                    <Text style={{color: COLORS.primary}}>{data.contact}</Text>
+                    <Text style={{color: COLORS.primary}}>
+                      {data.biography}
+                    </Text>
                   </View>
                 ) : (
                   <View style={{marginTop: 5}}>
-                    <Text style={{color: COLORS.primary}}>Add Contact</Text>
+                    <Text style={{color: COLORS.primary}}>Add Biography</Text>
                   </View>
                 )}
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        {/* Header Buttons */}
-        <View
-          style={{
-            position: 'absolute',
-            top: 50,
-            left: 20,
-            right: 20,
-            //height: 50,
-            flexDirection: 'row',
-          }}>
-          <View style={{flex: 1}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <Image
-                source={icons.back}
-                resizeMode="cover"
-                style={{
-                  width: 30,
-                  height: 30,
-                }}
-              />
+              </ScrollView>
             </TouchableOpacity>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => setModalVisible(!modalVisible)}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <TextInput
+                    multiline
+                    placeholder="Edit Biography"
+                    onChangeText={text => setBiography(text)}
+                    placeholderTextColor="gray"
+                    showSoftInputOnFocus
+                    style={styles.modalText}
+                  />
+                  <View style={{flexDirection: 'row', margin: 10}}>
+                    <Button
+                      title="Cancel"
+                      type="outline"
+                      style={{marginRight: 10}}
+                      onPress={() => setModalVisible(!modalVisible)}
+                    />
+                    <Button
+                      style={{marginLeft: 10}}
+                      title="Save"
+                      onPress={() => updateUserDetails(true)}
+                    />
+                  </View>
+                </View>
+              </View>
+            </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible2}
+              onRequestClose={() => setModalVisible2(!modalVisible2)}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <TextInput
+                    multiline
+                    placeholder="Edit Contact"
+                    onChangeText={text => setContact(text)}
+                    placeholderTextColor="gray"
+                    showSoftInputOnFocus
+                    style={styles.modalText}
+                  />
+                  <View style={{flexDirection: 'row', margin: 10}}>
+                    <Button
+                      title="Cancel"
+                      type="outline"
+                      style={{marginRight: 10}}
+                      onPress={() => setModalVisible2(!modalVisible2)}
+                    />
+                    <Button
+                      style={{marginLeft: 10}}
+                      title="Save"
+                      onPress={() => updateUserDetails(false)}
+                    />
+                  </View>
+                </View>
+              </View>
+            </Modal>
           </View>
-          <View style={{flex: 1, alignItems: 'flex-end'}} />
         </View>
-      </View>
-
-      {/* Body */}
-      <View style={{flex: 1.5}}>
-        {/* About */}
-
+        {/* Footer */}
         <View
           style={{
-            marginTop: SIZES.padding - 10,
-            paddingHorizontal: SIZES.padding,
+            flex: 1,
+            alignContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
           }}>
-          <View style={{marginBottom: 10}}>
-            <Text style={{...SIZES.h1, fontWeight: '700'}}>My Cars</Text>
-            <FlatList
-              data={userVehicles}
-              renderItem={({item}) => (
-                <View style={{flexDirection: 'row'}}>
-                  <Text>{item.carModel} </Text>
-                  <Text style={{...SIZES.h2, fontWeight: '600'}}>
-                    Car Capacity:{' '}
-                  </Text>
-                  <Text>{item.capacity}</Text>
-                </View>
-              )}
-            />
-          </View>
-          <Text style={{...SIZES.h1, fontWeight: '600'}}>Biography</Text>
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-            <ScrollView style={{marginBottom: 140}}>
-              {data.biography ? (
-                <View style={{marginTop: 5}}>
-                  <Text style={{color: COLORS.primary}}>{data.biography}</Text>
-                </View>
-              ) : (
-                <View style={{marginTop: 5}}>
-                  <Text style={{color: COLORS.primary}}>Add Biography</Text>
-                </View>
-              )}
-            </ScrollView>
+          <TouchableOpacity
+            style={{
+              width: 200,
+              marginBottom: 20,
+              height: '30%',
+            }}
+            onPress={() => navigation.navigate('CreateVehicle')}>
+            <LinearGradient
+              style={[
+                {
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 10,
+                },
+              ]}
+              colors={[COLORS.primary, '#5884ff']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={{
+                    marginTop: 3,
+                    marginRight: 15,
+                    color: COLORS.white,
+                    ...SIZES.h2,
+                  }}>
+                  Create Vehicle
+                </Text>
+                <Image
+                  style={{width: 25, height: 25, tintColor: COLORS.white}}
+                  source={icons.frontCar}
+                />
+              </View>
+            </LinearGradient>
           </TouchableOpacity>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => setModalVisible(!modalVisible)}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <TextInput
-                  multiline
-                  placeholder="Edit Biography"
-                  onChangeText={text => setBiography(text)}
-                  placeholderTextColor="gray"
-                  showSoftInputOnFocus
-                  style={styles.modalText}
-                />
-                <View style={{flexDirection: 'row', margin: 10}}>
-                  <Button
-                    title="Cancel"
-                    type="outline"
-                    style={{marginRight: 10}}
-                    onPress={() => setModalVisible(!modalVisible)}
-                  />
-                  <Button
-                    style={{marginLeft: 10}}
-                    title="Save"
-                    onPress={() => updateUserDetails(true)}
-                  />
-                </View>
-              </View>
-            </View>
-          </Modal>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible2}
-            onRequestClose={() => setModalVisible2(!modalVisible2)}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <TextInput
-                  multiline
-                  placeholder="Edit Contact"
-                  onChangeText={text => setContact(text)}
-                  placeholderTextColor="gray"
-                  showSoftInputOnFocus
-                  style={styles.modalText}
-                />
-                <View style={{flexDirection: 'row', margin: 10}}>
-                  <Button
-                    title="Cancel"
-                    type="outline"
-                    style={{marginRight: 10}}
-                    onPress={() => setModalVisible2(!modalVisible2)}
-                  />
-                  <Button
-                    style={{marginLeft: 10}}
-                    title="Save"
-                    onPress={() => updateUserDetails(false)}
-                  />
-                </View>
-              </View>
-            </View>
-          </Modal>
         </View>
       </View>
-      {/* Footer */}
-      <View
-        style={{
-          flex: 1,
-          alignContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}>
-        <TouchableOpacity
-          style={{
-            width: 200,
-            marginBottom: 20,
-            height: '30%',
-          }}
-          onPress={() => navigation.navigate('CreateVehicle')}>
-          <LinearGradient
-            style={[
-              {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 10,
-              },
-            ]}
-            colors={[COLORS.primary, '#5884ff']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text
-                style={{
-                  marginTop: 3,
-                  marginRight: 15,
-                  color: COLORS.white,
-                  ...SIZES.h2,
-                }}>
-                Create Vehicle
-              </Text>
-              <Image
-                style={{width: 25, height: 25, tintColor: COLORS.white}}
-                source={icons.frontCar}
-              />
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </NativeBaseProvider>
   );
 };
 

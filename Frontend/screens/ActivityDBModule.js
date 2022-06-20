@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
-import {NativeModules} from 'react-native';
-import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native';
-import {Text, Button, ScrollView} from 'native-base';
+import {} from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+  NativeModules,
+} from 'react-native';
+import {Text, View, Button, ScrollView} from 'native-base';
 import I18n from '../utils/language';
 
 const {ActivitiesDatabaseModule} = NativeModules;

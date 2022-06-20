@@ -1,10 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {NativeModules} from 'react-native';
-import {Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from 'react-native';
 import {View, Button, Center, Container, ScrollView, Stack} from 'native-base';
 import {BarChart, ProgressChart} from 'react-native-chart-kit';
 import {icons, SIZES} from '../constants/index';
-import {Dimensions} from 'react-native';
 import I18n from '../utils/language';
 
 const {RecommendationsManager} = NativeModules;
@@ -109,15 +114,21 @@ const Statistics = ({navigation}) => {
                   !mets[index - 6]
                     ? 0
                     : mets[index - 6].metsIntBaixaPercentage /
-                      (mets[index - 6].metsTotais || 1),
+                      (mets[index - 6].metsIntBaixaPercentage +
+                        mets[index - 6].metsIntModeradaPercentage +
+                        mets[index - 6].metsIntVigorosaPercentage || 1),
                   !mets[index - 6]
                     ? 0
                     : mets[index - 6].metsIntModeradaPercentage /
-                      (mets[index - 6].metsTotais || 1),
+                      (mets[index - 6].metsIntBaixaPercentage +
+                        mets[index - 6].metsIntModeradaPercentage +
+                        mets[index - 6].metsIntVigorosaPercentage || 1),
                   !mets[index - 6]
                     ? 0
                     : mets[index - 6].metsIntVigorosaPercentage /
-                      (mets[index - 6].metsTotais || 1),
+                      (mets[index - 6].metsIntBaixaPercentage +
+                        mets[index - 6].metsIntModeradaPercentage +
+                        mets[index - 6].metsIntVigorosaPercentage || 1),
                 ],
               }}
               width={
@@ -146,15 +157,21 @@ const Statistics = ({navigation}) => {
                   !mets[index - 5]
                     ? 0
                     : mets[index - 5].metsIntBaixaPercentage /
-                      (mets[index - 5].metsTotais || 1),
+                      (mets[index - 5].metsIntBaixaPercentage +
+                        mets[index - 5].metsIntModeradaPercentage +
+                        mets[index - 5].metsIntVigorosaPercentage || 1),
                   !mets[index - 5]
                     ? 0
                     : mets[index - 5].metsIntModeradaPercentage /
-                      (mets[index - 5].metsTotais || 1),
+                      (mets[index - 5].metsIntBaixaPercentage +
+                        mets[index - 5].metsIntModeradaPercentage +
+                        mets[index - 5].metsIntVigorosaPercentage || 1),
                   !mets[index - 5]
                     ? 0
                     : mets[index - 5].metsIntVigorosaPercentage /
-                      (mets[index - 5].metsTotais || 1),
+                      (mets[index - 5].metsIntBaixaPercentage +
+                        mets[index - 5].metsIntModeradaPercentage +
+                        mets[index - 5].metsIntVigorosaPercentage || 1),
                 ],
               }}
               width={
@@ -182,15 +199,21 @@ const Statistics = ({navigation}) => {
                   !mets[index - 4]
                     ? 0
                     : mets[index - 4].metsIntBaixaPercentage /
-                      (mets[index - 4].metsTotais || 1),
+                      (mets[index - 4].metsIntBaixaPercentage +
+                        mets[index - 4].metsIntModeradaPercentage +
+                        mets[index - 4].metsIntVigorosaPercentage || 1),
                   !mets[index - 4]
                     ? 0
                     : mets[index - 4].metsIntModeradaPercentage /
-                      (mets[index - 4].metsTotais || 1),
+                      (mets[index - 4].metsIntBaixaPercentage +
+                        mets[index - 4].metsIntModeradaPercentage +
+                        mets[index - 4].metsIntVigorosaPercentage || 1),
                   !mets[index - 4]
                     ? 0
                     : mets[index - 4].metsIntVigorosaPercentage /
-                      (mets[index - 4].metsTotais || 1),
+                      (mets[index - 4].metsIntBaixaPercentage +
+                        mets[index - 4].metsIntModeradaPercentage +
+                        mets[index - 4].metsIntVigorosaPercentage || 1),
                 ],
               }}
               width={
@@ -218,15 +241,21 @@ const Statistics = ({navigation}) => {
                   !mets[index - 3]
                     ? 0
                     : mets[index - 3].metsIntBaixaPercentage /
-                      (mets[index - 3].metsTotais || 1),
+                      (mets[index - 3].metsIntBaixaPercentage +
+                        mets[index - 3].metsIntModeradaPercentage +
+                        mets[index - 3].metsIntVigorosaPercentage || 1),
                   !mets[index - 3]
                     ? 0
                     : mets[index - 3].metsIntModeradaPercentage /
-                      (mets[index - 3].metsTotais || 1),
+                      (mets[index - 3].metsIntBaixaPercentage +
+                        mets[index - 3].metsIntModeradaPercentage +
+                        mets[index - 3].metsIntVigorosaPercentage || 1),
                   !mets[index - 3]
                     ? 0
                     : mets[index - 3].metsIntVigorosaPercentage /
-                      (mets[index - 3].metsTotais || 1),
+                      (mets[index - 3].metsIntBaixaPercentage +
+                        mets[index - 3].metsIntModeradaPercentage +
+                        mets[index - 3].metsIntVigorosaPercentage || 1),
                 ],
               }}
               width={
@@ -254,15 +283,21 @@ const Statistics = ({navigation}) => {
                   !mets[index - 2]
                     ? 0
                     : mets[index - 2].metsIntBaixaPercentage /
-                      (mets[index - 2].metsTotais || 1),
+                      (mets[index - 2].metsIntBaixaPercentage +
+                        mets[index - 2].metsIntModeradaPercentage +
+                        mets[index - 2].metsIntVigorosaPercentage || 1),
                   !mets[index - 2]
                     ? 0
                     : mets[index - 2].metsIntModeradaPercentage /
-                      (mets[index - 2].metsTotais || 1),
+                      (mets[index - 2].metsIntBaixaPercentage +
+                        mets[index - 2].metsIntModeradaPercentage +
+                        mets[index - 2].metsIntVigorosaPercentage || 1),
                   !mets[index - 2]
                     ? 0
                     : mets[index - 2].metsIntVigorosaPercentage /
-                      (mets[index - 2].metsTotais || 1),
+                      (mets[index - 2].metsIntBaixaPercentage +
+                        mets[index - 2].metsIntModeradaPercentage +
+                        mets[index - 2].metsIntVigorosaPercentage || 1),
                 ],
               }}
               width={
@@ -290,15 +325,21 @@ const Statistics = ({navigation}) => {
                   !mets[index - 1]
                     ? 0
                     : mets[index - 1].metsIntBaixaPercentage /
-                      (mets[index - 1].metsTotais || 1),
+                      (mets[index - 1].metsIntBaixaPercentage +
+                        mets[index - 1].metsIntModeradaPercentage +
+                        mets[index - 1].metsIntVigorosaPercentage || 1),
                   !mets[index - 1]
                     ? 0
                     : mets[index - 1].metsIntModeradaPercentage /
-                      (mets[index - 1].metsTotais || 1),
+                      (mets[index - 1].metsIntBaixaPercentage +
+                        mets[index - 1].metsIntModeradaPercentage +
+                        mets[index - 1].metsIntVigorosaPercentage || 1),
                   !mets[index - 1]
                     ? 0
                     : mets[index - 1].metsIntVigorosaPercentage /
-                      (mets[index - 1].metsTotais || 1),
+                      (mets[index - 1].metsIntBaixaPercentage +
+                        mets[index - 1].metsIntModeradaPercentage +
+                        mets[index - 1].metsIntVigorosaPercentage || 1),
                 ],
               }}
               width={
@@ -318,17 +359,30 @@ const Statistics = ({navigation}) => {
               }}
               hideLegend={true}
             />
+
             <ProgressChart
               data={{
                 labels: ['Baixa', 'Mod.', 'Vig.'],
 
                 data: [
-                  mets[index].metsIntBaixaPercentage /
-                    (mets[index].metsTotais || 1),
-                  mets[index].metsIntModeradaPercentage /
-                    (mets[index].metsTotais || 1),
-                  mets[index].metsIntVigorosaPercentage /
-                    (mets[index].metsTotais || 1),
+                  mets[index]
+                    ? mets[index].metsIntBaixaPercentage /
+                      (mets[index].metsIntBaixaPercentage +
+                        mets[index].metsIntModeradaPercentage +
+                        mets[index].metsIntVigorosaPercentage || 1)
+                    : 0,
+                  mets[index]
+                    ? mets[index].metsIntModeradaPercentage /
+                      (mets[index].metsIntBaixaPercentage +
+                        mets[index].metsIntModeradaPercentage +
+                        mets[index].metsIntVigorosaPercentage || 1)
+                    : 0,
+                  mets[index]
+                    ? mets[index].metsIntVigorosaPercentage /
+                      (mets[index].metsIntBaixaPercentage +
+                        mets[index].metsIntModeradaPercentage +
+                        mets[index].metsIntVigorosaPercentage || 1)
+                    : 0,
                 ],
               }}
               width={
@@ -352,18 +406,33 @@ const Statistics = ({navigation}) => {
           <Center bgColor="black">
             <Container>
               <View>
-                <Text style={styles.text_settings}>Mets</Text>
+                <Text style={styles.text_settings}>
+                  {I18n.t('STATISTICS_mets')}
+                </Text>
+
                 <ProgressChart
                   data={{
                     labels: ['Baixa', 'Mod.', 'Vig.'],
 
                     data: [
-                      mets[index].metsIntBaixaPercentage /
-                        (mets[index].metsTotais || 1),
-                      mets[index].metsIntModeradaPercentage /
-                        (mets[index].metsTotais || 1),
-                      mets[index].metsIntVigorosaPercentage /
-                        (mets[index].metsTotais || 1),
+                      mets[index]
+                        ? mets[index].metsIntBaixaPercentage /
+                          (mets[index].metsIntBaixaPercentage +
+                            mets[index].metsIntModeradaPercentage +
+                            mets[index].metsIntVigorosaPercentage || 1)
+                        : 0,
+                      mets[index]
+                        ? mets[index].metsIntModeradaPercentage /
+                          (mets[index].metsIntBaixaPercentage +
+                            mets[index].metsIntModeradaPercentage +
+                            mets[index].metsIntVigorosaPercentage || 1)
+                        : 0,
+                      mets[index]
+                        ? mets[index].metsIntVigorosaPercentage /
+                          (mets[index].metsIntBaixaPercentage +
+                            mets[index].metsIntModeradaPercentage +
+                            mets[index].metsIntVigorosaPercentage || 1)
+                        : 0,
                     ],
                   }}
                   width={Dimensions.get('window').width - 80} // from react-native
@@ -397,10 +466,12 @@ const Statistics = ({navigation}) => {
                     datasets: [
                       {
                         data: [
-                          mets[index].amountTimeStillMinute,
-                          mets[index].amountTimeWalkingMinute,
-                          mets[index].amountTimeRunningMinute,
-                          mets[index].amountTimeOnBicycleMinute,
+                          mets[index] ? mets[index].amountTimeStillMinute : 0,
+                          mets[index] ? mets[index].amountTimeWalkingMinute : 0,
+                          mets[index] ? mets[index].amountTimeRunningMinute : 0,
+                          mets[index]
+                            ? mets[index].amountTimeOnBicycleMinute
+                            : 0,
                         ],
                       },
                     ],

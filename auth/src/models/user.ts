@@ -16,9 +16,9 @@ interface UserAttrs {
   smoke: string;
   colesterol: string;
   diabetes: string;
-  pressure: string;
-  activity: string;
-  balance: string;
+  pressure: Array<string>;
+  activity: Array<string>;
+  balance: Array<string>;
   cronicDesease: string;
   medication: string;
   boneIllness: string;
@@ -91,9 +91,9 @@ interface UserDoc extends mongoose.Document {
   smoke: string;
   colesterol: string;
   diabetes: string;
-  pressure: string;
-  activity: string;
-  balance: string;
+  pressure: Array<string>;
+  activity: Array<string>;
+  balance: Array<string>;
   cronicDesease: string;
   medication: string;
   boneIllness: string;
@@ -205,15 +205,15 @@ const userSchema = new mongoose.Schema(
       required: false,
     },
     pressure: {
-      type: String,
+      type: Array,
       required: false,
     },
     activity: {
-      type: String,
+      type: Array,
       required: false,
     },
     balance: {
-      type: String,
+      type: Array,
       required: false,
     },
     cronicDesease: {

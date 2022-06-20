@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, Alert} from 'react-native';
+import {ImageBackground, Dimensions, TouchableOpacity} from 'react-native';
 import {auth} from '../../services/api';
 import images from '../../constants/images';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,10 +14,9 @@ import {
   HStack,
   Center,
   NativeBaseProvider,
+  Alert,
 } from 'native-base';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {ImageBackground} from 'react-native';
-import {Dimensions} from 'react-native';
 import I18n from '../../utils/language';
 
 const SignInScreen = ({navigation}) => {

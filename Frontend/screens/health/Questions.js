@@ -7,11 +7,11 @@ import {
   Divider,
   Checkbox,
   Button,
+  Alert,
 } from 'native-base';
-import {Alert} from 'react-native';
 import {auth} from '../../services/api';
 import I18n from '../../utils/language';
-const Questions = ({navigation, state, setSelected}) => {
+const Questions = ({state, setSelected, goBack}) => {
   const [formData, setData] = useState({});
   const [risk, setRisk] = useState('one');
   const [cardioIllness, setCardioIllness] = useState('0');
@@ -127,28 +127,20 @@ const Questions = ({navigation, state, setSelected}) => {
         concussion,
         otherProblems,
       });
+      Alert.alert(I18n.t('SETTINGS_success'));
+      // navigation.navigate('Settings');
+      goBack();
     } catch (err) {
       console.log(err);
       if (err.data.errors[0].message !== undefined) {
         Alert.alert(err.data.errors[0].message);
       } else {
-        Alert.alert('Error! Please try again!');
+        Alert.alert('SETTINGS_error');
       }
     }
   }
   return (
     <>
-      {/* <Heading
-        mt="1"
-        _dark={{
-          color: 'warmGray.200',
-        }}
-        color="coolGray.400"
-        fontWeight="medium"
-        size="xs">
-        Cardio
-      </Heading> */}
-
       {state === 1 && (
         <>
           <FormControl>
@@ -165,10 +157,10 @@ const Questions = ({navigation, state, setSelected}) => {
                 setRisk(values);
                 setSelected(true);
               }}>
-              <Radio value="yes" my={1}>
+              <Radio value="1" my={1}>
                 <Text color="white">Sim</Text>
               </Radio>
-              <Radio value="no" my={1}>
+              <Radio value="2" my={1}>
                 <Text color="white">Não</Text>
               </Radio>
             </Radio.Group>

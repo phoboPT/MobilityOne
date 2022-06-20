@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import {ActivityIndicator, StyleSheet} from 'react-native';
+import {NativeBaseProvider, View} from 'native-base';
 import {COLORS} from '../../constants';
 const styles = StyleSheet.create({
   container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
@@ -21,9 +22,11 @@ const AuthLoading = ({navigation, route}) => {
   });
 
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color={COLORS.primary} />
-    </View>
+    <NativeBaseProvider>
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={COLORS.primary} />
+      </View>
+    </NativeBaseProvider>
   );
 };
 

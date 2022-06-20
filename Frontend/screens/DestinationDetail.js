@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
-  View,
-  Text,
-  Image,
   TouchableOpacity,
   ActivityIndicator,
-  Alert,
   ImageBackground,
 } from 'react-native';
+import {Text, Image, ScrollView, Alert, View} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import {images, icons, COLORS, SIZES} from '../constants';
-import {ScrollView} from 'react-native';
 import {auth, orders} from '../services/api';
 import Moment from 'moment';
 import I18n from '../utils/language';
+import {NativeBaseProvider} from 'native-base';
 
 const StarReview = ({rate}) => {
   var starComponents = [];
@@ -26,6 +23,7 @@ const StarReview = ({rate}) => {
   for (var i = 0; i < fullStar; i++) {
     starComponents.push(
       <Image
+        alt="star"
         key={`full-${i}`}
         source={icons.starFull}
         resizeMode="cover"
@@ -41,6 +39,7 @@ const StarReview = ({rate}) => {
   for (var i = 0; i < halfStar; i++) {
     starComponents.push(
       <Image
+        alt="star"
         key={`half-${i}`}
         source={icons.starHalf}
         resizeMode="cover"
@@ -56,6 +55,7 @@ const StarReview = ({rate}) => {
   for (var i = 0; i < noStar; i++) {
     starComponents.push(
       <Image
+        alt="star"
         key={`empty-${i}`}
         source={icons.starEmpty}
         resizeMode="cover"
@@ -82,6 +82,7 @@ const IconLabel = ({icon, label}) => {
   return (
     <View style={{alignItems: 'center', marginLeft: 30}}>
       <Image
+        alt="icon"
         source={icon}
         resizeMode="cover"
         style={{
@@ -204,267 +205,276 @@ const DestinationDetail = ({navigation, route}) => {
 
   if (loading) {
     return (
-      <ImageBackground
-        style={{flex: 1, resizeMode: 'cover'}}
-        source={images.background}>
-        <ActivityIndicator
-          size="large"
-          color="white"
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        />
-      </ImageBackground>
+      <NativeBaseProvider>
+        <ImageBackground
+          style={{flex: 1, resizeMode: 'cover'}}
+          source={images.background}>
+          <ActivityIndicator
+            size="large"
+            color="white"
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+          />
+        </ImageBackground>
+      </NativeBaseProvider>
     );
   }
 
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={{flex: 2}}>
-        <Image
-          source={{uri: endLocationImage}}
-          resizeMode="cover"
-          style={{
-            width: '100%',
-            height: '80%',
-          }}
-        />
-        <View
-          style={[
-            {
-              position: 'absolute',
-              bottom: '5%',
-              left: '5%',
-              right: '5%',
-              borderRadius: 15,
-              padding: SIZES.padding,
-              backgroundColor: COLORS.white,
-            },
-            styles.shadow,
-          ]}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('UserProfile', {
-                user: user,
-              })
-            }>
-            <View style={{flexDirection: 'row'}}>
-              <View style={styles.shadow}>
-                <Image
-                  source={{uri: user.photoUrl}}
-                  resizeMode="cover"
+    <NativeBaseProvider>
+      <View style={styles.container}>
+        {/* Header */}
+        <View style={{flex: 2}}>
+          <Image
+            alt="background"
+            source={{uri: endLocationImage}}
+            resizeMode="cover"
+            style={{
+              width: '100%',
+              height: '80%',
+            }}
+          />
+          <View
+            style={[
+              {
+                position: 'absolute',
+                bottom: '5%',
+                left: '5%',
+                right: '5%',
+                borderRadius: 15,
+                padding: SIZES.padding,
+                backgroundColor: COLORS.white,
+              },
+              styles.shadow,
+            ]}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('UserProfile', {
+                  user: user,
+                })
+              }>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.shadow}>
+                  <Image
+                    alt="photo"
+                    source={{uri: user.photoUrl}}
+                    resizeMode="cover"
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 15,
+                    }}
+                  />
+                </View>
+
+                <View
                   style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 15,
-                  }}
-                />
-              </View>
+                    marginHorizontal: SIZES.radius,
+                    justifyContent: 'space-around',
+                  }}>
+                  <Text style={{...SIZES.h3}}>{user.name}</Text>
 
-              <View
-                style={{
-                  marginHorizontal: SIZES.radius,
-                  justifyContent: 'space-around',
-                }}>
-                <Text style={{...SIZES.h3}}>{user.name}</Text>
-
-                <StarReview rate={user.rating} />
-                <View style={{marginTop: 5}}>
-                  <Text style={{color: COLORS.primary}}>{user.email}</Text>
-                  <Text style={{color: COLORS.primary}}>{user.contact}</Text>
+                  <StarReview rate={user.rating} />
+                  <View style={{marginTop: 5}}>
+                    <Text style={{color: COLORS.primary}}>{user.email}</Text>
+                    <Text style={{color: COLORS.primary}}>{user.contact}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        {/* Header Buttons */}
-        <View
-          style={{
-            position: 'absolute',
-            top: 50,
-            left: 20,
-            right: 20,
-            //height: 50,
-            flexDirection: 'row',
-          }}>
-          <View style={{flex: 1}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <Image
-                source={icons.back}
-                resizeMode="cover"
-                style={{
-                  width: 30,
-                  height: 30,
-                }}
-              />
             </TouchableOpacity>
           </View>
-          <View style={{flex: 1, alignItems: 'flex-end'}} />
-        </View>
-      </View>
 
-      {/* Body */}
-      <View style={{flex: 1.5}}>
-        {/* Icons */}
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: SIZES.base,
-            justifyContent: 'space-between',
-          }}>
-          <ScrollView horizontal>
-            {haveBus ? (
-              allData.map((item, index) => {
-                if (index >= 2) {
-                  return null;
-                }
-                return (
-                  <>
-                    <IconLabel
-                      icon={icons.graduationHat}
-                      label={`${item.startLocation}`}
-                    />
-                    {iconToShow(item, index)}
-                  </>
-                );
-              })
-            ) : (
-              <>
-                <IconLabel
-                  icon={icons.graduationHat}
-                  label={`${data.startLocation}`}
+          {/* Header Buttons */}
+          <View
+            style={{
+              position: 'absolute',
+              top: 50,
+              left: 20,
+              right: 20,
+              //height: 50,
+              flexDirection: 'row',
+            }}>
+            <View style={{flex: 1}}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  alt="back"
+                  source={icons.back}
+                  resizeMode="cover"
+                  style={{
+                    width: 30,
+                    height: 30,
+                  }}
                 />
-                <IconLabel
-                  icon={icons.frontCar}
-                  label={`${data.estimatedTime} ${I18n.t('GERAL_minutes')}`}
-                />
-              </>
-            )}
-            <IconLabel icon={icons.end} label={endLocation} />
-          </ScrollView>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, alignItems: 'flex-end'}} />
+          </View>
         </View>
 
-        {haveBus ? (
+        {/* Body */}
+        <View style={{flex: 1.5}}>
+          {/* Icons */}
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: SIZES.base,
+              justifyContent: 'space-between',
+            }}>
+            <ScrollView horizontal>
+              {haveBus ? (
+                allData.map((item, index) => {
+                  if (index >= 2) {
+                    return null;
+                  }
+                  return (
+                    <>
+                      <IconLabel
+                        icon={icons.graduationHat}
+                        label={`${item.startLocation}`}
+                      />
+                      {iconToShow(item, index)}
+                    </>
+                  );
+                })
+              ) : (
+                <>
+                  <IconLabel
+                    icon={icons.graduationHat}
+                    label={`${data.startLocation}`}
+                  />
+                  <IconLabel
+                    icon={icons.frontCar}
+                    label={`${data.estimatedTime} ${I18n.t('GERAL_minutes')}`}
+                  />
+                </>
+              )}
+              <IconLabel icon={icons.end} label={endLocation} />
+            </ScrollView>
+          </View>
+
+          {haveBus ? (
+            <View style={{marginTop: 10, paddingHorizontal: SIZES.padding}}>
+              <Text style={{...SIZES.body2, fontWeight: '700'}}>
+                Route done with {user.name} on his car from{' '}
+                {allData[0].startLocation} to {allData[1].startLocation} and
+                then by bus from {allData[1].startLocation} to{' '}
+                {allData[1].endLocation}
+              </Text>
+            </View>
+          ) : null}
           <View style={{marginTop: 10, paddingHorizontal: SIZES.padding}}>
             <Text style={{...SIZES.body2, fontWeight: '700'}}>
-              Route done with {user.name} on his car from{' '}
-              {allData[0].startLocation} to {allData[1].startLocation} and then
-              by bus from {allData[1].startLocation} to {allData[1].endLocation}
+              {I18n.t('DESTINATIONDETAIL_start_date')}{' '}
+              {Moment(data.startDate).format('LLL')}
             </Text>
           </View>
-        ) : null}
-        <View style={{marginTop: 10, paddingHorizontal: SIZES.padding}}>
-          <Text style={{...SIZES.body2, fontWeight: '700'}}>
-            {I18n.t('DESTINATIONDETAIL_start_date')}{' '}
-            {Moment(data.startDate).format('LLL')}
-          </Text>
+
+          <View
+            style={{
+              marginTop: 10,
+              paddingHorizontal: SIZES.padding,
+            }}>
+            {haveBus ? (
+              <Text style={{...SIZES.body2, fontWeight: '700'}}>
+                {I18n.t('DESTINATIONDETAIL_available_seats_car')}{' '}
+                {data.capacity - 1}
+              </Text>
+            ) : (
+              <Text style={{...SIZES.body2, fontWeight: '700'}}>
+                {I18n.t('DESTINATIONDETAIL_available_seats')}{' '}
+                {data.capacity - 1}
+              </Text>
+            )}
+          </View>
+
+          <View
+            style={{
+              marginTop: SIZES.padding - 10,
+              paddingHorizontal: SIZES.padding,
+            }}>
+            <Text style={{...SIZES.h2, fontWeight: '700'}}>
+              {I18n.t('DESTINATIONDETAIL_description')}
+            </Text>
+            <ScrollView style={{marginBottom: 140}}>
+              <Text
+                style={{
+                  marginTop: SIZES.radius,
+                  color: COLORS.gray,
+                  ...SIZES.body3,
+                }}>
+                {data.description}
+              </Text>
+            </ScrollView>
+          </View>
         </View>
 
+        {/* Footer */}
         <View
           style={{
-            marginTop: 10,
-            paddingHorizontal: SIZES.padding,
+            flex: 0.5,
+            marginLeft: 50,
+            alignContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
           }}>
-          {haveBus ? (
-            <Text style={{...SIZES.body2, fontWeight: '700'}}>
-              {I18n.t('DESTINATIONDETAIL_available_seats_car')}{' '}
-              {data.capacity - 1}
-            </Text>
-          ) : (
-            <Text style={{...SIZES.body2, fontWeight: '700'}}>
-              {I18n.t('DESTINATIONDETAIL_available_seats')} {data.capacity - 1}
-            </Text>
-          )}
-        </View>
-
-        <View
-          style={{
-            marginTop: SIZES.padding - 10,
-            paddingHorizontal: SIZES.padding,
-          }}>
-          <Text style={{...SIZES.h2, fontWeight: '700'}}>
-            {I18n.t('DESTINATIONDETAIL_description')}
-          </Text>
-          <ScrollView style={{marginBottom: 140}}>
-            <Text
-              style={{
-                marginTop: SIZES.radius,
-                color: COLORS.gray,
-                ...SIZES.body3,
-              }}>
-              {data.description}
-            </Text>
-          </ScrollView>
+          <TouchableOpacity
+            style={{
+              width: 130,
+              marginBottom: 20,
+              height: '50%',
+              marginHorizontal: SIZES.radius,
+            }}
+            onPress={() => showRoute()}>
+            <LinearGradient
+              style={[
+                {
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 10,
+                },
+              ]}
+              colors={['#D1D100', '#757500']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}>
+              <Text style={{color: COLORS.white, ...SIZES.h2}}>
+                {I18n.t('DESTINATIONDETAIL_show_route')}
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              width: 130,
+              marginBottom: 20,
+              height: '50%',
+            }}
+            onPress={() => createOrder()}>
+            <LinearGradient
+              style={[
+                {
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 10,
+                },
+              ]}
+              colors={[COLORS.primary, '#5884ff']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}>
+              <Text style={{color: COLORS.white, ...SIZES.h2}}>
+                {I18n.t('DESTINATIONDETAIL_go')}
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       </View>
-
-      {/* Footer */}
-      <View
-        style={{
-          flex: 0.5,
-          marginLeft: 50,
-          alignContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-        }}>
-        <TouchableOpacity
-          style={{
-            width: 130,
-            marginBottom: 20,
-            height: '50%',
-            marginHorizontal: SIZES.radius,
-          }}
-          onPress={() => showRoute()}>
-          <LinearGradient
-            style={[
-              {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 10,
-              },
-            ]}
-            colors={['#D1D100', '#757500']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}>
-            <Text style={{color: COLORS.white, ...SIZES.h2}}>
-              {I18n.t('DESTINATIONDETAIL_show_route')}
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            width: 130,
-            marginBottom: 20,
-            height: '50%',
-          }}
-          onPress={() => createOrder()}>
-          <LinearGradient
-            style={[
-              {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 10,
-              },
-            ]}
-            colors={[COLORS.primary, '#5884ff']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}>
-            <Text style={{color: COLORS.white, ...SIZES.h2}}>
-              {I18n.t('DESTINATIONDETAIL_go')}
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </NativeBaseProvider>
   );
 };
 
@@ -481,7 +491,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
   },
 });

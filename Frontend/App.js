@@ -49,7 +49,6 @@ const App = () => {
           <Drawer.Screen name="My Routes" component={MyRoutesScreen} />
           <Drawer.Screen name="Settings" component={SettingsScreen} />
           <Drawer.Screen name="Statistics" component={Statistics} />
-          <AppStack.Screen name="Survey" component={Survey} />
         </Drawer.Navigator>
       </NativeBaseProvider>
     );
@@ -71,6 +70,7 @@ const App = () => {
         <AppStack.Screen name="MyProfile" component={MyProfile} />
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
         <AppStack.Screen name="Survey" component={Survey} />
+        {/* <AppStack.Screen name="Settings" component={SettingsScreen} /> */}
         <AppStack.Screen
           name="DestinationSearch"
           component={DestinationSearch}

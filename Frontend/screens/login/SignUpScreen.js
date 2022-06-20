@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {auth} from '../../services/api';
-import {Alert} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Avatar} from 'react-native-elements';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -13,6 +12,7 @@ import {
   FormControl,
   Input,
   Button,
+  Alert,
   HStack,
   Center,
   NativeBaseProvider,

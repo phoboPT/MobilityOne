@@ -2,15 +2,13 @@
 import React, {useState, useEffect} from 'react';
 import {
   ImageBackground,
-  View,
   ActivityIndicator,
-  Text,
-  Alert,
   TouchableOpacity,
-  Image,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
+
+import {View, Text, Image} from 'native-base';
 import {images, icons, SIZES, COLORS} from '../constants';
 import {orders, routes} from '../services/api';
 import Moment from 'moment';
@@ -27,7 +25,6 @@ const MyRoutesScreen = ({navigation}) => {
       setLoading(true);
       try {
         const response = await routes.get('/routes/user');
-        console.log(response.data);
         setMyRoutes(response.data);
         getRequestsSent();
       } catch (err) {
@@ -60,6 +57,7 @@ const MyRoutesScreen = ({navigation}) => {
             marginRight: 5,
           }}>
           <Image
+            alt="menu"
             source={icons.menu}
             resizeMode="contain"
             style={{
@@ -190,6 +188,7 @@ const MyRoutesScreen = ({navigation}) => {
                 data: item,
               })
             }>
+            {console.log(item.startLocation)}
             <View style={[styles.itemContainer, {backgroundColor: 'white'}]}>
               <View style={{alignContent: 'center', alignItems: 'center'}}>
                 <Text style={styles.itemName}>Start: {item.startLocation}</Text>
@@ -234,7 +233,7 @@ const MyRoutesScreen = ({navigation}) => {
             style={{flex: 1, justifyContent: 'center', alignContent: 'center'}}
           />
         ) : (
-          <View style={styles}>
+          <View style={styles.container}>
             {renderRequests()}
             {renderSentRequests()}
           </View>

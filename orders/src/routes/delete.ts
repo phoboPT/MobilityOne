@@ -7,7 +7,7 @@ const router = express.Router();
 router.delete('/api/orders/:orderId', async (req: Request, res: Response) => {
   try {
     const { orderId } = req.params;
-
+    console.log('second');
     const order = await Order.findById(orderId).populate('route');
 
     if (!order) {
@@ -24,6 +24,7 @@ router.delete('/api/orders/:orderId', async (req: Request, res: Response) => {
     res.status(204).send(order);
   } catch (error) {
     console.log(error);
+    res.status(300).send(error);
   }
 });
 

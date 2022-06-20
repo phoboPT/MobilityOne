@@ -72,13 +72,18 @@ router.post(
 
   validateRequest,
   async (req: Request, res: Response) => {
-    const { id, capacity } = req.body;
+    try {
+      const { id, capacity } = req.body;
 
-    const route = Route.build({ id, capacity });
+      const route = Route.build({ id, capacity });
 
-    await route.save();
+      await route.save();
 
-    res.status(201).send(route);
+      res.status(201).send(route);
+    } catch (error) {
+      console.log(error);
+      res.status(300).send(error);
+    }
   }
 );
 

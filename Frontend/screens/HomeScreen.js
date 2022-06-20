@@ -2,32 +2,30 @@ import React, {useState, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {
   StyleSheet,
-  Alert,
-  TouchableOpacity,
   SafeAreaView,
+  TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
   Dimensions,
-  FlatList,
 } from 'react-native';
 import {icons, COLORS, SIZES, images} from '../constants/index';
 import ActionButton from 'react-native-action-button';
-import DropDownPicker from 'react-native-dropdown-picker';
 import Geolocation from '@react-native-community/geolocation';
 import {FlatGrid} from 'react-native-super-grid';
+import {Button as ButtonNative} from 'react-native-elements';
 import {routes} from '../services/api';
 import Moment from 'moment';
-import {Button} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../utils/language';
 import {
   Center,
-  Select,
   View,
+  Alert,
+  FlatList,
   Text,
+  Button,
   Image,
-  Container,
-  ScrollView,
+  Modal,
 } from 'native-base';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
@@ -40,13 +38,12 @@ const HomeScreen = ({navigation}) => {
   const [userId, setUserId] = useState(null);
   const [startLocation, setStartLocation] = React.useState('');
   const [endLocation, setEndLocation] = React.useState('');
-  const [open, setOpen] = useState(false);
   const [nextTravel, setNextTravel] = useState(null);
-  const [value, setValue] = useState(null);
-  const [value1, setValue1] = useState(null);
-  const [endLocationImage, setEndLocationImage] = useState(null);
-
-  const [items, setItems] = useState([
+  const [name, setName] = useState('');
+  const [show, setShow] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [showModal1, setShowModal1] = useState(false);
+  const [items] = useState([
     {
       label: 'Escola Superior de Tecnologia e Gestão',
       value: 'ESTG',
@@ -124,13 +121,10 @@ const HomeScreen = ({navigation}) => {
     if (startLocation === endLocation) {
       Alert.alert(I18n.t('HOME_error_inputs'));
     } else {
-      const nameLocation = items.filter(obj => {
-        return obj.value === endLocation;
-      });
       navigation.navigate('DestinationSearch', {
         startLocation: startLocation,
         endLocation: endLocation,
-        name: nameLocation[0].label,
+        name: name,
       });
     }
   };
@@ -207,7 +201,7 @@ const HomeScreen = ({navigation}) => {
           }
         });
       }
-      if (recommendations.length != 0) {
+      if (recommendations.length !== 0) {
         setRecommendations(recommendations);
         setHasRecommendations(true);
       }
@@ -237,48 +231,6 @@ const HomeScreen = ({navigation}) => {
   function renderMyNextTravel() {
     return (
       <View>
-        {/* <DropDownPicker
-          open={open}
-          closeAfterSelecting={true}
-          itemSeparator={true}
-          value={value}
-          itemKey="label"
-          theme="DARK"
-          schema={{
-            label: 'label',
-            value: 'value',
-          }}
-          items={items}
-          onChangeValue={() => {
-            const item = items.filter(obj => {
-              return obj.value === value;
-            });
-            navigation.navigate('DestinationSearch', {
-              endLocation: item[0].value,
-              name: item[0].label,
-            });
-          }}
-          placeholder={I18n.t('HOME_dropdown_placeholder')}
-          setOpen={setOpen}
-          setValue={setValue}
-          containerStyle={{
-            flex: 1,
-            width: 330,
-            marginTop: 40,
-            marginBottom: 10,
-            marginLeft: 30,
-            marginRight: 30,
-            borderRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          searchTextInputStyle={{
-            borderRadius: 30,
-            backgroundColor: 'transparent',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        /> */}
         <Text
           style={{
             marginLeft: 15,
@@ -345,6 +297,7 @@ const HomeScreen = ({navigation}) => {
                         {item.endLocation}
                       </Text>
                       <Image
+                        alt="icon"
                         source={icons.end}
                         style={{
                           marginLeft: 5,
@@ -371,84 +324,132 @@ const HomeScreen = ({navigation}) => {
         <Text />
 
         <Center>
-          <Container
+          <View
             style={{
-              height: 150,
-              zIndex: 5,
-              marginBottom: 200,
-            }}>
-            <GooglePlacesAutocomplete
-              placeholder="Where do you want to go?"
-              minLength={5}
-              returnKeyType={'search'}
-              listViewDisplayed="auto"
-              fetchDetails={true}
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                console.log('hey');
-                console.log(data, '\n', details);
-                setStartLocation(data.geometry.location);
-              }}
-              query={{
-                key: google_api_key,
-                language: 'pt',
-              }}
-              styles={{
-                textInputContainer: {
-                  width: '100%',
-                  backgroundColor: '#FFF',
-                },
-                listView: {},
-              }}
-              debounce={200}
-            />
-          </Container>
-
-          <Container
-            style={{
-              height: 150,
+              // overflow: 'hidden',
+              // height: 200,
+              width: '80%',
               zIndex: 2,
-              position: 'absolute',
-              width: '100%',
+              // marginBottom: 300,
+              // backgroundColor: 'red',
             }}>
-            <GooglePlacesAutocomplete
-              placeholder="Where do you want to go?"
-              minLength={5}
-              returnKeyType={'search'}
-              listViewDisplayed="auto"
-              fetchDetails={true}
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                console.log(details);
-                setEndLocation(data.geometry.location);
-              }}
-              query={{
-                key: google_api_key,
-                language: 'pt',
-              }}
-              styles={{
-                description: {color: 'black'},
-                textInputContainer: {
-                  width: '100%',
-                  backgroundColor: '#FFF',
-                },
-              }}
-              debounce={200}
-            />
-          </Container>
-          <Button
+            <Button onPress={() => setShowModal(true)}>
+              {I18n.t('HOME_initial_button')}
+            </Button>
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+              <Modal.Content maxWidth="400px" height="500px">
+                <Modal.CloseButton />
+                <Modal.Header>{I18n.t('HOME_initial')}</Modal.Header>
+                <Modal.Body>
+                  <GooglePlacesAutocomplete
+                    placeholder="Where do you want to go?"
+                    minLength={5}
+                    returnKeyType={'search'}
+                    listViewDisplayed="auto"
+                    fetchDetails={true}
+                    onPress={(data, details = null) => {
+                      setStartLocation(details.geometry.location);
+                    }}
+                    query={{
+                      key: google_api_key,
+                      language: 'pt',
+                    }}
+                    styles={{
+                      textInputContainer: {
+                        width: '100%',
+                        backgroundColor: '#FFF',
+                      },
+                      listView: {},
+                    }}
+                    debounce={200}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button.Group space={2}>
+                    <Button
+                      variant="ghost"
+                      colorScheme="blueGray"
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      {I18n.t('BUTTON_cancel')}
+                    </Button>
+                    <Button
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      {I18n.t('BUTTON_save')}
+                    </Button>
+                  </Button.Group>
+                </Modal.Footer>
+              </Modal.Content>
+            </Modal>
+            <Text />
+            <Button onPress={() => setShowModal1(true)}>
+              {I18n.t('HOME_final_button')}
+            </Button>
+            <Modal isOpen={showModal1} onClose={() => setShowModal1(false)}>
+              <Modal.Content maxWidth="90%" height="500px">
+                <Modal.CloseButton />
+                <Modal.Header>{I18n.t('HOME_final')}</Modal.Header>
+                <Modal.Body>
+                  <GooglePlacesAutocomplete
+                    placeholder="Where do you want to go?"
+                    minLength={5}
+                    returnKeyType={'search'}
+                    listViewDisplayed="auto"
+                    fetchDetails={true}
+                    onPress={(data, details = null) => {
+                      setStartLocation(details.geometry.location);
+                    }}
+                    query={{
+                      key: google_api_key,
+                      language: 'pt',
+                    }}
+                    styles={{
+                      textInputContainer: {
+                        width: '100%',
+                        backgroundColor: '#FFF',
+                      },
+                      listView: {},
+                    }}
+                    debounce={200}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button.Group space={2}>
+                    <Button
+                      variant="ghost"
+                      colorScheme="blueGray"
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      Cancel
+                    </Button>
+                    <Button
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      {I18n.t('BUTTON_save')}
+                    </Button>
+                  </Button.Group>
+                </Modal.Footer>
+              </Modal.Content>
+            </Modal>
+          </View>
+          <Text />
+          <ButtonNative
             iconRight
             onPress={() => searchRoutes()}
             containerStyle={{
               borderRadius: 30,
-              position: 'absolute',
               bottom: 0,
-              marginBottom: 100,
-
               width: 150,
+              zIndex: 3,
             }}
             icon={
               <Image
+                alt="search"
                 source={icons.search}
                 style={{
                   marginLeft: 5,
@@ -500,13 +501,22 @@ const HomeScreen = ({navigation}) => {
                 }>
                 <View style={styles.cardContainer}>
                   <Image
+                    alt="User Image"
                     style={styles.imageStyle}
-                    source={{uri: item.userImage}}
+                    source={{
+                      uri:
+                        item.userImage ||
+                        'https://magazine.mafex.es/wp-content/uploads/2020/10/MaaS-general-650x381.jpg',
+                    }}
                   />
                   <Text style={styles.itemName}>
-                    Start: {item.startLocation}
+                    {I18n.t('HOME_dropdown_placeholder_start')}
+                    {item.startLocation}
                   </Text>
-                  <Text style={styles.itemName}>End: {item.endLocation}</Text>
+                  <Text style={styles.itemName}>
+                    {I18n.t('HOME_dropdown_placeholder_end')}
+                    {item.endLocation}
+                  </Text>
                   <Text style={styles.itemDate}>
                     {Moment(item.startDate).format('lll')}
                   </Text>
@@ -529,6 +539,7 @@ const HomeScreen = ({navigation}) => {
       <View>
         {hasNextRide ? renderMyNextTravel() : renderDestinations()}
         {/* <RecomCard /> */}
+        <Text />
         {hasRecommendations ? <RecomCard /> : null}
       </View>
     );
@@ -545,6 +556,7 @@ const HomeScreen = ({navigation}) => {
             justifyContent: 'center',
           }}>
           <Image
+            alt="menu"
             source={icons.menu}
             resizeMode="contain"
             style={{
@@ -596,21 +608,15 @@ const HomeScreen = ({navigation}) => {
     );
   }
   return (
-    // <ScrollView
-    //   style={{
-    //     height: '100%',
-    //   }}>
     <ImageBackground
       style={{flex: 1, resizeMode: 'cover'}}
       source={images.background}>
       <SafeAreaView style={{flex: 1}}>
         {renderHeader()}
-
         {renderBody()}
         {renderActionButton()}
       </SafeAreaView>
     </ImageBackground>
-    // </ScrollView>
   );
 };
 

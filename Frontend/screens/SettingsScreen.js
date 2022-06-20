@@ -1,8 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {NativeModules} from 'react-native';
-import {Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, TouchableOpacity, NativeModules} from 'react-native';
 import ActivityDB from './ActivityDBModule';
-import {View, Button, Center, Container, Switch, ScrollView} from 'native-base';
+import {
+  View,
+  Button,
+  Center,
+  Container,
+  Switch,
+  ScrollView,
+  Text,
+  Image,
+} from 'native-base';
 import {icons, SIZES} from '../constants/index';
 import I18n from '../utils/language';
 import AsyncStorage from '@react-native-community/async-storage';

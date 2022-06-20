@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {create} from 'apisauce';
 const token = AsyncStorage.getItem('@App:token');
+const baseURL = '192.168.1.221';
+// const baseURL = 'smob.esce.ipvc.pt';
 const auth = create({
-  baseURL: 'http://smob.esce.ipvc.pt:3000/api',
+  baseURL: `http://${baseURL}:3000/api`,
 });
 
 auth.addAsyncRequestTransform(request => async () => {
@@ -18,7 +20,7 @@ auth.addResponseTransform(response => {
 });
 
 const orders = create({
-  baseURL: 'http://smob.esce.ipvc.pt:3001/api',
+  baseURL: `http://${baseURL}:3001/api`,
 });
 
 orders.addAsyncRequestTransform(request => async () => {
@@ -34,7 +36,7 @@ orders.addResponseTransform(response => {
 });
 
 const routes = create({
-  baseURL: 'http://smob.esce.ipvc.pt:3002/api',
+  baseURL: `http://${baseURL}:3002/api`,
 });
 
 routes.addAsyncRequestTransform(request => async () => {
@@ -50,7 +52,7 @@ routes.addResponseTransform(response => {
 });
 
 const vehicles = create({
-  baseURL: 'http://smob.esce.ipvc.pt:3003/api',
+  baseURL: `http://${baseURL}:3003/api`,
 });
 
 vehicles.addAsyncRequestTransform(request => async () => {

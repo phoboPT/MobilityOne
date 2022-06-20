@@ -15,97 +15,102 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { email, password, name, photoUrl, biography, contact, birthDate } = req.body;
-    const existingUser = await User.findOne({ email });
+    try {
+      const { email, password, name, photoUrl, biography, contact, birthDate } = req.body;
+      const existingUser = await User.findOne({ email });
 
-    if (existingUser) {
-      throw new BadRequestError('Email in use', {
-        from: 'Signup, email is already in use',
+      if (existingUser) {
+        throw new BadRequestError('Email in use', {
+          from: 'Signup, email is already in use',
+        });
+      }
+
+      const user = User.build({
+        email,
+        password,
+        rating: 0,
+        name: name || '',
+        photoUrl:
+          photoUrl ||
+          'https://toppng.com/uploads/preview/app-icon-set-login-icon-comments-avatar-icon-11553436380yill0nchdm.png',
+        biography: biography || '',
+        contact: contact || '',
+        birthDate: birthDate || '',
+        risk: '',
+        cardioIllnes: '',
+        heartAtack: '',
+        smoke: '',
+        colesterol: '',
+        diabetes: '',
+        pressure: [],
+        activity: [],
+        balance: [],
+        cronicDesease: '',
+        medication: '',
+        boneIllness: '',
+        medicalSuvervision: '',
+        artriteOrRelated: '',
+        artriteMeds: '',
+        articularProblems: '',
+        injections: '',
+        cancer: '',
+        cancertType: '',
+        cancerTreatment: '',
+        heartProblem: '',
+        controllingHeartCondition: '',
+        irregularHeartStrokes: '',
+        insufficentCardiac: '',
+        activityCronicDesiese: '',
+        highPressure: '',
+        highPressureMeds: '',
+        highPressureRelaxed: '',
+        metabolicProblem: '',
+        hipoglicemy: '',
+        diabetesComplication: '',
+        intenseExercise: '',
+        mentalIllness: '',
+        mentalIllnessMeds: '',
+        downSindrome: '',
+        breathingIllness: '',
+        breathingIllnessMeds: '',
+        lowOxygen: '',
+        asmatic: '',
+        highBloodPressure: '',
+        spinal: '',
+        spinalMeds: '',
+        lowBloodPressure: '',
+        bloodPressureSurges: '',
+        stroke: '',
+        strokeMeds: '',
+        compromisedMobility: '',
+        strokeOrMuscle: '',
+        metabolicProblemMeds: '',
+        metabolicOther: '',
+        otherHealthProblems: '',
+        concussion: '',
+        otherProblems: '',
+        illness: '',
+        cronicIllness: '',
+        medications: '',
+        boneIllnessList: '',
+        twoOrMoreProblems: '',
       });
+      await user.save();
+      //Generate and setting token
+      const userJwt = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+        },
+        process.env.JWT_KEY || 'MySeCrEt'
+      );
+
+      req.session = { jwt: userJwt };
+      res.status(201).send(user);
+    } catch (error) {
+      console.log(error);
+      res.status(300).send(error);
     }
-
-    const user = User.build({
-      email,
-      password,
-      rating: 0,
-      name: name || '',
-      photoUrl:
-        photoUrl ||
-        'https://toppng.com/uploads/preview/app-icon-set-login-icon-comments-avatar-icon-11553436380yill0nchdm.png',
-      biography: biography || '',
-      contact: contact || '',
-      birthDate: birthDate || '',
-      risk: '',
-      cardioIllnes: '',
-      heartAtack: '',
-      smoke: '',
-      colesterol: '',
-      diabetes: '',
-      pressure: '',
-      activity: '',
-      balance: '',
-      cronicDesease: '',
-      medication: '',
-      boneIllness: '',
-      medicalSuvervision: '',
-      artriteOrRelated: '',
-      artriteMeds: '',
-      articularProblems: '',
-      injections: '',
-      cancer: '',
-      cancertType: '',
-      cancerTreatment: '',
-      heartProblem: '',
-      controllingHeartCondition: '',
-      irregularHeartStrokes: '',
-      insufficentCardiac: '',
-      activityCronicDesiese: '',
-      highPressure: '',
-      highPressureMeds: '',
-      highPressureRelaxed: '',
-      metabolicProblem: '',
-      hipoglicemy: '',
-      diabetesComplication: '',
-      intenseExercise: '',
-      mentalIllness: '',
-      mentalIllnessMeds: '',
-      downSindrome: '',
-      breathingIllness: '',
-      breathingIllnessMeds: '',
-      lowOxygen: '',
-      asmatic: '',
-      highBloodPressure: '',
-      spinal: '',
-      spinalMeds: '',
-      lowBloodPressure: '',
-      bloodPressureSurges: '',
-      stroke: '',
-      strokeMeds: '',
-      compromisedMobility: '',
-      strokeOrMuscle: '',
-      metabolicProblemMeds: '',
-      metabolicOther: '',
-      otherHealthProblems: '',
-      concussion: '',
-      otherProblems: '',
-      illness: '',
-      cronicIllness: '',
-      medications: '',
-      boneIllnessList: '',
-      twoOrMoreProblems: '',
-    });
-    await user.save();
-    //Generate and setting token
-    const userJwt = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-      },
-      process.env.JWT_KEY || 'MySeCrEt'
-    );
-
-    req.session = { jwt: userJwt };
-    res.status(201).send(user);
   }
 );
 

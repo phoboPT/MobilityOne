@@ -13,24 +13,29 @@ router.post(
   [body('type').not().isEmpty().withMessage('type required')],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { type, carModel, capacity } = req.body;
-    console.log(carModel);
-    const vehicle = Vehicle.build({
-      type: type,
-      userId: req.currentUser!.id,
-      carModel: carModel,
-      capacity: capacity,
-    });
-    await vehicle.save();
+    try {
+      const { type, carModel, capacity } = req.body;
+      console.log(carModel);
+      const vehicle = Vehicle.build({
+        type: type,
+        userId: req.currentUser!.id,
+        carModel: carModel,
+        capacity: capacity,
+      });
+      await vehicle.save();
 
-    // await new VehiculeCreatedPublisher(natsWrapper.client).publish({
-    //   id: vehicle.id,
-    //   type: vehicle.type,
-    //   userId: vehicle.userId,
-    //   location: '',
-    // });
+      // await new VehiculeCreatedPublisher(natsWrapper.client).publish({
+      //   id: vehicle.id,
+      //   type: vehicle.type,
+      //   userId: vehicle.userId,
+      //   location: '',
+      // });
 
-    res.status(201).send(vehicle);
+      res.status(201).send(vehicle);
+    } catch (error) {
+      console.log(error);
+      res.status(300).send(error);
+    }
   }
 );
 

@@ -1,9 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  Alert,
-  Image,
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
@@ -11,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {icons, SIZES, COLORS, images} from '../constants';
-import {Button, Input} from 'react-native-elements';
+import {Button as ButtonNative, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-date-picker';
 import {vehicles, routes} from '../services/api';
@@ -21,14 +17,20 @@ import I18n from '../utils/language';
 import {
   Select,
   NativeBaseProvider,
-  Container,
-  Box,
+  Button,
   Center,
-  KeyboardAvoidingView,
+  View,
+  Text,
+  Image,
+  Alert,
+  CheckIcon,
+  FormControl,
+  Modal,
 } from 'native-base';
-
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+const google_api_key = 'AIzaSyDH_jy13qugt-fXmVxtENy6n-BozWpBpUQ';
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row', height: 50, zIndex: 1},
+  container: {flexDirection: 'row', height: 50, zIndex: 4},
   container2: {flexDirection: 'column', height: 50, zIndex: 20},
 });
 
@@ -45,9 +47,8 @@ const CreateCarPooling = ({navigation}) => {
   const [userImage, setUserImage] = React.useState(null);
   const [vehicleChoosed, setVehicleChoosed] = React.useState(null);
   const [date, setDate] = useState(new Date());
-
-  const [value2, setValue2] = useState(null);
-  const [value3, setValue3] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [showModal1, setShowModal1] = useState(false);
 
   const [items, setItems] = useState([
     {label: 'ESTG', value: 'Escola Superior de Tecnologia e Gestão'},
@@ -176,6 +177,7 @@ const CreateCarPooling = ({navigation}) => {
             justifyContent: 'center',
           }}>
           <Image
+            alt="back"
             source={icons.back}
             resizeMode="contain"
             style={{
@@ -202,265 +204,244 @@ const CreateCarPooling = ({navigation}) => {
 
   function renderCreateCarPooling() {
     return (
-      <Center>
-        <Box>
-          <Select
-            value={startLocation}
-            minWidth="300"
-            mx={{
-              base: 0,
-              md: 'auto',
-            }}
-            accessibilityLabel={"I18n.t('HOME_dropdown_placeholder_start')"}
-            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
-            items={items}
-            onValueChange={itemValue => setStartLocation(itemValue)}
-            _selectedItem={{
-              bg: 'cyan.600',
-            }}>
-            <Select.Item
-              label="Escola Superior de Tecnologia e Gestão"
-              value="ESTG"
-              lat="41.693463"
-              long="-8.846654"
-            />
-            <Select.Item
-              label="Escola Superior de Educação"
-              value="ESE"
-              lat="41.702491"
-              long="-8.820698"
-            />
-            <Select.Item
-              label="Escola Superior Agrária"
-              value="ESA"
-              lat="41.793549"
-              long="-8.54277"
-            />
-            <Select.Item
-              label="Escola Superior de Saúde"
-              value="ESS"
-              lat="41.697553"
-              long="-8.836266"
-            />
-            <Select.Item
-              label="Escola Superior de Desporto e Lazer"
-              value="ESDL"
-              lat="42.117427"
-              long="-8.271185"
-            />
-            <Select.Item
-              label="Escola Superior de Ciências Empresariais"
-              value="ESCE"
-              lat="42.031629"
-              long="-8.632825"
-            />
-            <Select.Item
-              label="Serviços Académicos"
-              value="SAS"
-              lat="41.693286"
-              long="-8.832566"
-            />
-          </Select>
-          <Select
-            value={endLocation}
-            minWidth="300"
-            mx={{
-              base: 0,
-              md: 'auto',
-            }}
-            accessibilityLabel={I18n.t('HOME_dropdown_placeholder_start')}
-            placeholder={I18n.t('HOME_dropdown_placeholder_start')}
-            items={items}
-            onValueChange={itemValue => setEndLocation(itemValue)}
-            _selectedItem={{
-              bg: 'cyan.600',
-            }}>
-            <Select.Item
-              label="Escola Superior de Tecnologia e Gestão"
-              value="ESTG"
-              lat="41.693463"
-              long="-8.846654"
-            />
-            <Select.Item
-              label="Escola Superior de Educação"
-              value="ESE"
-              lat="41.702491"
-              long="-8.820698"
-            />
-            <Select.Item
-              label="Escola Superior Agrária"
-              value="ESA"
-              lat="41.793549"
-              long="-8.54277"
-            />
-            <Select.Item
-              label="Escola Superior de Saúde"
-              value="ESS"
-              lat="41.697553"
-              long="-8.836266"
-            />
-            <Select.Item
-              label="Escola Superior de Desporto e Lazer"
-              value="ESDL"
-              lat="42.117427"
-              long="-8.271185"
-            />
-            <Select.Item
-              label="Escola Superior de Ciências Empresariais"
-              value="ESCE"
-              lat="42.031629"
-              long="-8.632825"
-            />
-            <Select.Item
-              label="Serviços Académicos"
-              value="SAS"
-              lat="41.693286"
-              long="-8.832566"
-            />
-          </Select>
-
-          <Text />
-          {/* {vehicle && (
-            <Select
-              minWidth="300"
-              mx={{
-                base: 0,
-                md: 'auto',
-              }}
-              items={vehicle}
-              accessibilityLabel={I18n.t('HOME_dropdown_car')}
-              placeholder={I18n.t('HOME_dropdown_car')}
-              onValueChange={itemValue => setVehicleChoosed(itemValue)}
-              _selectedItem={{
-                bg: 'cyan.600',
-              }}>
-              <Select.Item
-                label="Serviços Académicos"
-                value="SAS"
-                lat="41.693286"
-                long="-8.832566"
-              />
-              {vehicle.map(item => {
-                return <Select.Item label="23" value={item.id} />;
-              })}
-            </Select>
-          )} */}
-
-          <Select
-            value={vehicleChoosed}
-            minWidth="300"
-            mx={{
-              base: 0,
-              md: 'auto',
-            }}
-            items={vehicle}
-            accessibilityLabel={I18n.t('HOME_dropdown_car')}
-            placeholder={I18n.t('HOME_dropdown_car')}
-            onValueChange={itemValue => setVehicleChoosed(itemValue)}
-            _selectedItem={{
-              bg: 'cyan.600',
-            }}>
-            <Select.Item
-              label="Serviços Académicos"
-              value="SAS"
-              lat="41.693286"
-              long="-8.832566"
-            />
-            {vehicle.map(item => {
-              console.log(item);
-              return <Input label="23" value={item.id} />;
-            })}
-          </Select>
-
-          <Text
+      <>
+        <Text />
+        <Center>
+          <View
             style={{
-              alignSelf: 'center',
-              fontSize: SIZES.body2,
-              marginBottom: 15,
-              fontWeight: '400',
-              color: COLORS.black,
+              // overflow: 'hidden',
+              // height: 200,
+              width: '80%',
+              zIndex: 2,
+              // marginBottom: 300,
+              // backgroundColor: 'red',
             }}>
-            {I18n.t('CREATECARPOOLING_estimatedTime')}
-          </Text>
-          <NumericInput
-            value={estimatedTime}
-            onChange={value => setEstimatedTime(value)}
-            onLimitReached={() => Alert.alert(I18n.t('CREATECARPOOLING_alert'))}
-            totalWidth={240}
-            editable
-            minValue={10}
-            totalHeight={50}
-            iconSize={25}
-            step={5}
-            containerStyle={{
-              marginBottom: 17,
-            }}
-            valueType="real"
-            rounded
-            textColor="black"
-            iconStyle={{color: 'white'}}
-            rightButtonBackgroundColor={COLORS.primary}
-            leftButtonBackgroundColor={COLORS.gray}
-          />
+            <Button onPress={() => setShowModal(true)}>
+              {I18n.t('HOME_initial_button')}
+            </Button>
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+              <Modal.Content maxWidth="400px" height="500px">
+                <Modal.CloseButton />
+                <Modal.Header>{I18n.t('HOME_initial')}</Modal.Header>
+                <Modal.Body>
+                  <GooglePlacesAutocomplete
+                    placeholder="Where do you want to go?"
+                    minLength={5}
+                    returnKeyType={'search'}
+                    listViewDisplayed="auto"
+                    fetchDetails={true}
+                    onPress={(data, details = null) => {
+                      setStartLocation(details.geometry.location);
+                    }}
+                    query={{
+                      key: google_api_key,
+                      language: 'pt',
+                    }}
+                    styles={{
+                      textInputContainer: {
+                        width: '100%',
+                        backgroundColor: '#FFF',
+                      },
+                      listView: {},
+                    }}
+                    debounce={200}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button.Group space={2}>
+                    <Button
+                      variant="ghost"
+                      colorScheme="blueGray"
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      {I18n.t('BUTTON_cancel')}
+                    </Button>
+                    <Button
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      {I18n.t('BUTTON_save')}
+                    </Button>
+                  </Button.Group>
+                </Modal.Footer>
+              </Modal.Content>
+            </Modal>
+            <Text />
+            <Button onPress={() => setShowModal1(true)}>
+              {I18n.t('HOME_final_button')}
+            </Button>
+            <Modal isOpen={showModal1} onClose={() => setShowModal1(false)}>
+              <Modal.Content maxWidth="90%" height="500px">
+                <Modal.CloseButton />
+                <Modal.Header>{I18n.t('HOME_final')}</Modal.Header>
+                <Modal.Body>
+                  <GooglePlacesAutocomplete
+                    placeholder="Where do you want to go?"
+                    minLength={5}
+                    returnKeyType={'search'}
+                    listViewDisplayed="auto"
+                    fetchDetails={true}
+                    onPress={(data, details = null) => {
+                      setStartLocation(details.geometry.location);
+                    }}
+                    query={{
+                      key: google_api_key,
+                      language: 'pt',
+                    }}
+                    styles={{
+                      textInputContainer: {
+                        width: '100%',
+                        backgroundColor: '#FFF',
+                      },
+                      listView: {},
+                    }}
+                    debounce={200}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button.Group space={2}>
+                    <Button
+                      variant="ghost"
+                      colorScheme="blueGray"
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      Cancel
+                    </Button>
+                    <Button
+                      onPress={() => {
+                        setShowModal(false);
+                      }}>
+                      {I18n.t('BUTTON_save')}
+                    </Button>
+                  </Button.Group>
+                </Modal.Footer>
+              </Modal.Content>
+            </Modal>
+          </View>
+          <Text />
+        </Center>
+        <Text />
 
+        <Select
+          value={vehicleChoosed}
+          minWidth="300"
+          mx={{
+            base: 0,
+            md: 'auto',
+          }}
+          items={vehicle}
+          accessibilityLabel={I18n.t('HOME_dropdown_car')}
+          placeholder={I18n.t('HOME_dropdown_car')}
+          _selectedItem={{
+            bg: 'teal.600',
+            endIcon: <CheckIcon size="5" />,
+          }}
+          _light={{
+            bg: 'coolGray.100',
+          }}
+          _dark={{
+            bg: 'coolGray.800',
+          }}
+          onValueChange={itemValue => setVehicleChoosed(itemValue)}>
+          {userVehicles.map(item => {
+            return <Select.Item label={item.carModel} value={item.id} />;
+          })}
+        </Select>
+        <Text />
+        <Text
+          style={{
+            alignSelf: 'center',
+            fontSize: SIZES.body2,
+            marginBottom: 15,
+            fontWeight: '400',
+            color: COLORS.black,
+          }}>
+          {I18n.t('CREATECARPOOLING_estimatedTime')}
+        </Text>
+        <NumericInput
+          value={estimatedTime}
+          onChange={value => setEstimatedTime(value)}
+          onLimitReached={() => Alert.alert(I18n.t('CREATECARPOOLING_alert'))}
+          totalWidth={240}
+          editable
+          minValue={10}
+          totalHeight={50}
+          iconSize={25}
+          step={5}
+          containerStyle={{
+            marginBottom: 17,
+          }}
+          valueType="real"
+          rounded
+          textColor="black"
+          iconStyle={{color: 'white'}}
+          rightButtonBackgroundColor={COLORS.primary}
+          leftButtonBackgroundColor={COLORS.gray}
+        />
+
+        <FormControl>
           <Input
             style={{
-              width: '300px',
+              width: '80%',
             }}
             variant="outline"
             placeholder={I18n.t('CREATECARPOOLING_description')}
             multiline
+            onChange={e => setDescription(e.value)}
           />
-
-          <DatePicker
-            collapsable
-            minimumDate={new Date()}
-            locale="pt"
-            is24hourSource="locale"
-            androidVariant="iosClone"
-            date={date}
-            onDateChange={setDate}
-          />
-
-          <Button
-            onPress={() => validateInputs()}
-            buttonStyle={{
-              backgroundColor: COLORS.primary,
-              borderRadius: 10,
-            }}
-            titleStyle={{color: COLORS.white}}
-            icon={
-              <Icon
-                name="chevron-circle-down"
-                style={{marginLeft: 10}}
-                size={28}
-                color="white"
-              />
-            }
-            iconRight
-            title={I18n.t('CREATECARPOOLING_create')}
-          />
-        </Box>
-      </Center>
+        </FormControl>
+        <DatePicker
+          collapsable
+          minimumDate={new Date()}
+          locale="pt"
+          is24hourSource="locale"
+          androidVariant="iosClone"
+          date={date}
+          onDateChange={setDate}
+        />
+        <Text />
+        <ButtonNative
+          onPress={() => validateInputs()}
+          buttonStyle={{
+            backgroundColor: COLORS.primary,
+            borderRadius: 10,
+          }}
+          titleStyle={{color: COLORS.white}}
+          icon={
+            <Icon
+              name="chevron-circle-down"
+              style={{marginLeft: 10}}
+              size={28}
+              color="white"
+            />
+          }
+          iconRight
+          title={I18n.t('CREATECARPOOLING_create')}
+        />
+      </>
     );
   }
 
   return (
     <NativeBaseProvider>
-      <ImageBackground
-        style={{flex: 1, resizeMode: 'cover'}}
-        source={images.background}>
-        {loading ? (
-          <View>
-            <ActivityIndicator size="large" color={COLORS.primary} />
-          </View>
-        ) : (
-          <>
-            {renderHeader()}
-            {renderCreateCarPooling()}
-          </>
-        )}
-      </ImageBackground>
+      <SafeAreaView>
+        <ImageBackground
+          style={{resizeMode: 'cover', height: '100%'}}
+          source={images.background}>
+          {loading ? (
+            <View>
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>
+          ) : (
+            <>
+              {renderHeader()}
+              <Center>{renderCreateCarPooling()}</Center>
+            </>
+          )}
+        </ImageBackground>
+      </SafeAreaView>
     </NativeBaseProvider>
   );
 };

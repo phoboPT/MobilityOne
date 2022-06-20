@@ -114,6 +114,7 @@ export function DrawerContent(props) {
             <DrawerItem
               icon={({color, size}) => (
                 <Image
+                  alt="Home"
                   source={icons.home}
                   name="home-outline"
                   style={{
@@ -132,6 +133,7 @@ export function DrawerContent(props) {
             <DrawerItem
               icon={({color, size}) => (
                 <Image
+                  alt="Profile"
                   source={icons.routes}
                   name="messages"
                   style={{
@@ -151,6 +153,7 @@ export function DrawerContent(props) {
             <DrawerItem
               icon={({color, size}) => (
                 <Image
+                  alt="Profile"
                   source={icons.settings}
                   name="settings-outline"
                   style={{
@@ -169,6 +172,7 @@ export function DrawerContent(props) {
             <DrawerItem
               icon={({color, size}) => (
                 <Image
+                  alt="Profile"
                   source={icons.settings}
                   name="settings-outline"
                   style={{
@@ -191,6 +195,7 @@ export function DrawerContent(props) {
         <DrawerItem
           icon={({color, size}) => (
             <Image
+              alt="Profile"
               name="exit-to-app"
               source={icons.signout}
               style={{
@@ -201,7 +206,7 @@ export function DrawerContent(props) {
               }}
             />
           )}
-          label="Sign Out"
+          label={I18n.t('NAVIGATION_signout')}
           onPress={() => signOut()}
         />
       </Drawer.Section>
