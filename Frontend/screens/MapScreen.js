@@ -10,7 +10,8 @@ import Geolocation from '@react-native-community/geolocation';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import {images, icons} from '../constants';
-const google_api_key = 'AIzaSyDH_jy13qugt-fXmVxtENy6n-BozWpBpUQ';
+
+import env from '../env';
 let lat;
 let lng;
 
@@ -255,7 +256,7 @@ const MapScreen = ({navigation, route}) => {
             }}
             strokeWidth={5}
             strokeColor={'#2d8cea'}
-            apikey={google_api_key}
+            apikey={env.googleKey}
           />
         </MapView>
       </View>

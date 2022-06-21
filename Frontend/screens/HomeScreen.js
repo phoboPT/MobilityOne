@@ -31,6 +31,7 @@ import {
   NativeBaseProvider,
 } from 'native-base';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import env from '../env';
 const device_width = Dimensions.get('window').width;
 const google_api_key = 'AIzaSyDH_jy13qugt-fXmVxtENy6n-BozWpBpUQ';
 const HomeScreen = ({navigation}) => {
@@ -327,98 +328,8 @@ const HomeScreen = ({navigation}) => {
         <Text />
 
         <Center>
-          {/* <Center>
-              <Button onPress={() => setShowModal(true)}>Button</Button>
-              <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <Modal.Content maxWidth="400px">
-                  <Modal.CloseButton />
-                  <Modal.Header>Contact Us</Modal.Header>
-                  <Modal.Body>
-                    <FormControl>
-                      <FormControl.Label>Name</FormControl.Label>
-                      <Input />
-                    </FormControl>
-                    <FormControl mt="3">
-                      <FormControl.Label>Email</FormControl.Label>
-                      <Input />
-                    </FormControl>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button.Group space={2}>
-                      <Button
-                        variant="ghost"
-                        colorScheme="blueGray"
-                        onPress={() => {
-                          setShowModal(false);
-                        }}>
-                        Cancel
-                      </Button>
-                      <Button
-                        onPress={() => {
-                          setShowModal(false);
-                        }}>
-                        Save
-                      </Button>
-                    </Button.Group>
-                  </Modal.Footer>
-                </Modal.Content>
-              </Modal>
-            </Center> */}
           <Text />
-          {/* <Button onPress={() => setShowModal1(true)}>
-              {I18n.t('HOME_final_button')}
-            </Button>
-            <Modal isOpen={showModal1} onClose={() => setShowModal1(false)}>
-              <Modal.Content maxWidth="90%" height="500px">
-                <Modal.CloseButton />
-                <Modal.Header>{I18n.t('HOME_final')}</Modal.Header>
-                <Modal.Body>
-                  <GooglePlacesAutocomplete
-                    placeholder="Where do you want to go?"
-                    minLength={5}
-                    returnKeyType={'search'}
-                    listViewDisplayed="auto"
-                    fetchDetails={true}
-                    value
-                    onPress={(data, details) => {
-                      console.log('hey');
-                      console.log(data, '/n', details);
-                      setEndLocation(details.geometry.location);
-                    }}
-                    query={{
-                      key: google_api_key,
-                      language: 'pt',
-                    }}
-                    styles={{
-                      textInputContainer: {
-                        width: '100%',
-                        backgroundColor: '#FFF',
-                      },
-                      listView: {},
-                    }}
-                    debounce={200}
-                  />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button.Group space={2}>
-                    <Button
-                      variant="ghost"
-                      colorScheme="blueGray"
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      Cancel
-                    </Button>
-                    <Button
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      {I18n.t('BUTTON_save')}
-                    </Button>
-                  </Button.Group>
-                </Modal.Footer>
-              </Modal.Content>
-            </Modal> */}
+
           <View style={styles.search_field_container}>
             <GooglePlacesAutocomplete
               // ref="endlocation"
@@ -435,8 +346,8 @@ const HomeScreen = ({navigation}) => {
                 });
               }}
               query={{
-                key: google_api_key,
-                language: 'en',
+                key: env.googleKey,
+                language: 'pt',
               }}
               styles={{
                 textInputContainer: {
@@ -466,8 +377,8 @@ const HomeScreen = ({navigation}) => {
                 });
               }}
               query={{
-                key: google_api_key,
-                language: 'en',
+                key: env.googleKey,
+                language: 'pt',
               }}
               styles={{
                 textInputContainer: {
