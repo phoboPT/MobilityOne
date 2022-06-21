@@ -5,13 +5,13 @@ import {
   ActivityIndicator,
   ImageBackground,
 } from 'react-native';
-import {Text, Image, ScrollView, Alert, View} from 'native-base';
+import {Text, Image, ScrollView, View} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import {images, icons, COLORS, SIZES} from '../constants';
 import {auth, orders} from '../services/api';
 import Moment from 'moment';
 import I18n from '../utils/language';
-import {NativeBaseProvider} from 'native-base';
+import {NativeBaseProvider, Alert} from 'native-base';
 
 const StarReview = ({rate}) => {
   var starComponents = [];

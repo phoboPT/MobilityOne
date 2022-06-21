@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-import {ImageBackground, Dimensions, TouchableOpacity} from 'react-native';
+import {
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import {auth} from '../../services/api';
 import images from '../../constants/images';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,7 +19,6 @@ import {
   HStack,
   Center,
   NativeBaseProvider,
-  Alert,
 } from 'native-base';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import I18n from '../../utils/language';

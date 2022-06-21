@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  Alert,
   Image,
   TouchableOpacity,
   SafeAreaView,
@@ -14,7 +13,7 @@ import {Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {vehicles} from '../services/api';
 import NumericInput from 'react-native-numeric-input';
-import {} from 'react-native';
+import {Alert} from 'react-native';
 import I18n from '../utils/language';
 
 const CreateVehicle = ({navigation}) => {

@@ -18,6 +18,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
+      console.log(email, password);
       const existingUser = await User.findOne({ email });
       if (!existingUser) {
         throw new BadRequestError('Bad credentials provided', { from: 'Signin, invalid credentials' });

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
+  Alert,
   Dimensions,
 } from 'react-native';
 import {icons, COLORS, SIZES, images} from '../constants/index';
@@ -20,15 +21,17 @@ import I18n from '../utils/language';
 import {
   Center,
   View,
-  Alert,
   FlatList,
   Text,
   Button,
   Image,
   Modal,
+  FormControl,
+  Input,
+  NativeBaseProvider,
 } from 'native-base';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-
+const device_width = Dimensions.get('window').width;
 const google_api_key = 'AIzaSyDH_jy13qugt-fXmVxtENy6n-BozWpBpUQ';
 const HomeScreen = ({navigation}) => {
   const [hasNextRide, setHasNextRide] = useState(false);
@@ -324,68 +327,45 @@ const HomeScreen = ({navigation}) => {
         <Text />
 
         <Center>
-          <View
-            style={{
-              // overflow: 'hidden',
-              // height: 200,
-              width: '80%',
-              zIndex: 2,
-              // marginBottom: 300,
-              // backgroundColor: 'red',
-            }}>
-            <Button onPress={() => setShowModal(true)}>
-              {I18n.t('HOME_initial_button')}
-            </Button>
-            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-              <Modal.Content maxWidth="400px" height="500px">
-                <Modal.CloseButton />
-                <Modal.Header>{I18n.t('HOME_initial')}</Modal.Header>
-                <Modal.Body>
-                  <GooglePlacesAutocomplete
-                    placeholder="Where do you want to go?"
-                    minLength={5}
-                    returnKeyType={'search'}
-                    listViewDisplayed="auto"
-                    fetchDetails={true}
-                    onPress={(data, details = null) => {
-                      setStartLocation(details.geometry.location);
-                    }}
-                    query={{
-                      key: google_api_key,
-                      language: 'pt',
-                    }}
-                    styles={{
-                      textInputContainer: {
-                        width: '100%',
-                        backgroundColor: '#FFF',
-                      },
-                      listView: {},
-                    }}
-                    debounce={200}
-                  />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button.Group space={2}>
-                    <Button
-                      variant="ghost"
-                      colorScheme="blueGray"
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      {I18n.t('BUTTON_cancel')}
-                    </Button>
-                    <Button
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      {I18n.t('BUTTON_save')}
-                    </Button>
-                  </Button.Group>
-                </Modal.Footer>
-              </Modal.Content>
-            </Modal>
-            <Text />
-            <Button onPress={() => setShowModal1(true)}>
+          {/* <Center>
+              <Button onPress={() => setShowModal(true)}>Button</Button>
+              <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                <Modal.Content maxWidth="400px">
+                  <Modal.CloseButton />
+                  <Modal.Header>Contact Us</Modal.Header>
+                  <Modal.Body>
+                    <FormControl>
+                      <FormControl.Label>Name</FormControl.Label>
+                      <Input />
+                    </FormControl>
+                    <FormControl mt="3">
+                      <FormControl.Label>Email</FormControl.Label>
+                      <Input />
+                    </FormControl>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button.Group space={2}>
+                      <Button
+                        variant="ghost"
+                        colorScheme="blueGray"
+                        onPress={() => {
+                          setShowModal(false);
+                        }}>
+                        Cancel
+                      </Button>
+                      <Button
+                        onPress={() => {
+                          setShowModal(false);
+                        }}>
+                        Save
+                      </Button>
+                    </Button.Group>
+                  </Modal.Footer>
+                </Modal.Content>
+              </Modal>
+            </Center> */}
+          <Text />
+          {/* <Button onPress={() => setShowModal1(true)}>
               {I18n.t('HOME_final_button')}
             </Button>
             <Modal isOpen={showModal1} onClose={() => setShowModal1(false)}>
@@ -399,8 +379,11 @@ const HomeScreen = ({navigation}) => {
                     returnKeyType={'search'}
                     listViewDisplayed="auto"
                     fetchDetails={true}
-                    onPress={(data, details = null) => {
-                      setStartLocation(details.geometry.location);
+                    value
+                    onPress={(data, details) => {
+                      console.log('hey');
+                      console.log(data, '/n', details);
+                      setEndLocation(details.geometry.location);
                     }}
                     query={{
                       key: google_api_key,
@@ -435,9 +418,72 @@ const HomeScreen = ({navigation}) => {
                   </Button.Group>
                 </Modal.Footer>
               </Modal.Content>
-            </Modal>
+            </Modal> */}
+          <View style={styles.search_field_container}>
+            <GooglePlacesAutocomplete
+              // ref="endlocation"
+              placeholder="Where do you want to go?"
+              minLength={5}
+              returnKeyType={'search'}
+              listViewDisplayed="auto"
+              fetchDetails={true}
+              onPress={(data, details) => {
+                console.log(details.address_components[0].short_name);
+                setStartLocation({
+                  details: details.geometry.location,
+                  name: details.address_components[0].short_name,
+                });
+              }}
+              query={{
+                key: google_api_key,
+                language: 'en',
+              }}
+              styles={{
+                textInputContainer: {
+                  width: '100%',
+                  backgroundColor: '#FFF',
+                },
+                listView: {
+                  backgroundColor: '#FFF',
+                },
+              }}
+              debounce={200}
+            />
+          </View>
+
+          <View style={styles.search_field_container}>
+            <GooglePlacesAutocomplete
+              // ref="endlocation"
+              placeholder="Where do you want to go?"
+              minLength={5}
+              returnKeyType={'search'}
+              listViewDisplayed="auto"
+              fetchDetails={true}
+              onPress={(data, details) => {
+                setEndLocation({
+                  details: details.geometry.location,
+                  name: details.address_components[0].short_name,
+                });
+              }}
+              query={{
+                key: google_api_key,
+                language: 'en',
+              }}
+              styles={{
+                textInputContainer: {
+                  width: '100%',
+                  backgroundColor: '#FFF',
+                },
+                listView: {
+                  backgroundColor: '#FFF',
+                },
+              }}
+              debounce={200}
+            />
           </View>
           <Text />
+          <Text />
+
           <ButtonNative
             iconRight
             onPress={() => searchRoutes()}
@@ -608,15 +654,17 @@ const HomeScreen = ({navigation}) => {
     );
   }
   return (
-    <ImageBackground
-      style={{flex: 1, resizeMode: 'cover'}}
-      source={images.background}>
-      <SafeAreaView style={{flex: 1}}>
-        {renderHeader()}
-        {renderBody()}
-        {renderActionButton()}
-      </SafeAreaView>
-    </ImageBackground>
+    <NativeBaseProvider>
+      <ImageBackground
+        style={{flex: 1, resizeMode: 'cover'}}
+        source={images.background}>
+        <SafeAreaView style={{flex: 1}}>
+          {renderHeader()}
+          {renderBody()}
+          {renderActionButton()}
+        </SafeAreaView>
+      </ImageBackground>
+    </NativeBaseProvider>
   );
 };
 
@@ -624,6 +672,42 @@ const deviceWidth = Math.round(Dimensions.get('window').width);
 const radius = 20;
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  search_field_container: {
+    height: 150,
+    width: '80%',
+    // position: 'absolute',
+
+    zIndex: 1,
+  },
+  search_field_container2: {
+    height: 150,
+    width: device_width,
+    // position: 'absolute',
+
+    zIndex: 1,
+  },
+  input_container: {
+    alignSelf: 'center',
+    backgroundColor: '#FFF',
+    opacity: 0.8,
+    marginBottom: 25,
+  },
   cardContainer: {
     flex: 1,
     width: deviceWidth - 25,

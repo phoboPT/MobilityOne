@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Alert,
 } from 'react-native';
-import {Text, Alert, Image, View} from 'native-base';
+import {Text, Image, View, NativeBaseProvider} from 'native-base';
 import {images, icons, SIZES} from '../constants';
 import {routes as routeAPI} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
@@ -83,7 +84,7 @@ const DestinationSearch = ({route, navigation}) => {
   };
 
   const filterRoutes = routes => {
-    if (routes.length == 0) {
+    if (!routes) {
       setRoutes([]);
       Alert.alert(I18n.t('DESTINATIONSEARCH_no_routes_alert'));
     } else {
@@ -191,22 +192,28 @@ const DestinationSearch = ({route, navigation}) => {
   }
 
   return (
-    <ImageBackground
-      style={{flex: 1, resizeMode: 'cover'}}
-      source={images.background}>
-      <SafeAreaView style={styles.container}>
-        {renderHeader()}
-        {loading ? (
-          <ActivityIndicator
-            size="large"
-            color="white"
-            style={{flex: 1, justifyContent: 'center', alignContent: 'center'}}
-          />
-        ) : (
-          renderRouteOptions()
-        )}
-      </SafeAreaView>
-    </ImageBackground>
+    <NativeBaseProvider>
+      <ImageBackground
+        style={{flex: 1, resizeMode: 'cover'}}
+        source={images.background}>
+        <SafeAreaView style={styles.container}>
+          {renderHeader()}
+          {loading ? (
+            <ActivityIndicator
+              size="large"
+              color="white"
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            />
+          ) : (
+            renderRouteOptions()
+          )}
+        </SafeAreaView>
+      </ImageBackground>
+    </NativeBaseProvider>
   );
 };
 

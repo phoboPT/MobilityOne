@@ -17,17 +17,17 @@ const routeAPI = async (start: any, end: any, type: string): Promise<any> => {
     let initialPlace = start;
     let finalPlace = end;
 
-    const geocoder = NodeGeocoder({
-      provider: 'opencage',
-      apiKey: process.env.OPENCAGE_API_KEY,
-      language: 'pt-BR',
-    });
-    console.log(initialPlace, finalPlace);
-    const geo = await geocoder.batchGeocode([start, end]);
-    initialPlace = geo[0].value[0];
-    finalPlace = geo[1].value[0];
-    const distanceBetween = distance(start.lat, start.long, end.lat, end.long);
-
+    // const geocoder = NodeGeocoder({
+    //   provider: 'opencage',
+    //   apiKey: process.env.OPENCAGE_API_KEY,
+    //   language: 'pt-BR',
+    // });
+    // console.log(initialPlace, finalPlace);
+    // const geo = await geocoder.batchGeocode([start, end]);
+    // initialPlace = geo[0].value[0];
+    // finalPlace = geo[1].value[0];
+    const distanceBetween = distance(start.details.lat, start.details.lng, end.details.lat, end.details.lng);
+    console.log(distanceBetween);
     // cpStations.forEach(async (station: IStation): Promise<void> => {
     //     allTargets.push(station.name);
     //     if (station.name.includes(initialPlace)) {

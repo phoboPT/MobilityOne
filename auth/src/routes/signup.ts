@@ -16,6 +16,7 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     try {
+      console.log(req.body);
       const { email, password, name, photoUrl, biography, contact, birthDate } = req.body;
       const existingUser = await User.findOne({ email });
 

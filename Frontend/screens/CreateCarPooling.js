@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   ImageBackground,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import {icons, SIZES, COLORS, images} from '../constants';
 import {Button as ButtonNative, Input} from 'react-native-elements';
@@ -22,7 +23,6 @@ import {
   View,
   Text,
   Image,
-  Alert,
   CheckIcon,
   FormControl,
   Modal,

@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {create} from 'apisauce';
 const token = AsyncStorage.getItem('@App:token');
-const baseURL = '192.168.1.221';
-// const baseURL = 'smob.esce.ipvc.pt';
+//const baseURL = '192.168.1.221';
+const baseURL = 'smob.esce.ipvc.pt';
 const auth = create({
   baseURL: `http://${baseURL}:3000/api`,
 });

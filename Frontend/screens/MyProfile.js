@@ -8,11 +8,11 @@ import {
   TextInput,
   ImageBackground,
   Modal,
+  Alert,
 } from 'react-native';
 import {
   NativeBaseProvider,
   Text,
-  Alert,
   Image,
   View,
   FlatList,
@@ -24,6 +24,7 @@ import {Icon} from 'react-native-elements';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
+import {I18n} from '../utils/language';
 
 const MyProfile = ({navigation}) => {
   // Render
@@ -173,6 +174,7 @@ const MyProfile = ({navigation}) => {
         {/* Header */}
         <View style={{flex: 2}}>
           <Image
+            alt="profile"
             source={images.background}
             resizeMode="cover"
             style={{
@@ -198,6 +200,7 @@ const MyProfile = ({navigation}) => {
                 {data.photoUrl ? (
                   <View>
                     <Image
+                      alt="profile"
                       source={{uri: data.photoUrl}}
                       resizeMode="cover"
                       style={{
@@ -223,6 +226,7 @@ const MyProfile = ({navigation}) => {
                 ) : (
                   <View>
                     <Image
+                      alt="profile"
                       source={images.defaultUser}
                       resizeMode="cover"
                       style={{
@@ -240,7 +244,7 @@ const MyProfile = ({navigation}) => {
                           marginTop: 3,
                           marginRight: 3,
                         }}>
-                        Change
+                        {I18n.t('USERPROFILE_addPhoto')}
                       </Text>
                       <Icon color={COLORS.primary} name="photo" />
                     </TouchableOpacity>
@@ -293,6 +297,7 @@ const MyProfile = ({navigation}) => {
                   navigation.goBack();
                 }}>
                 <Image
+                  alt="back"
                   source={icons.back}
                   resizeMode="cover"
                   style={{
@@ -445,9 +450,10 @@ const MyProfile = ({navigation}) => {
                     color: COLORS.white,
                     ...SIZES.h2,
                   }}>
-                  Create Vehicle
+                  {I18n.t('USERPROFILE_addVehicle')}
                 </Text>
                 <Image
+                  alt="add"
                   style={{width: 25, height: 25, tintColor: COLORS.white}}
                   source={icons.frontCar}
                 />

@@ -3,6 +3,8 @@ export default {
   ONBOARDING_title: 'All transports in your pocket',
   ONBOARDING_start: 'Start!',
   USERPROFILE_title: 'Biography',
+  USERPROFILE_addVehicle: 'Add vehicle',
+  USERPROFILE_addPhoto: 'Add photo',
   STATISTICS_title: 'Statistics',
   STATISTICS_dayly_activity: 'Dayly activity',
   STATISTICS_mets: 'Mets',

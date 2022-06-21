@@ -3,6 +3,8 @@ export default {
   ONBOARDING_title: 'Todos os transportes no seu bolso',
   ONBOARDING_start: 'Iniciar!',
   USERPROFILE_title: 'Biografia',
+  USERPROFILE_addVehicle: 'Adicionar veículo',
+  USERPROFILE_addPhoto: 'Adicionar foto',
   STATISTICS_title: 'Estatísticas',
   STATISTICS_dayly_activity: 'Atividade diária',
   STATISTICS_mets: 'Mets',

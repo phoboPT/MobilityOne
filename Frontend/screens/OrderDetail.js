@@ -5,15 +5,9 @@ import {
   Modal,
   ActivityIndicator,
   ImageBackground,
-} from 'react-native';
-import {
-  View,
-  Text,
-  Image,
   Alert,
-  ScrollView,
-  NativeBaseProvider,
-} from 'native-base';
+} from 'react-native';
+import {View, Text, Image, ScrollView, NativeBaseProvider} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import {images, icons, COLORS, SIZES} from '../constants';
 import {auth, routes, orders} from '../services/api';

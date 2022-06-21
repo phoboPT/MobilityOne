@@ -48,7 +48,7 @@ export function DrawerContent(props) {
   const [user, setUser] = useState(null);
   async function signOut() {
     try {
-      await auth.get('/users/signout');
+      await auth.post('/users/signout');
       await AsyncStorage.removeItem('@App:userID');
     } catch (err) {
       console.log(err);

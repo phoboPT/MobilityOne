@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Alert} from 'react-native';
 import {auth} from '../../services/api';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Avatar} from 'react-native-elements';
@@ -12,7 +12,6 @@ import {
   FormControl,
   Input,
   Button,
-  Alert,
   HStack,
   Center,
   NativeBaseProvider,
@@ -22,6 +21,7 @@ import I18n from '../../utils/language';
 const SignUpScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState(null);
+  const [formData, setData] = useState();
   const options = [
     {label: '2', value: 2},
     {label: '3', value: 3},
@@ -58,59 +58,63 @@ const SignUpScreen = ({navigation}) => {
     setPhoto(null);
   };
 
-  async function onSubmit(state) {
+  async function onSubmit() {
     setLoading(true);
+    console.log(typeof photo);
     if (photo == null) {
-      signUp(state, null);
-    }
-    try {
-      const data = new FormData();
-      data.append('file', photo);
-      data.append('upload_preset', 'mobility-one');
-      data.append('cloud_name', 'hegs');
-      fetch('https://api.cloudinary.com/v1_1/hegs/image/upload', {
-        method: 'post',
-        body: data,
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.secure_url !== undefined) {
-            signUp(state, data.secure_url);
-          }
+      console.log('No photo');
+      signUp(null);
+    } else {
+      try {
+        console.log('Photo');
+        const data = new FormData();
+        data.append('file', photo);
+        data.append('upload_preset', 'mobility-one');
+        data.append('cloud_name', 'hegs');
+        fetch('https://api.cloudinary.com/v1_1/hegs/image/upload', {
+          method: 'post',
+          body: data,
         })
-        .catch(err => {
-          Alert.alert(I18n.t('SIGNUP_error'), err.message);
-          console.log(err.data.errors);
-        });
-    } catch (err) {
-      Alert.alert(err);
-      setLoading(false);
+          .then(res => res.json())
+          .then(data => {
+            if (data.secure_url !== undefined) {
+              signUp(data.secure_url);
+            }
+          })
+          .catch(err => {
+            Alert.alert(I18n.t('SIGNUP_error'), err.message);
+            console.log('error', err.data.errors);
+          });
+      } catch (err) {
+        Alert.alert(err);
+        setLoading(false);
+      }
     }
   }
 
-  async function signUp(photo) {
+  async function signUp(uploadPhoto) {
     try {
+      // console.log(photo);
       const response = await auth.post('/users/signup', {
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        photoUrl: photo,
+        photoUrl: uploadPhoto,
         biography: formData.biography,
         contact: formData.contact,
       });
+      console.log('response', response);
       if (response.data !== undefined) {
         setLoading(false);
         Alert.alert(I18n.t('SIGNUP_success'));
         navigation.navigate('SignInScreen');
       }
     } catch (err) {
-      console.log(err);
+      console.log('erro', err);
       Alert.alert(I18n.t('SIGNUP_error'));
       setLoading(false);
     }
   }
-
-  const [formData, setData] = useState();
 
   return (
     <NativeBaseProvider>

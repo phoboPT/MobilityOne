@@ -8,13 +8,14 @@ import {
   // Image,
   StyleSheet,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import {View, Text, Image, NativeBaseProvider} from 'native-base';
 import {images, icons, SIZES} from '../constants';
 import {auth, routes, orders as ordersFetch} from '../services/api';
 import {FlatGrid} from 'react-native-super-grid';
 import {Avatar} from 'react-native-elements';
-import {Alert} from 'react-native';
+
 import I18n from '../utils/language';
 const OrdersScreen = ({navigation, route}) => {
   const [loading, setLoading] = useState(true);
