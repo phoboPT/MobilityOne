@@ -23,17 +23,13 @@ import {
   View,
   FlatList,
   Text,
-  Button,
   Image,
   Modal,
-  FormControl,
-  Input,
   NativeBaseProvider,
 } from 'native-base';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import env from '../env';
 const device_width = Dimensions.get('window').width;
-const google_api_key = 'AIzaSyDH_jy13qugt-fXmVxtENy6n-BozWpBpUQ';
 const HomeScreen = ({navigation}) => {
   const [hasNextRide, setHasNextRide] = useState(false);
   const [hasRecommendations, setHasRecommendations] = useState(false);
