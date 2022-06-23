@@ -110,9 +110,14 @@ const SignUpScreen = ({navigation}) => {
         navigation.navigate('SignInScreen');
       }
     } catch (err) {
-      console.log('erro', err);
-      Alert.alert(I18n.t('SIGNUP_error'));
+      console.log('erro', err.data.errors[0].message);
+      let string = '';
+      err.data.errors.map(erro => {
+        string = string + `${erro.message} \n`;
+      });
+      Alert.alert(I18n.t('SIGNUP_error'), string);
       setLoading(false);
+      s;
     }
   }
 

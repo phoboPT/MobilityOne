@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
-  // Image,
   TouchableOpacity,
+  NativeModules,
   Text,
 } from 'react-native';
 import {NativeBaseProvider, View, Image} from 'native-base';
@@ -12,7 +12,8 @@ import I18n from '../utils/language';
 
 import {COLORS, SIZES, images} from '../constants';
 import AsyncStorage from '@react-native-community/async-storage';
-import {NativeModules} from 'react-native';
+
+import {request, PERMISSIONS} from 'react-native-permissions';
 const {HAR_Module} = NativeModules;
 
 const Onboarding = ({navigation}) => {
@@ -20,6 +21,12 @@ const Onboarding = ({navigation}) => {
 
   useEffect(() => {
     async function setAR() {
+      request(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION).then(result => {
+        console.log(result);
+      });
+      request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(result => {
+        console.log(result);
+      });
       const isChecked = await AsyncStorage.getItem('@App:activityRequest');
       if (isChecked === 'true') {
         HAR_Module.HAR_Begin_Service();

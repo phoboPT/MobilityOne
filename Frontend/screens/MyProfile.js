@@ -24,7 +24,7 @@ import {Icon} from 'react-native-elements';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import {I18n} from '../utils/language';
+import I18n from '../utils/language';
 
 const MyProfile = ({navigation}) => {
   // Render
@@ -48,13 +48,13 @@ const MyProfile = ({navigation}) => {
   ];
 
   const updateUserDetails = async bio => {
-    if (bio == true) {
+    if (bio === true) {
       setModalVisible(!modalVisible);
     } else {
       setModalVisible2(!modalVisible2);
     }
     try {
-      const response = await auth.post('/users/edit', {
+      await auth.post('/users/edit', {
         biography: biography,
         photoUrl:
           'https://www.pavilionweb.com/wp-content/uploads/2017/03/man.png',

@@ -50,6 +50,10 @@ export function DrawerContent(props) {
     try {
       await auth.post('/users/signout');
       await AsyncStorage.removeItem('@App:userID');
+      props.navigation.reset({
+        index: 0,
+        routes: [{name: 'SignInScreen'}],
+      });
     } catch (err) {
       console.log(err);
       await AsyncStorage.removeItem('@App:userID');
