@@ -39,10 +39,10 @@ const routeAPI = async (start: any, end: any, type: string): Promise<any> => {
     //         stop.name = station.name;
     //     }
     // });
-    const date: Date = new Date();
+    const date: string = new Date().toLocaleDateString();
 
     const cpJourneys = [];
-    const bdRides = await Route.find({ state: 'AVAILABLE', startDate: { $gte: `new Date(${date})` } });
+    const bdRides = await Route.find({ state: 'AVAILABLE', startDate: { $gte: date } });
     // //  console.log(bdRides)
     bdRides.forEach((route: any) => {
       const ride: IRoute = {
