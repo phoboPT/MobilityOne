@@ -117,7 +117,6 @@ const SignUpScreen = ({navigation}) => {
       });
       Alert.alert(I18n.t('SIGNUP_error'), string);
       setLoading(false);
-      s;
     }
   }
 

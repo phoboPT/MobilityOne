@@ -26,6 +26,7 @@ import {
   Image,
   Modal,
   NativeBaseProvider,
+  ScrollView,
 } from 'native-base';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import env from '../env';
@@ -489,11 +490,13 @@ const HomeScreen = ({navigation}) => {
 
   function renderBody() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         {hasNextRide ? renderMyNextTravel() : renderDestinations()}
         {/* <RecomCard /> */}
-        <Text />
-        {hasRecommendations ? <RecomCard /> : null}
+        <ScrollView>
+          <Text />
+          {hasRecommendations ? <RecomCard /> : null}
+        </ScrollView>
       </View>
     );
   }
@@ -545,7 +548,7 @@ const HomeScreen = ({navigation}) => {
   if (loading) {
     return (
       <ImageBackground
-        style={{flex: 1, resizeMode: 'cover'}}
+        style={{flex: 1, resizeMode: 'cover', height: '100%'}}
         source={images.background}>
         {renderHeader()}
         <ActivityIndicator
@@ -563,9 +566,9 @@ const HomeScreen = ({navigation}) => {
   return (
     <NativeBaseProvider>
       <ImageBackground
-        style={{flex: 1, resizeMode: 'cover'}}
+        style={{flex: 1, resizeMode: 'cover', height: '100%'}}
         source={images.background}>
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, height: '100%'}}>
           {renderHeader()}
           {renderBody()}
           {renderActionButton()}

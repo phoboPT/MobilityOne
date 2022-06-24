@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   TouchableOpacity,
-  SafeAreaView,
   ActivityIndicator,
   ImageBackground,
   StyleSheet,
@@ -18,20 +17,27 @@ import I18n from '../utils/language';
 import {
   Select,
   NativeBaseProvider,
-  Button,
-  Center,
   View,
   Text,
   Image,
   CheckIcon,
   FormControl,
-  Modal,
+  ScrollView,
+  Center,
 } from 'native-base';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-const google_api_key = 'AIzaSyDH_jy13qugt-fXmVxtENy6n-BozWpBpUQ';
+
+import env from '../env';
 const styles = StyleSheet.create({
   container: {flexDirection: 'row', height: 50, zIndex: 4},
   container2: {flexDirection: 'column', height: 50, zIndex: 20},
+  search_field_container: {
+    height: 150,
+    width: '80%',
+    // position: 'absolute',
+
+    zIndex: 1,
+  },
 });
 
 const CreateCarPooling = ({navigation}) => {
@@ -47,18 +53,6 @@ const CreateCarPooling = ({navigation}) => {
   const [userImage, setUserImage] = React.useState(null);
   const [vehicleChoosed, setVehicleChoosed] = React.useState(null);
   const [date, setDate] = useState(new Date());
-  const [showModal, setShowModal] = useState(false);
-  const [showModal1, setShowModal1] = useState(false);
-
-  const [items, setItems] = useState([
-    {label: 'ESTG', value: 'Escola Superior de Tecnologia e Gestão'},
-    {label: 'ESE', value: 'Escola Superior de Educação'},
-    {label: 'ESA', value: 'Escola Superior Agrária'},
-    {label: 'ESS', value: 'Escola Superior de Saúde'},
-    {label: 'ESDL', value: 'Escola Superior de Desporto e Lazer'},
-    {label: 'ESCE', value: 'Escola Superior de Ciências Empresariais'},
-    {label: 'SAS', value: 'Serviços Académicos'},
-  ]);
 
   useEffect(() => {
     async function checkIfUserHasVehicles() {
@@ -105,6 +99,14 @@ const CreateCarPooling = ({navigation}) => {
   }, []);
   const validateInputs = () => {
     //Enviar dados
+    console.log(
+      'Description: ' + description,
+      'start :' + startLocation,
+      'endLocation :' + endLocation,
+      'date :' + date,
+      'vehicle :' + vehicle,
+      'capacity :' + capacity,
+    );
     if (
       description === null ||
       startLocation === '' ||
@@ -136,7 +138,12 @@ const CreateCarPooling = ({navigation}) => {
       Alert.alert(I18n.t('CREATECARPOOLING_success'));
       navigation.navigate('Home');
     } catch (err) {
-      Alert.alert(I18n.t('CREATECARPOOLING_error'));
+      console.log(err);
+      let string = '';
+      err.data.errors.map(erro => {
+        string = string + `${erro.message} \n`;
+      });
+      Alert.alert(I18n.t('CREATECARPOOLING_error'), string);
     }
   };
 
@@ -186,7 +193,6 @@ const CreateCarPooling = ({navigation}) => {
             }}
           />
         </TouchableOpacity>
-
         <View
           style={{
             paddingRight: 35,
@@ -206,242 +212,217 @@ const CreateCarPooling = ({navigation}) => {
     return (
       <>
         <Text />
-        <Center>
-          <View
-            style={{
-              // overflow: 'hidden',
-              // height: 200,
-              width: '80%',
-              zIndex: 2,
-              // marginBottom: 300,
-              // backgroundColor: 'red',
-            }}>
-            <Button onPress={() => setShowModal(true)}>
-              {I18n.t('HOME_initial_button')}
-            </Button>
-            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-              <Modal.Content maxWidth="400px" height="500px">
-                <Modal.CloseButton />
-                <Modal.Header>{I18n.t('HOME_initial')}</Modal.Header>
-                <Modal.Body>
-                  <GooglePlacesAutocomplete
-                    placeholder="Where do you want to go?"
-                    minLength={5}
-                    returnKeyType={'search'}
-                    listViewDisplayed="auto"
-                    fetchDetails={true}
-                    onPress={(data, details = null) => {
-                      setStartLocation(details.geometry.location);
-                    }}
-                    query={{
-                      key: google_api_key,
-                      language: 'pt',
-                    }}
-                    styles={{
-                      textInputContainer: {
-                        width: '100%',
-                        backgroundColor: '#FFF',
-                      },
-                      listView: {},
-                    }}
-                    debounce={200}
-                  />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button.Group space={2}>
-                    <Button
-                      variant="ghost"
-                      colorScheme="blueGray"
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      {I18n.t('BUTTON_cancel')}
-                    </Button>
-                    <Button
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      {I18n.t('BUTTON_save')}
-                    </Button>
-                  </Button.Group>
-                </Modal.Footer>
-              </Modal.Content>
-            </Modal>
-            <Text />
-            <Button onPress={() => setShowModal1(true)}>
-              {I18n.t('HOME_final_button')}
-            </Button>
-            <Modal isOpen={showModal1} onClose={() => setShowModal1(false)}>
-              <Modal.Content maxWidth="90%" height="500px">
-                <Modal.CloseButton />
-                <Modal.Header>{I18n.t('HOME_final')}</Modal.Header>
-                <Modal.Body>
-                  <GooglePlacesAutocomplete
-                    placeholder="Where do you want to go?"
-                    minLength={5}
-                    returnKeyType={'search'}
-                    listViewDisplayed="auto"
-                    fetchDetails={true}
-                    onPress={(data, details = null) => {
-                      setStartLocation(details.geometry.location);
-                    }}
-                    query={{
-                      key: google_api_key,
-                      language: 'pt',
-                    }}
-                    styles={{
-                      textInputContainer: {
-                        width: '100%',
-                        backgroundColor: '#FFF',
-                      },
-                      listView: {},
-                    }}
-                    debounce={200}
-                  />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button.Group space={2}>
-                    <Button
-                      variant="ghost"
-                      colorScheme="blueGray"
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      Cancel
-                    </Button>
-                    <Button
-                      onPress={() => {
-                        setShowModal(false);
-                      }}>
-                      {I18n.t('BUTTON_save')}
-                    </Button>
-                  </Button.Group>
-                </Modal.Footer>
-              </Modal.Content>
-            </Modal>
-          </View>
+        <View>
           <Text />
-        </Center>
-        <Text />
+          <Center>
+            <Text />
+            <View style={styles.search_field_container}>
+              <GooglePlacesAutocomplete
+                // ref="endlocation"
+                placeholder="Where do you want to go?"
+                minLength={5}
+                returnKeyType={'search'}
+                listViewDisplayed="auto"
+                fetchDetails={true}
+                onPress={(data, details) => {
+                  console.log(details.address_components[0].short_name);
+                  setStartLocation({
+                    details: details.geometry.location,
+                    name: details.address_components[0].short_name,
+                  });
+                }}
+                query={{
+                  key: env.googleKey,
+                  language: 'pt',
+                }}
+                styles={{
+                  textInputContainer: {
+                    width: '100%',
+                    backgroundColor: '#FFF',
+                  },
+                  listView: {
+                    backgroundColor: '#FFF',
+                  },
+                }}
+                debounce={200}
+              />
+            </View>
 
-        <Select
-          value={vehicleChoosed}
-          minWidth="300"
-          mx={{
-            base: 0,
-            md: 'auto',
-          }}
-          items={vehicle}
-          accessibilityLabel={I18n.t('HOME_dropdown_car')}
-          placeholder={I18n.t('HOME_dropdown_car')}
-          _selectedItem={{
-            bg: 'teal.600',
-            endIcon: <CheckIcon size="5" />,
-          }}
-          _light={{
-            bg: 'coolGray.100',
-          }}
-          _dark={{
-            bg: 'coolGray.800',
-          }}
-          onValueChange={itemValue => setVehicleChoosed(itemValue)}>
-          {userVehicles.map(item => {
-            return <Select.Item label={item.carModel} value={item.id} />;
-          })}
-        </Select>
-        <Text />
-        <Text
-          style={{
-            alignSelf: 'center',
-            fontSize: SIZES.body2,
-            marginBottom: 15,
-            fontWeight: '400',
-            color: COLORS.black,
-          }}>
-          {I18n.t('CREATECARPOOLING_estimatedTime')}
-        </Text>
-        <NumericInput
-          value={estimatedTime}
-          onChange={value => setEstimatedTime(value)}
-          onLimitReached={() => Alert.alert(I18n.t('CREATECARPOOLING_alert'))}
-          totalWidth={240}
-          editable
-          minValue={10}
-          totalHeight={50}
-          iconSize={25}
-          step={5}
-          containerStyle={{
-            marginBottom: 17,
-          }}
-          valueType="real"
-          rounded
-          textColor="black"
-          iconStyle={{color: 'white'}}
-          rightButtonBackgroundColor={COLORS.primary}
-          leftButtonBackgroundColor={COLORS.gray}
-        />
+            <View style={styles.search_field_container}>
+              <GooglePlacesAutocomplete
+                // ref="endlocation"
+                placeholder="Where do you want to go?"
+                minLength={5}
+                returnKeyType={'search'}
+                listViewDisplayed="auto"
+                fetchDetails={true}
+                onPress={(data, details) => {
+                  setEndLocation({
+                    details: details.geometry.location,
+                    name: details.address_components[0].short_name,
+                  });
+                }}
+                query={{
+                  key: env.googleKey,
+                  language: 'pt',
+                }}
+                styles={{
+                  textInputContainer: {
+                    width: '100%',
+                    backgroundColor: '#FFF',
+                  },
+                  listView: {
+                    backgroundColor: '#FFF',
+                  },
+                }}
+                debounce={200}
+              />
+            </View>
+            <Text />
+            <Text />
+          </Center>
+        </View>
+        <View style={{flex: 1}}>
+          <ScrollView>
+            <Text />
+            <Center>
+              <Select
+                value={vehicleChoosed}
+                minWidth="300"
+                mx={{
+                  base: 0,
+                  md: 'auto',
+                }}
+                accessibilityLabel={I18n.t('HOME_dropdown_car')}
+                placeholder={I18n.t('HOME_dropdown_car')}
+                _selectedItem={{
+                  bg: 'teal.600',
+                  endIcon: <CheckIcon size="5" />,
+                }}
+                _light={{
+                  bg: 'coolGray.100',
+                }}
+                _dark={{
+                  bg: 'coolGray.800',
+                }}
+                onValueChange={itemValue => {
+                  console.log(itemValue);
+                  setVehicleChoosed(itemValue.carModel);
+                  setVehicle(itemValue.id);
+                  setCapacity(itemValue.capacity);
+                }}>
+                {userVehicles.map(item => {
+                  return <Select.Item label={item.carModel} value={item} />;
+                })}
+              </Select>
+              <Text />
+              <Text
+                style={{
+                  alignSelf: 'center',
+                  fontSize: SIZES.body2,
+                  marginBottom: 15,
+                  fontWeight: '400',
+                  color: COLORS.black,
+                }}>
+                {I18n.t('CREATECARPOOLING_estimatedTime')}
+              </Text>
+              <NumericInput
+                value={estimatedTime}
+                onChange={value => setEstimatedTime(value)}
+                onLimitReached={() =>
+                  Alert.alert(I18n.t('CREATECARPOOLING_alert'))
+                }
+                totalWidth={240}
+                editable
+                minValue={10}
+                totalHeight={50}
+                iconSize={25}
+                step={5}
+                containerStyle={{
+                  marginBottom: 17,
+                }}
+                valueType="real"
+                rounded
+                textColor="black"
+                iconStyle={{color: 'white'}}
+                rightButtonBackgroundColor={COLORS.primary}
+                leftButtonBackgroundColor={COLORS.gray}
+              />
 
-        <FormControl>
-          <Input
-            style={{
-              width: '80%',
-            }}
-            variant="outline"
-            placeholder={I18n.t('CREATECARPOOLING_description')}
-            multiline
-            onChange={e => setDescription(e.value)}
-          />
-        </FormControl>
-        <DatePicker
-          collapsable
-          minimumDate={new Date()}
-          locale="pt"
-          is24hourSource="locale"
-          androidVariant="iosClone"
-          date={date}
-          onDateChange={setDate}
-        />
+              <FormControl>
+                <Input
+                  style={{
+                    width: '80%',
+                  }}
+                  variant="outline"
+                  placeholder={I18n.t('CREATECARPOOLING_description')}
+                  multiline
+                  onChangeText={value => {
+                    console.log(value);
+
+                    setDescription(value);
+                  }}
+                />
+              </FormControl>
+              <DatePicker
+                collapsable
+                minimumDate={new Date()}
+                locale="pt"
+                is24hourSource="locale"
+                androidVariant="iosClone"
+                date={date}
+                onDateChange={setDate}
+              />
+              <Text />
+              <ButtonNative
+                onPress={() => validateInputs()}
+                buttonStyle={{
+                  backgroundColor: COLORS.primary,
+                  borderRadius: 10,
+                }}
+                titleStyle={{color: COLORS.white}}
+                icon={
+                  <Icon
+                    name="chevron-circle-down"
+                    style={{marginLeft: 10}}
+                    size={28}
+                    color="white"
+                  />
+                }
+                iconRight
+                title={I18n.t('CREATECARPOOLING_create')}
+              />
+            </Center>
+          </ScrollView>
+        </View>
         <Text />
-        <ButtonNative
-          onPress={() => validateInputs()}
-          buttonStyle={{
-            backgroundColor: COLORS.primary,
-            borderRadius: 10,
-          }}
-          titleStyle={{color: COLORS.white}}
-          icon={
-            <Icon
-              name="chevron-circle-down"
-              style={{marginLeft: 10}}
-              size={28}
-              color="white"
-            />
-          }
-          iconRight
-          title={I18n.t('CREATECARPOOLING_create')}
-        />
+        <Text />
+        <Text />
+        <Text />
       </>
     );
   }
 
   return (
     <NativeBaseProvider>
-      <SafeAreaView>
-        <ImageBackground
-          style={{resizeMode: 'cover', height: '100%'}}
-          source={images.background}>
-          {loading ? (
-            <View>
-              <ActivityIndicator size="large" color={COLORS.primary} />
-            </View>
-          ) : (
-            <>
-              {renderHeader()}
-              <Center>{renderCreateCarPooling()}</Center>
-            </>
-          )}
-        </ImageBackground>
-      </SafeAreaView>
+      <>
+        <View>
+          <ImageBackground
+            style={{resizeMode: 'cover', height: '100%'}}
+            source={images.background}>
+            {loading ? (
+              <View>
+                <ActivityIndicator size="large" color={COLORS.primary} />
+              </View>
+            ) : (
+              <>
+                {renderHeader()}
+                {renderCreateCarPooling()}
+              </>
+            )}
+          </ImageBackground>
+        </View>
+      </>
     </NativeBaseProvider>
   );
 };

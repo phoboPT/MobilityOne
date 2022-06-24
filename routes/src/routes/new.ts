@@ -1,7 +1,6 @@
 import { requiredAuth, validateRequest, doRequest } from '@mobileorg/common-lib';
 import express, { Response, Request } from 'express';
 import { body } from 'express-validator';
-
 import { Route } from '../models/route';
 
 const router = express.Router();
@@ -38,8 +37,16 @@ router.post(
       const route = Route.build({
         userId: req.currentUser!.id,
         type,
-        startLocation,
-        endLocation,
+        startLocation: {
+          lat: startLocation.details.lat,
+          lng: startLocation.details.lng,
+          name: startLocation.name,
+        },
+        endLocation: {
+          lat: endLocation.details.lat,
+          lng: endLocation.details.lng,
+          name: endLocation.name,
+        },
         availableTime: 'teste',
         vehicleId,
         state: state || 'unavailable',
@@ -52,29 +59,6 @@ router.post(
         actualCapacity: capacity || 0,
       });
       await route.save();
-
-      // await new RouteCreatedPublisher(natsWrapper.client).publish({
-      //   id: route.id,
-      //   type: route.type,
-      //   userId: route.userId,
-      //   startLocation: route.startLocation,
-      //   endLocation: route.endLocation,
-      //   availableTime: route.availableTime,
-      //   vehicleId: route.vehicleId,
-      //   state: route.state,
-      //   description: route.description,
-      //   estimatedTime: route.estimatedTime,
-      //   startDate: route.startDate,
-      //   userImage: route.userImage,
-      //   capacity: route.capacity,
-      //   actualCapacity: route.actualCapacity,
-      // });
-
-      // const routes = Routes.build({
-      //   id: route.id,
-      //   capacity: route.capacity,
-      // });
-      // await routes.save();
 
       await doRequest(`http://localhost:3002/api/order/newRoute`, { id: route.id, capacity: route.capacity }, 'POST');
 
