@@ -40,7 +40,7 @@ const routeAPI = async (start: any, end: any, type: string): Promise<any> => {
     //     }
     // });
     const date: string = new Date().toLocaleDateString();
-
+    console.log(date);
     const cpJourneys = [];
     const bdRides = await Route.find({ state: 'AVAILABLE', startDate: { $gte: new Date('2022-06-24') } });
     // //  console.log(bdRides)
