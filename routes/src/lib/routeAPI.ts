@@ -42,7 +42,7 @@ const routeAPI = async (start: any, end: any, type: string): Promise<any> => {
     const date: Date = new Date();
 
     const cpJourneys = [];
-    const bdRides = await Route.find({ state: 'AVAILABLE', startDate: { $gte: '2022-06-24' } });
+    const bdRides = await Route.find({ state: 'AVAILABLE', startDate: { $gte: `new Date(${date})` } });
     // //  console.log(bdRides)
     bdRides.forEach((route: any) => {
       const ride: IRoute = {
