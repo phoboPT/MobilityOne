@@ -76,6 +76,7 @@ const Statistics = ({navigation}) => {
           onPress={() => navigation.openDrawer()}
           style={styles.touchable}>
           <Image
+            alt="menu"
             source={icons.menu}
             resizeMode="contain"
             style={styles.image}

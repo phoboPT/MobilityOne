@@ -43,6 +43,7 @@ const Onboarding = ({navigation}) => {
       <SafeAreaView style={styles.container}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Image
+            alt="logo"
             source={images.logo}
             resizeMode="contain"
             style={{

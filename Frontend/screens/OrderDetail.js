@@ -24,6 +24,7 @@ const StarReview = ({rate}) => {
   for (var i = 0; i < fullStar; i++) {
     starComponents.push(
       <Image
+        alt="star"
         key={`full-${i}`}
         source={icons.starFull}
         resizeMode="cover"
@@ -39,6 +40,7 @@ const StarReview = ({rate}) => {
   for (var i = 0; i < halfStar; i++) {
     starComponents.push(
       <Image
+        alt="star"
         key={`half-${i}`}
         source={icons.starHalf}
         resizeMode="cover"
@@ -54,6 +56,7 @@ const StarReview = ({rate}) => {
   for (var i = 0; i < noStar; i++) {
     starComponents.push(
       <Image
+        alt="star"
         key={`empty-${i}`}
         source={icons.starEmpty}
         resizeMode="cover"
@@ -80,6 +83,7 @@ const IconLabel = ({icon, label}) => {
   return (
     <View style={{alignItems: 'center', marginLeft: 30}}>
       <Image
+        alt="icon"
         source={icon}
         resizeMode="cover"
         style={{

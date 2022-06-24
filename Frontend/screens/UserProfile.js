@@ -20,6 +20,7 @@ const UserProfile = ({navigation, route}) => {
         {/* Header */}
         <View style={{flex: 2}}>
           <Image
+            alt="user"
             source={images.background}
             resizeMode="cover"
             style={{
@@ -43,6 +44,7 @@ const UserProfile = ({navigation, route}) => {
             <View style={{flexDirection: 'row'}}>
               <View style={styles.shadow}>
                 <Image
+                  alt="user"
                   source={{uri: user.photoUrl}}
                   resizeMode="cover"
                   style={{
@@ -89,6 +91,7 @@ const UserProfile = ({navigation, route}) => {
                   navigation.goBack();
                 }}>
                 <Image
+                  alt="back"
                   source={icons.back}
                   resizeMode="cover"
                   style={{

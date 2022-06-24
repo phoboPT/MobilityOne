@@ -113,6 +113,7 @@ const OrdersScreen = ({navigation, route}) => {
             marginRight: 5,
           }}>
           <Image
+            alt="back"
             source={icons.back}
             resizeMode="contain"
             style={{
@@ -145,6 +146,7 @@ const OrdersScreen = ({navigation, route}) => {
             marginRight: 5,
           }}>
           <Image
+            alt="finish"
             source={icons.finish}
             resizeMode="contain"
             style={{
