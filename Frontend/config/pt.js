@@ -1,5 +1,5 @@
 export default {
-  APP_name: 'Mobility One',
+  APP_name: 'OnMove',
   ONBOARDING_title: 'Todos os transportes no seu bolso',
   ONBOARDING_start: 'Iniciar!',
   USERPROFILE_title: 'Biografia',
