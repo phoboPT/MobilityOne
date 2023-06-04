@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, TouchableOpacity, NativeModules} from 'react-native';
+import {StyleSheet, TouchableOpacity, NativeModules,ImageBackground} from 'react-native';
 import ActivityDB from './ActivityDBModule';
 import {
   View,
@@ -10,16 +10,17 @@ import {
   ScrollView,
   Text,
   Image,
+  NativeBaseProvider,
 } from 'native-base';
-import {icons, SIZES} from '../constants/index';
+import {icons, SIZES, images} from '../constants/index';
 import I18n from '../utils/language';
 import AsyncStorage from '@react-native-community/async-storage';
 const {HAR_Module} = NativeModules;
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
   image: {
     width: 30,
@@ -46,26 +47,17 @@ const styles = StyleSheet.create({
   text_settings: {
     fontSize: 24,
     fontWeight: '400',
+    color: 'white',
+  },
+  text_settings2: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: 'white',
   },
 });
 
 const SettingsScreen = ({navigation}) => {
   const [checked, setCheked] = useState(false);
-
-  useEffect(() => {
-    async function setAR() {
-      const isChecked = await AsyncStorage.getItem('@App:activityRequest');
-      if (isChecked === 'true') {
-        setCheked(true);
-        HAR_Module.HAR_Begin_Service();
-      } else {
-        HAR_Module.HAR_Stop_Service();
-        setCheked(false);
-      }
-    }
-
-    setAR();
-  });
 
   const manageAR = async () => {
     if (!checked) {
@@ -77,15 +69,7 @@ const SettingsScreen = ({navigation}) => {
     }
     setCheked(!checked);
   };
-  // const registerUser = () => {
-  //   UserProfileModule.Set_User_ID('UserID');
-  //   UserProfileModule.Set_User_Name('Teste');
-  //   UserProfileModule.Set_User_BirthDate('19920813');
-  //   UserProfileModule.Set_User_Gender('m');
-  //   UserProfileModule.Set_User_Height('165');
-  //   UserProfileModule.Set_User_Weight('65');
-  //   UserProfileModule.Set_Health_Activity_Risk('3');
-  // };
+
 
   const renderHeader = () => {
     return (
@@ -108,7 +92,9 @@ const SettingsScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <NativeBaseProvider>
+     
+      <View bgColor="blueGray.800" style={styles.container}>
       {renderHeader()}
 
       <Center>
@@ -116,7 +102,7 @@ const SettingsScreen = ({navigation}) => {
           <ScrollView h="80">
             <Center>
               <Text />
-              <Text>
+              <Text style={styles.text_settings2}>
                 {I18n.t('SETTINGS_activity')}
                 <Switch
                   size="md"
@@ -133,12 +119,12 @@ const SettingsScreen = ({navigation}) => {
             <Text> </Text>
             <ActivityDB />
             <Text />
-
             <Text />
           </ScrollView>
         </Container>
       </Center>
     </View>
+    </NativeBaseProvider>
   );
 };
 

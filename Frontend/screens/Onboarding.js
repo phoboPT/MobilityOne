@@ -19,28 +19,9 @@ const {HAR_Module} = NativeModules;
 const Onboarding = ({navigation}) => {
   // Render
 
-  useEffect(() => {
-    async function setAR() {
-      request(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION).then(result => {
-        console.log(result);
-      });
-      request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(result => {
-        console.log(result);
-      });
-      const isChecked = await AsyncStorage.getItem('@App:activityRequest');
-      if (isChecked === 'true') {
-        HAR_Module.HAR_Begin_Service();
-      } else {
-        HAR_Module.HAR_Stop_Service();
-      }
-    }
-
-    setAR();
-  });
-
   return (
     <NativeBaseProvider>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView bgColor="blueGray.800" style={styles.container}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Image
             alt="logo"
@@ -53,7 +34,7 @@ const Onboarding = ({navigation}) => {
           />
         </View>
 
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View bgColor="blueGray.800" style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <View style={{alignItems: 'center', marginHorizontal: SIZES.padding}}>
             <Text />
             <Text style={{fontWeight: '600', fontSize: 45}}>

@@ -11,6 +11,22 @@
     "link": "react-native link",
     "build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
   },
+  "reactNativePermissionsIOS": [
+    "AppTrackingTransparency",
+    "BluetoothPeripheral",
+    "Calendars",
+    "Contacts",
+    "LocationAccuracy",
+    "LocationAlways",
+    "LocationWhenInUse",
+    "MediaLibrary",
+    "Motion",
+    "Notifications",
+    "PhotoLibrary",
+    "PhotoLibraryAddOnly",
+    "Reminders",
+    "StoreKit"
+  ],
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/geolocation": "^2.1.0",
@@ -48,7 +64,7 @@
     "react-native-maps-directions": "^1.8.0",
     "react-native-numeric-input": "^1.9.0",
     "react-native-paper": "^4.8.1",
-    "react-native-permissions": "^3.3.1",
+    "react-native-permissions": "^3.8.0",
     "react-native-ratings": "^8.1.0",
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.4.1",
@@ -75,3 +91,4 @@
     "preset": "react-native"
   }
 }
+

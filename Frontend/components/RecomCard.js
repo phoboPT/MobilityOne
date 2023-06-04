@@ -10,6 +10,7 @@ const RecomCard = () => {
         source={require('../assets/images/ipvc.jpeg')}
       />
     </View>
+
   );
 };
 

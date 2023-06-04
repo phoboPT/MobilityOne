@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {
@@ -322,11 +323,7 @@ const HomeScreen = ({navigation}) => {
   function renderDestinations() {
     return (
       <View>
-        <Text />
-
         <Center>
-          <Text />
-
           <View style={styles.search_field_container}>
             <GooglePlacesAutocomplete
               // ref="endlocation"
@@ -358,7 +355,6 @@ const HomeScreen = ({navigation}) => {
               debounce={200}
             />
           </View>
-
           <View style={styles.search_field_container}>
             <GooglePlacesAutocomplete
               // ref="endlocation"
@@ -389,8 +385,6 @@ const HomeScreen = ({navigation}) => {
               debounce={200}
             />
           </View>
-          <Text />
-          <Text />
 
           <ButtonNative
             iconRight
@@ -425,12 +419,14 @@ const HomeScreen = ({navigation}) => {
       <>
         <Text
           style={{
-            marginLeft: 100,
+            marginLeft: 120,
             fontSize: 24,
             fontFamily: 'Arial',
             color: 'white',
             position: 'relative',
             fontWeight: '400',
+            marginTop: 10,
+            marginBottom: 5
           }}>
           {I18n.t('HOME_recommended')}
         </Text>
@@ -490,20 +486,16 @@ const HomeScreen = ({navigation}) => {
 
   function renderBody() {
     return (
-      <View style={{flex: 1}}>
+      <View bgColor="blueGray.800" style={{flex: 1}}>
         {hasNextRide ? renderMyNextTravel() : renderDestinations()}
-        {/* <RecomCard /> */}
-        <ScrollView>
-          <Text />
           {hasRecommendations ? <RecomCard /> : null}
-        </ScrollView>
       </View>
     );
   }
 
   function renderHeader() {
     return (
-      <View style={{flexDirection: 'row', height: 50}}>
+      <View bgColor="blueGray.800" style={{flexDirection: 'row', height: 50}}>
         <TouchableOpacity
           onPress={() => navigation.openDrawer()}
           style={{
@@ -527,8 +519,9 @@ const HomeScreen = ({navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
             marginRight: 40,
+            marginTop: 10,
           }}>
-          <Text style={{fontSize: 24, fontWeight: '400'}}>
+          <Text style={{fontSize: 24, fontWeight: '400', color: 'white'}}>
             {I18n.t('HOME_title')}
           </Text>
         </View>
@@ -547,11 +540,9 @@ const HomeScreen = ({navigation}) => {
 
   if (loading) {
     return (
-      <ImageBackground
-        style={{flex: 1, resizeMode: 'cover', height: '100%'}}
-        source={images.background}>
+      <SafeAreaView bgColor="blueGray.800" style={{flex: 1, height: '100%'}}>
         {renderHeader()}
-        <ActivityIndicator
+        <ActivityIndicator bgColor="blueGray.800"
           size="large"
           color="white"
           style={{
@@ -560,20 +551,17 @@ const HomeScreen = ({navigation}) => {
             alignContent: 'center',
           }}
         />
-      </ImageBackground>
+      </SafeAreaView>
     );
   }
   return (
     <NativeBaseProvider>
-      <ImageBackground
-        style={{flex: 1, resizeMode: 'cover', height: '100%'}}
-        source={images.background}>
-        <SafeAreaView style={{flex: 1, height: '100%'}}>
+      
+        <SafeAreaView bgColor="blueGray.800" style={{flex: 1, height: '100%'}}>
           {renderHeader()}
           {renderBody()}
           {renderActionButton()}
         </SafeAreaView>
-      </ImageBackground>
     </NativeBaseProvider>
   );
 };
@@ -599,14 +587,14 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   search_field_container: {
-    height: 150,
+    height: 100,
     width: '80%',
     // position: 'absolute',
 
     zIndex: 1,
   },
   search_field_container2: {
-    height: 150,
+    height: 100,
     width: device_width,
     // position: 'absolute',
 
@@ -616,13 +604,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#FFF',
     opacity: 0.8,
-    marginBottom: 25,
+    marginBottom: 5,
   },
   cardContainer: {
     flex: 1,
     width: deviceWidth - 25,
     backgroundColor: 'white',
-    height: 200,
+    height: 220,
     borderRadius: radius,
     alignItems: 'center',
     marginLeft: 10,
@@ -657,7 +645,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     justifyContent: 'flex-start',
     borderRadius: 15,
-    padding: 10,
+    padding: 5,
   },
   itemName: {
     fontSize: 16,
