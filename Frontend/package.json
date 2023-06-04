@@ -5,11 +5,10 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "test": "jest",
     "lint": "eslint .",
-    "link": "react-native link",
-    "build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
+    "link": "react-native link"
   },
   "reactNativePermissionsIOS": [
     "AppTrackingTransparency",
@@ -64,7 +63,7 @@
     "react-native-maps-directions": "^1.8.0",
     "react-native-numeric-input": "^1.9.0",
     "react-native-paper": "^4.8.1",
-    "react-native-permissions": "^3.8.0",
+    "react-native-permissions": "^3.3.1",
     "react-native-ratings": "^8.1.0",
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.4.1",
@@ -75,6 +74,23 @@
     "react-native-vector-icons": "^8.1.0",
     "react-navigation": "^4.4.4"
   },
+  "reactNativePermissionsIOS": [
+    "AppTrackingTransparency",
+    "BluetoothPeripheral",
+    "Calendars",
+    "Camera",
+    "Contacts",
+    "LocationAccuracy",
+    "LocationAlways",
+    "LocationWhenInUse",
+    "MediaLibrary",
+    "Motion",
+    "Notifications",
+    "PhotoLibrary",
+    "PhotoLibraryAddOnly",
+    "Reminders",
+    "StoreKit"
+  ],
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
@@ -85,7 +101,8 @@
     "metro": "^0.64.0",
     "metro-config": "^0.64.0",
     "metro-react-native-babel-preset": "^0.64.0",
-    "react-test-renderer": "17.0.1"
+    "react-test-renderer": "17.0.1",
+    "pod-install": "0.1.38"
   },
   "jest": {
     "preset": "react-native"

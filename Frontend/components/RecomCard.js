@@ -1,4 +1,6 @@
 import React from 'react';
+
+
 import {Text, View, Dimensions, StyleSheet, Image} from 'react-native';
 
 const RecomCard = () => {

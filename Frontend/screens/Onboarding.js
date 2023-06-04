@@ -17,7 +17,6 @@ import {request, PERMISSIONS} from 'react-native-permissions';
 const {HAR_Module} = NativeModules;
 
 const Onboarding = ({navigation}) => {
-  // Render
 
   return (
     <NativeBaseProvider>
